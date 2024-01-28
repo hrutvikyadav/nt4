@@ -1,8 +1,13 @@
+-- https://luals.github.io/wiki/settings/
 return {
     settings = {
         Lua = {
-            format = {enable = false},
-            diagnostics = { globals = {"vim", "spec"},},
+            format = {
+                enable = false,
+            },
+            diagnostics = {
+                globals = { "vim", "spec" },
+            },
             runtime = {
                 version = "LuaJIT",
                 special = {
@@ -18,11 +23,11 @@ return {
             },
             hint = {
                 enable = true,
-                arrayIndex = "Disable",
+                arrayIndex = "Disable", -- "Enable" | "Auto" | "Disable"
                 await = true,
-                paramName = "Disable",
+                paramName = "All", -- "All" | "Literal" | "Disable"
                 paramType = true,
-                semicolon = "All",
+                semicolon = "All", -- "All" | "SameLine" | "Disable"
                 setType = false,
             },
             telemetry = {
@@ -31,3 +36,4 @@ return {
         },
     },
 }
+
