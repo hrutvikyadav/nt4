@@ -8,6 +8,7 @@ vim.api.nvim_create_user_command('EditorSupport', function()
     vim.cmd([[
         match OnlySpaces /\s\+$/
         set list!
+        IBLToggle
+        IBLToggle
     ]])
-    -- IBLToggle
 end, {})
