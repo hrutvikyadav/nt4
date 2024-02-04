@@ -20,6 +20,7 @@ function M.config()
 
 	overseer.load_template("commontasks.second_task")
 	overseer.load_template("format.react_files_task")
+	overseer.load_template("format.lua_files_task")
 	overseer.load_template("markdown.preview_task")
 
 	-- Markdown Preview
@@ -51,6 +52,17 @@ function M.config()
 	end, {})
 
 	vim.keymap.set("n", "<leader><F3>", "<cmd>FmtReact<cr>")
+
+	-- format lua with watch
+	vim.api.nvim_create_user_command("FmtLua", function()
+		overseer.run_template({ name = "format Lua" }, function(task)
+			if task then
+				task:add_component({ "restart_on_save", paths = { vim.cmd("echo getcwd()") } })
+			else
+				vim.notify("Lua format not supported", vim.log.levels.ERROR)
+			end
+		end)
+	end, {})
 end
 
 return M
