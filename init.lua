@@ -35,7 +35,8 @@ spec("riaari.overseer")
 spec("riaari.vim-v-multi")
 --spec('riaari.devdocs')
 --TODO: enable copilot in Github
---
+spec("riaari.copilot")
+spec("riaari.cellauto")
 --spec('riaari.gen')
 
 require("riaari.lazy")
