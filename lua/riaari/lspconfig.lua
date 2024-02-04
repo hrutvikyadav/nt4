@@ -18,6 +18,11 @@ local function lsp_keymaps(bufnr)
 
     keymap(bufnr, 'n', '<leader>Ds', '<cmd>Telescope lsp_document_symbols<cr>', opts)
     keymap(bufnr, 'n', '<leader>Ws', '<cmd>Telescope lsp_workspace_symbols<cr>', opts)
+    -- toggle inlay hints
+    keymap(bufnr, 'n', '<leader>tlh', "<cmd>lua require('riaari.lspconfig').toggle_inlay_hints()<cr>", opts)
+    -- codelens action
+    keymap(bufnr, 'n', '<leader>tll', "<cmd>lua vim.lsp.codelens.run()<cr>", opts)
+
 end
 
 M.on_attach = function(client, bufnr)
@@ -35,13 +40,18 @@ function M.common_capabilities()
     return capabilites
 end
 
+M.toggle_inlay_hints = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
+end
+
 function M.config()
     local lspconfig = require("lspconfig")
     -- local icons = require("riaari.icons") TODO: add icons later
 
     local servers = {
         "lua_ls",
-        "tsserver",
+        -- "tsserver", WARN: setup by typescript-tools
         "jsonls"
     }
 

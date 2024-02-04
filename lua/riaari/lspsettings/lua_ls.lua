@@ -28,7 +28,7 @@ return {
                 paramName = "All", -- "All" | "Literal" | "Disable"
                 paramType = true,
                 semicolon = "All", -- "All" | "SameLine" | "Disable"
-                setType = false,
+                setType = true,
             },
             telemetry = {
                 enable = false,
