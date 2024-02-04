@@ -38,21 +38,20 @@ vim.g.mapleader = " "
 
 --     Python provider for neovim
 --     - You may disable this provider (and warning) by adding `let g:loaded_python3_provider = 0` to your init.vim
-vim.cmd('let g:loaded_python3_provider = 0')
+vim.cmd("let g:loaded_python3_provider = 0")
 
 -- highlight text on yank
-vim.api.nvim_create_autocmd('TextYankPost', {
-    group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
-    desc = 'Hightlight selection on yank',
-    pattern = '*',
-    callback = function()
-        vim.highlight.on_yank { higroup = 'IncSearch', timeout = 300 }
-    end,
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+	desc = "Hightlight selection on yank",
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 300 })
+	end,
 })
 
-vim.cmd('set listchars=tab:<->,lead:»,multispace:•')
+vim.cmd("set listchars=tab:<->,lead:»,multispace:•")
 -- set listchars=tab:<->,lead:.,multispace:>>> -- simple
 -- set listchars=tab:<->,lead:•,multispace:» -- digraph
 -- set listchars=tab:<->,lead:·,multispace:» -- digraph2
 -- set listchars=tab:<->,lead:»,multispace:• -- reversed digraph
-

@@ -1,3 +1,3 @@
-local M =     {"mbbill/undotree",}
+local M = { "mbbill/undotree" }
 
 return M
