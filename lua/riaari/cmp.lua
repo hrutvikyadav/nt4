@@ -239,6 +239,11 @@ function M.config()
 		},
 	})
 
+	-- autopairs integration
+	-- If you want insert `(` after select function or method item
+	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
 	cmp.setup.filetype("gitcommit", {
 		sources = cmp.config.sources({
 			{ name = "git" }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
