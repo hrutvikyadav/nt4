@@ -26,10 +26,10 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set(
-	"n",
-	"<leader>s",
-	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-	{ desc = "EX: multicursor find and replace" }
+    "n",
+    "<leader>s",
+    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { desc = "EX: multicursor find and replace" }
 )
 
 vim.keymap.set("n", "<Left>", "<<")
@@ -60,10 +60,10 @@ vim.keymap.set("n", "<leader><leader>", "<cmd>OverseerRun<cr>", {})
 -- experimental
 --vim.keymap.set('n', '<LocalLeader><Left>', function() vim.cmd("Neorg return") end, {})
 vim.keymap.set("n", "\\<Left>", function()
-	vim.cmd("Neorg return")
+    vim.cmd("Neorg return")
 end, {})
 vim.keymap.set("n", "\\<Right>", function()
-	vim.cmd("Neorg index")
+    vim.cmd("Neorg index")
 end, {})
 
 -- navigate to first and last non space char in line

@@ -1,7 +1,7 @@
 local M = {
-	"eandrju/cellular-automaton.nvim",
-	-- enabled = false,
-	cmd = "CellularAutomaton",
+    "eandrju/cellular-automaton.nvim",
+    -- enabled = false,
+    cmd = "CellularAutomaton",
 }
 
 return M
