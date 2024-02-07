@@ -4,8 +4,8 @@ require("riaari.remaps")
 require("riaari.usercommands")
 
 --need to add specs before loading lazy
-spec("riaari.colorscheme") -- darkplus for now
---spec('riaari.colorscheme2') -- rosepine
+-- spec("riaari.colorscheme") -- darkplus for now
+spec("riaari.colorscheme2") -- rosepine
 spec("riaari.neoconf")
 spec("riaari.neodev")
 spec("riaari.telescope")
@@ -35,9 +35,10 @@ spec("riaari.overseer")
 spec("riaari.vim-v-multi")
 spec("riaari.autotags")
 spec("riaari.autopairs")
---spec('riaari.devdocs')
+-- spec("riaari.devdocs")
 spec("riaari.copilot")
 spec("riaari.cellauto")
 --spec('riaari.gen')
+spec("riaari.obsidian")
 
 require("riaari.lazy")
