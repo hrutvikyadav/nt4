@@ -26,24 +26,25 @@ end
 
 function M.config()
 	require("typescript-tools").setup({
-		settings = {
-			on_attach = function(client, bufnr)
-				lsp_keymaps(bufnr)
+		on_attach = function(client, bufnr)
+			lsp_keymaps(bufnr)
 
-				if client.supports_method("textDocument/inlayHint") then
+			--[[ if client.supports_method("textDocument/inlayHint") then
 					vim.lsp.inlay_hint.enable(bufnr, true)
-				end
-			end,
+				end ]]
+		end,
+		settings = {
+			publish_diagnostic_on = "insert_leave",
 			tsserver_file_preferences = {
-				includeInlayParameterNameHints = "all", -- Supported values: 'none', 'literals', 'all'. Default: 'none'
+				includeInlayParameterNameHints = "none", -- Supported values: 'none', 'literals', 'all'. Default: 'none'
 				includeCompletionsForModuleExports = true,
-				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayVariableTypeHints = true,
-				includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayEnumMemberValueHints = true,
+				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				includeInlayFunctionParameterTypeHints = false,
+				includeInlayVariableTypeHints = false,
+				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+				includeInlayPropertyDeclarationTypeHints = false,
+				includeInlayFunctionLikeReturnTypeHints = false,
+				includeInlayEnumMemberValueHints = false,
 				quotePreference = "single",
 			},
 			-- tsserver_format_options = {
