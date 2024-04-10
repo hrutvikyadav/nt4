@@ -24,6 +24,7 @@ function M.config()
             "toml",
             "tsx",
             "ocaml",
+            "go",
         },
         sync_install = false,
         highlight = { enable = true },
