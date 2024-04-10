@@ -22,8 +22,8 @@ vim.keymap.set("v", "<leader>d", '"_d')
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
 
 vim.keymap.set(
     "n",
@@ -71,4 +71,4 @@ vim.keymap.set({ "n", "o", "x" }, "<S-h>", "^", {})
 vim.keymap.set({ "n", "o", "x" }, "<S-l>", "g_", {})
 
 -- normal mode in terminal
-vim.keymap.set("t", "<C-;>", "<C-\\C-n>", {})
+vim.keymap.set("t", "<C-;>", "<C-\\><C-n>", {})
