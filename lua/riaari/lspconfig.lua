@@ -1,7 +1,22 @@
 local M = {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "folke/neodev.nvim" },
+    dependencies = {
+        "folke/neodev.nvim",
+        {
+            "nvimdev/lspsaga.nvim",
+            config = function()
+                require("lspsaga").setup({})
+            end,
+        },
+        {
+            "VidocqH/lsp-lens.nvim",
+            cmd = "LspLensToggle",
+            config = function()
+                require("lsp-lens").setup({})
+            end,
+        }
+    },
 }
 
 local function lsp_keymaps(bufnr)
@@ -84,6 +99,9 @@ function M.config()
         "lua_ls",
         -- "tsserver", WARN: setup by typescript-tools
         "jsonls",
+        "tailwindcss",
+        "clangd",
+        "gopls",
     }
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
