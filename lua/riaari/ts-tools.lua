@@ -28,11 +28,18 @@ function M.config()
 	require("typescript-tools").setup({
 		settings = {
 			on_attach = function(client, bufnr)
+                print("setting tsserver")
 				lsp_keymaps(bufnr)
 
 				if client.supports_method("textDocument/inlayHint") then
 					vim.lsp.inlay_hint.enable(bufnr, true)
 				end
+				vim.keymap.set("n", "<leader>vih", function()
+					vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+				end, { buffer = bufnr, desc = "Toggle ty hints" })
+                vim.api.nvim_create_user_command("ToggleInlayHunts", function ()
+					vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+                end)
 			end,
 			tsserver_file_preferences = {
 				includeInlayParameterNameHints = "all", -- Supported values: 'none', 'literals', 'all'. Default: 'none'

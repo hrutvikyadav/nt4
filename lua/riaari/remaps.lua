@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = ","
+vim.g.maplocalleader = "\\"
 vim.keymap.set("n", "<C-F>", vim.cmd.Ex, { desc = "NetRW: [d]irectory [l]isting" })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "move visual selection down" })
@@ -72,3 +72,5 @@ vim.keymap.set({ "n", "o", "x" }, "<S-l>", "g_", {})
 
 -- normal mode in terminal
 vim.keymap.set("t", "<C-;>", "<C-\\C-n>", {})
+
+vim.keymap.set("n", "<localleader><localleader>", "<cmd>set conceallevel=2 | Obsidian<cr>", {silent = true})

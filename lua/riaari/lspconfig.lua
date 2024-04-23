@@ -52,6 +52,9 @@ function M.config()
 		"lua_ls",
 		-- "tsserver", WARN: setup by typescript-tools
 		"jsonls",
+        -- "omnisharp"
+        "clangd",
+        "gopls"
 	}
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
@@ -74,6 +77,10 @@ function M.config()
 			print("setting up neodev")
 			require("neodev").setup({})
 		end
+
+        if server == "omnisharp" then
+            print("setting up omni")
+        end
 
 		lspconfig[server].setup(opts)
 	end
