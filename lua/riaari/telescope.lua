@@ -9,7 +9,27 @@ local M = {
 }
 
 function M.config()
+
+    require('telescope').setup {
+        -- You can put your default mappings / updates / etc. in here
+        --  All the info you're looking for is in `:help telescope.setup()`
+        --
+        -- defaults = {
+        --   mappings = {
+        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+        --   },
+        -- },
+        -- pickers = {}
+        extensions = {
+            ['ui-select'] = {
+                require('telescope.themes').get_dropdown(),
+            },
+        },
+    }
+
+
     require("telescope").load_extension("fzf")
+    pcall(require("telescope").load_extension, "ui-select")
 
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "TELESCOPE [s]earch pwd [f]iles" })

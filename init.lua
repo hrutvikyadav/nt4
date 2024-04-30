@@ -10,6 +10,7 @@ spec("riaari.colorscheme2") -- rosepine
 spec("riaari.neoconf")
 spec("riaari.neodev")
 spec("riaari.telescope")
+spec("riaari.telescope-ui-select")
 spec("riaari.treesitter")
 spec("riaari.treesitter-context")
 spec("riaari.harpoon")
