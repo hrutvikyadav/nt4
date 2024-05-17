@@ -32,7 +32,7 @@ local function lsp_keymaps(bufnr)
     keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
 
     keymap(bufnr, "n", "<leader>Ds", "<cmd>Telescope lsp_document_symbols<cr>", opts)
-    keymap(bufnr, "n", "<leader>Ws", "<cmd>Telescope lsp_workspace_symbols<cr>", opts)
+    keymap(bufnr, "n", "<leader>Ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opts)
     -- toggle inlay hints
     keymap(bufnr, "n", "<leader>tlh", "<cmd>lua require('riaari.lspconfig').toggle_inlay_hints()<cr>", opts)
     -- codelens action
@@ -70,7 +70,7 @@ M.on_attach = function(client, bufnr)
     end, "[W]orkspace [L]ist Folders")
 
     if client.supports_method("textDocument/inlayHint") then
-        vim.lsp.inlay_hint.enable(bufnr, true)
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr} )
     end
 
     -- TODO: if client supports signature help, print a message
@@ -88,7 +88,7 @@ end
 
 M.toggle_inlay_hints = function()
     local bufnr = vim.api.nvim_get_current_buf()
-    vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
 end
 
 function M.config()
@@ -154,7 +154,7 @@ vim.diagnostic.config({
     focusable = true,
     float = {
         border = "rounded",
-        source = "always",
+        source = "if_many",
         header = "",
         prefix = "",
     },

@@ -42,9 +42,9 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
-vim.keymap.set("n", "<leader>Gp", "<cmd>G push<cr>", { desc = "[G]it [p]ush to upstream" })
-vim.keymap.set("n", "<leader>Gf", "<cmd>diffget //2<cr>", { desc = "diffget left" })
-vim.keymap.set("n", "<leader>Gj", "<cmd>diffget //3<cr>", { desc = "diffget right" })
+vim.keymap.set("n", "<leader>gp", "<cmd>G push<cr>", { desc = "[G]it [p]ush to upstream" })
+vim.keymap.set("n", "<leader>gf", "<cmd>diffget //2<cr>", { desc = "diffget left" })
+vim.keymap.set("n", "<leader>gj", "<cmd>diffget //3<cr>", { desc = "diffget right" })
 
 vim.keymap.set({ "n", "i" }, "<C-s>", vim.cmd.write, { desc = "save file" }) -- add :e % (reloading for entr fmt to work correctly)
 

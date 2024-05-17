@@ -50,7 +50,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
-vim.cmd("set listchars=tab:<->,lead:»,multispace:•")
+-- NOTE: without IBL
+vim.opt.list = true
+vim.opt.listchars = { tab = '<->', lead = '»', trail = '·', nbsp = '␣' ,multispace = '•', leadmultispace = '»···'}
+-- NOTE: without IBL
+
+-- vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- vim.cmd("set listchars=tab:<->,lead:»,multispace:•") -- NOTE: with IBL
 -- set listchars=tab:<->,lead:.,multispace:>>> -- simple
 -- set listchars=tab:<->,lead:•,multispace:» -- digraph
 -- set listchars=tab:<->,lead:·,multispace:» -- digraph2
@@ -62,3 +69,6 @@ vim.cmd("set listchars=tab:<->,lead:»,multispace:•")
     replace_keycodes = false
 })
 vim.g.copilot_no_tab_map = true ]]
+
+-- Preview substitutions live, as you type!
+vim.opt.inccommand = 'split'

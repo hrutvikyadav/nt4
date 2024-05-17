@@ -48,7 +48,7 @@ local function lsp_keymaps(bufnr)
 
     keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<cr>", opts)
     keymap(bufnr, "n", "<leader>Ds", "<cmd>Telescope lsp_document_symbols<cr>", opts)
-    keymap(bufnr, "n", "<leader>Ws", "<cmd>Telescope lsp_workspace_symbols<cr>", opts)
+    keymap(bufnr, "n", "<leader>Ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opts)
     -- toggle inlay hints
     keymap(bufnr, "n", "<leader>vi", "<cmd>lua require('riaari.lspconfig').toggle_inlay_hints()<cr>", opts)
     -- codelens action
