@@ -46,7 +46,7 @@ local M = {
                     enable_autosnippets = true,
                 })
 
-                vim.keymap.set({ "i" }, "<C-K>", function()
+                vim.keymap.set({ "i" }, "<M-e>", function()
                     ls.expand()
                 end, { silent = true })
                 vim.keymap.set({ "i", "s" }, "<C-L>", function()
@@ -56,11 +56,14 @@ local M = {
                     ls.jump(-1)
                 end, { silent = true })
 
-                vim.keymap.set({ "i", "s" }, "<C-E>", function()
+                vim.keymap.set({ "i", "s" }, "<M-,>", function()
                     if ls.choice_active() then
                         ls.change_choice(1)
                     end
                 end, { silent = true })
+
+                -- custom snippets
+                require("riaari.snippets")
             end,
         }, -- Required
         {
@@ -164,8 +167,8 @@ function M.config()
             ["<C-l>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
-                elseif luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
+                --[[ elseif luasnip.jumpable(-1) then
+                    luasnip.jump(-1) ]]
                 else
                     fallback()
                 end

@@ -78,7 +78,7 @@ function M.config()
             lsp_keymaps(bufnr)
 
             if client.supports_method("textDocument/inlayHint") then
-                vim.lsp.inlay_hint.enable(bufnr, true)
+                vim.lsp.inlay_hint.enable(true, { bufnr = bufnr} )
             end
             require("lsp_signature").on_attach({
                 bind = true, -- This is mandatory, otherwise border config won't get registered.

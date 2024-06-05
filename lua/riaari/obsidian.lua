@@ -38,8 +38,20 @@ function M.config()
                 -- "~/vaults/personal"
             },
             { name = "work", path = "/mnt/c/Users/ArbinLab3/Desktop/Pers/Devlogs/Obsidian/Home" },
+            { name = "shared-work", path = "/mnt/c/Users/ArbinLab3/OneDrive - Arbin Instruments/Arbin India Software Obsidian Vault" }
+            --  C:\Users\ArbinLab3\OneDrive - Arbin Instruments\Arbin India Software Obsidian Vault
         },
     })
+
+    vim.keymap.set("n", "<localleader>i", "<cmd>ObsidianTags index<cr>", {}) -- goto index quickly
+    vim.keymap.set("n", "<localleader>t", "<cmd>ObsidianTags<cr>", {}) -- search tags
+    vim.keymap.set("n", "<localleader>s", "<cmd>ObsidianSearch<cr>", {}) -- Create notes quickly and more..
+    vim.keymap.set("n", "<localleader>q", "<cmd>ObsidianQuickSwitch<cr>", {}) -- Switch between notes
+    vim.keymap.set("n", "<localleader>rn", function()
+        local n = vim.fn.input("NewName> ")
+        vim.cmd("ObsidianRename " .. n)
+    end, {})
+
 end
 
 return M
