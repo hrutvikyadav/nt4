@@ -13,6 +13,9 @@ function M.config()
             changedelete = { text = "~" },
             untracked = { text = "┆" },
         },
+        current_line_blame_formatter_opts = {
+            relative_time = true,
+        },
         on_attach = function(bufnr)
             --                vim.keymap.set('n', '<leader>[h', require('gitsigns').prev_hunk,
             --                    { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })

@@ -2,16 +2,17 @@
 --
 local M = {
     "LunarVim/darkplus.nvim",
-    lazy = false,
-    priority = 1000,
+    -- lazy = false,
+    -- priority = 1000,
+    cmd = "Colorz",
 }
 
 function M.config()
-    vim.cmd.colorscheme("darkplus")
-    vim.cmd([[
-    hi Whitespace guifg=#1e1e1e
-    set cursorline
-    ]])
+    -- vim.cmd.colorscheme("darkplus")
+    -- vim.cmd([[
+    -- hi Whitespace guifg=#1e1e1e
+    -- set cursorline
+    -- ]])
 end
 
 return M

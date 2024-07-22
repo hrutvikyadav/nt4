@@ -1,8 +1,9 @@
 local M = {
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
+    -- lazy = false,
+    -- priority = 1000,
     -- opts = {},
+    cmd = "Colorz",
 }
 
 function M.config()
@@ -41,7 +42,7 @@ function M.config()
         ---@param colors ColorScheme
         on_highlights = function(highlights, colors) end,
     })
-    vim.cmd("colorscheme tokyonight")
+    -- vim.cmd("colorscheme tokyonight")
 end
 
 return M

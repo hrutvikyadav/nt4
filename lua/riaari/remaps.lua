@@ -60,15 +60,6 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = '[u]ndotree' }
 -- oveseer
 vim.keymap.set("n", "<leader><leader>", "<cmd>OverseerRun<cr>", {})
 
--- experimental
---vim.keymap.set('n', '<LocalLeader><Left>', function() vim.cmd("Neorg return") end, {})
-vim.keymap.set("n", "\\<Left>", function()
-    vim.cmd("Neorg return")
-end, {})
-vim.keymap.set("n", "\\<Right>", function()
-    vim.cmd("Neorg index")
-end, {})
-
 -- navigate to first and last non space char in line
 vim.keymap.set({ "n", "o", "x" }, "<S-h>", "^", {})
 vim.keymap.set({ "n", "o", "x" }, "<S-l>", "g_", {})

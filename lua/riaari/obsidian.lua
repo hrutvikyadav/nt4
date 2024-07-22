@@ -51,6 +51,8 @@ function M.config()
         local n = vim.fn.input("NewName> ")
         vim.cmd("ObsidianRename " .. n)
     end, {})
+    vim.keymap.set("n", "<localleader>w", "<cmd>ObsidianWorkspace<cr>", {}) -- switch workspace
+    vim.keymap.set("n", "<localleader>b", "<cmd>ObsidianBacklinks<cr>", {}) -- backlinks
 
 end
 

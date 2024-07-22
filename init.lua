@@ -4,11 +4,11 @@ require("riaari.remaps")
 require("riaari.usercommands")
 
 --need to add specs before loading lazy
--- spec("riaari.colorscheme") -- darkplus for now
--- spec("riaari.colorscheme2") -- rosepine
--- spec("riaari.colorscheme3") -- tokyonight
+spec("riaari.colorscheme") -- darkplus for now
+spec("riaari.colorscheme2") -- rosepine
+spec("riaari.colorscheme3") -- tokyonight
 spec("riaari.colorscheme4") -- fluoromachine
--- spec("riaari.colorscheme5") -- nightowl
+spec("riaari.colorscheme5") -- nightowl
 spec("riaari.neoconf")
 spec("riaari.neodev")
 spec("riaari.telescope")
@@ -36,7 +36,7 @@ spec("riaari.nvim-surround")
 spec("riaari.vim-illuminate")
 spec("riaari.zenmode")
 spec("riaari.todo-comments")
-spec("riaari.comment")
+-- spec("riaari.comment")
 spec("riaari.overseer")
 spec("riaari.vim-v-multi")
 spec("riaari.autotags")
@@ -48,6 +48,7 @@ spec('riaari.gen')
 spec("riaari.obsidian")
 
 spec("riaari.emmet-vim")
+spec("riaari.package-info")
 
 -- spec("riaari.luarocks")
 -- spec("riaari.restclient")

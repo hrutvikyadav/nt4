@@ -1,5 +1,6 @@
 local M = {
     'maxmx03/fluoromachine.nvim',
+    cmd = "Colorz",
     config = function ()
         local fm = require 'fluoromachine'
 
@@ -9,8 +10,8 @@ local M = {
             transparent = "full" -- "full"
         }
 
-        vim.cmd.colorscheme 'fluoromachine'
-        vim.cmd([[set cursorline]])
+        -- vim.cmd.colorscheme 'fluoromachine'
+        -- vim.cmd([[set cursorline]])
     end
 }
 

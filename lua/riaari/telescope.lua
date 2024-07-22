@@ -37,6 +37,7 @@ function M.config()
     vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "TELESCOPE live grep pwd files" })
 
     vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "TELESCOPE [G]it [c]ommits" })
+    vim.keymap.set("n", "<leader>g/c", builtin.git_bcommits, { desc = "TELESCOPE [G]it [B]commits" })
     vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "TELESCOPE [G]it [b]ranches" })
 
     -- from kickstart
