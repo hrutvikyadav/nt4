@@ -3,6 +3,8 @@ require("riaari.options")
 require("riaari.remaps")
 require("riaari.usercommands")
 
+require("riaari.autocommands")
+
 --need to add specs before loading lazy
 spec("riaari.colorscheme") -- darkplus for now
 spec("riaari.colorscheme2") -- rosepine
@@ -54,5 +56,10 @@ spec("riaari.package-info")
 -- spec("riaari.restclient")
 
 -- spec("riaari.codesnap")
+spec("riaari.ror")
+spec("riaari.dadbod")
+
+spec("riaari.navigator")
+
 
 require("riaari.lazy")
