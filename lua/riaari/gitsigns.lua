@@ -13,9 +13,10 @@ function M.config()
             changedelete = { text = "~" },
             untracked = { text = "┆" },
         },
-        current_line_blame_formatter_opts = {
-            relative_time = true,
-        },
+        -- WARN: deprecated; see https://github.com/lewis6991/gitsigns.nvim/pull/1056
+        -- current_line_blame_formatter_opts = {
+        --     relative_time = true,
+        -- },
         on_attach = function(bufnr)
             --                vim.keymap.set('n', '<leader>[h', require('gitsigns').prev_hunk,
             --                    { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })

@@ -61,5 +61,7 @@ spec("riaari.dadbod")
 
 spec("riaari.navigator")
 
+spec("riaari.sg")
+
 
 require("riaari.lazy")

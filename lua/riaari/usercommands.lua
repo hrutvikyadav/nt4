@@ -12,3 +12,7 @@ vim.api.nvim_create_user_command("EditorSupport", function()
         IBLToggle
     ]])
 end, {})
+
+function HP(obj)
+    print(vim.inspect(obj))
+end
