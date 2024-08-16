@@ -34,12 +34,12 @@ function M.config()
         workspaces = {
             {
                 name = "personal",
-                path = "/mnt/c/Users/ArbinLab3/Desktop/Pers/Devlogs/Obsidian/KB",
+                path = "/mnt/c/Users/Admin/Desktop/Pers/Devlogs/Obsidian/KB",
                 -- "~/vaults/personal"
             },
-            { name = "work", path = "/mnt/c/Users/ArbinLab3/Desktop/Pers/Devlogs/Obsidian/Home" },
-            { name = "shared-work", path = "/mnt/c/Users/ArbinLab3/OneDrive - Arbin Instruments/Arbin India Software Obsidian Vault" }
-            --  C:\Users\ArbinLab3\OneDrive - Arbin Instruments\Arbin India Software Obsidian Vault
+            { name = "work", path = "/mnt/c/Users/Admin/Desktop/Pers/Devlogs/Obsidian/Home" },
+            { name = "shared-work", path = "/mnt/c/Users/Admin/OneDrive - Arbin Instruments/Arbin India Software Obsidian Vault" }
+            --  C:\Users\Admin\OneDrive - Arbin Instruments\Arbin India Software Obsidian Vault
         },
     })
 
