@@ -51,6 +51,7 @@ spec("riaari.obsidian")
 
 spec("riaari.emmet-vim")
 spec("riaari.package-info")
+spec("riaari.import-cost")
 
 -- spec("riaari.luarocks")
 -- spec("riaari.restclient")

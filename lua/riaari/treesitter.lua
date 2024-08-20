@@ -25,6 +25,11 @@ function M.config()
             "tsx",
             "ocaml",
             "go",
+            -- for rest client
+            "xml",
+            "http",
+            "json",
+            "graphql",
         },
         sync_install = false,
         highlight = { enable = true },
