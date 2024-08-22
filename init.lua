@@ -62,7 +62,7 @@ spec("riaari.dadbod")
 
 spec("riaari.navigator")
 
-spec("riaari.sg")
+-- spec("riaari.sg")
 
 spec("riaari.ufo")
 

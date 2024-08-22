@@ -1,5 +1,7 @@
 local M = {
-    'weizheheng/ror.nvim'
+    'weizheheng/ror.nvim',
+    -- load only on ruby files or gemfile
+    ft = { 'ruby', 'gemfile' },
 }
 
 function M.config()
