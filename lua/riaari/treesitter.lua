@@ -155,11 +155,11 @@ function M.config()
         },
     })
 
-    vim.cmd([[
-    set foldmethod=expr
-    set foldexpr=nvim_treesitter#foldexpr()
-    set nofoldenable                     " Disable folding at startup.
-    ]])
+    -- vim.cmd([[
+    -- set foldmethod=expr
+    -- set foldexpr=nvim_treesitter#foldexpr()
+    -- set nofoldenable                     " Disable folding at startup.
+    -- ]])
 
     local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
 

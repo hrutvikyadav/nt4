@@ -64,5 +64,7 @@ spec("riaari.navigator")
 
 spec("riaari.sg")
 
+spec("riaari.ufo")
+
 
 require("riaari.lazy")
