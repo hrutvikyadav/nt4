@@ -4,6 +4,7 @@ require("riaari.remaps")
 require("riaari.usercommands")
 
 require("riaari.autocommands")
+require("riaari.colors")
 
 --need to add specs before loading lazy
 spec("riaari.colorscheme") -- darkplus for now
@@ -65,6 +66,7 @@ spec("riaari.navigator")
 -- spec("riaari.sg")
 
 spec("riaari.ufo")
+spec("riaari.rainbow-delimiters")
 
 
 require("riaari.lazy")
