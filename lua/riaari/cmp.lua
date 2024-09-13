@@ -17,6 +17,7 @@ local M = {
                 require("cmp_git").setup() -- needed?
             end,
         },
+        "SergioRibera/cmp-dotenv",
         -- engine
         {
             "L3MON4D3/LuaSnip",
@@ -131,6 +132,24 @@ function M.config()
             { name = "nvim_lua" },
             { name = "nvim_lsp_signature_help" },
             { name = "luasnip" },
+            {
+                name = "dotenv",
+                -- Defaults
+                option = {
+                    path = '.',
+                    load_shell = true,
+                    item_kind = cmp.lsp.CompletionItemKind.Variable,
+                    eval_on_confirm = false,
+                    show_documentation = true,
+                    show_content_on_docs = true,
+                    documentation_kind = 'markdown',
+                    dotenv_environment = '.*',
+                    file_priority = function(a, b)
+                        -- Prioritizing local files
+                        return a:upper() < b:upper()
+                    end,
+                }
+            },
             { name = "buffer", keyword_length = 4, max_item_count = 8 },
             { name = "path" },
             --{ name = 'neorg' },
