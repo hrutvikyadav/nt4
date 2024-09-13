@@ -104,6 +104,7 @@ function M.config()
         "gopls",
         "tinymist",
         "nil_ls",
+        "ahk2",
     }
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
@@ -126,6 +127,15 @@ function M.config()
             print("setting up neodev")
             require("neodev").setup({})
         end
+
+        -- INFO: needed to setup custom lsp server START
+        -- i.e. one which is not listed in lspconfig configurations.md
+        if server == "ahk2" then
+            print("setting up ahk2")
+            local configs = require "lspconfig.configs"
+            configs["ahk2"] = { default_config = opts }
+        end
+        -- custom lsp server END
 
         lspconfig[server].setup(opts)
     end
