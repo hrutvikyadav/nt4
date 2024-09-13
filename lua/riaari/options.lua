@@ -104,3 +104,7 @@ if is_wsl() then
     }
 end
 
+-- git branch in statusline (fugitive)
+vim.cmd([[
+    set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+]])
