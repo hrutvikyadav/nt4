@@ -69,5 +69,7 @@ spec("riaari.ufo")
 spec("riaari.rainbow-delimiters")
 spec("riaari.gh-actions")
 
+spec("riaari.obsession")
+
 
 require("riaari.lazy")

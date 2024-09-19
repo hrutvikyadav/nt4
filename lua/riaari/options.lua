@@ -104,7 +104,13 @@ if is_wsl() then
     }
 end
 
--- git branch in statusline (fugitive)
 vim.cmd([[
-    set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+    hi StatusLineObsession guifg=#eb6f92
+    hi StatusLineFugitiveStatus guifg=#c4a7e7
+    hi StatusLineReadonly guifg=#f6c177
+]])
+
+-- git branch in statusline (fugitive) along with obsession status
+vim.cmd([[
+    set statusline=%<%f\ %h%#StatusLineReadonly#%m%r\ %#StatusLineFugitiveStatus#%{FugitiveStatusline()}%#Normal#%=%-14.(%#StatusLineObsession#%{ObsessionStatus('','')}%#Normal#\ \ %l,%c%V%)\ %P
 ]])

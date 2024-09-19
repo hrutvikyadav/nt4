@@ -64,5 +64,6 @@ vim.keymap.set({ "n", "o", "x" }, "<S-l>", "g_", {})
 
 -- normal mode in terminal
 vim.keymap.set("t", "<C-;>", "<C-\\><C-n>", {})
+vim.cmd "tnoremap <localleader><Esc> <C-\\><C-n>"
 
 vim.keymap.set("n", "<localleader><localleader>", "<cmd>set conceallevel=2 | Obsidian<cr>", {silent = true})
