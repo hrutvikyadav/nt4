@@ -110,7 +110,50 @@ vim.cmd([[
     hi StatusLineReadonly guifg=#f6c177
 ]])
 
--- git branch in statusline (fugitive) along with obsession status
-vim.cmd([[
-    set statusline=%<%f\ %h%#StatusLineReadonly#%m%r\ %#StatusLineFugitiveStatus#%{FugitiveStatusline()}%#Normal#%=%-14.(%#StatusLineObsession#%{ObsessionStatus('','')}%#Normal#\ \ %l,%c%V%)\ %P
-]])
+
+function Obsidian_status()
+  if package.loaded["obsidian"] then
+    return " KB "  -- Icon and text when loaded
+  else
+    return "No KB "  -- No display when not loaded
+  end
+end
+
+-- Statusline vimscript
+-- vim.cmd([[
+--     set statusline=%<%f\ %h%#StatusLineReadonly#%m%r\ %#StatusLineFugitiveStatus#%{FugitiveStatusline()}%#Normal#%=%-24.(%{v:lua.Obsidian_status()}\ %#StatusLineObsession#%{ObsessionStatus('','')}%#Normal#\ \ %l,%c%V%)\ %P
+-- ]])
+
+-- Statusline lua
+local statusline_components = {
+    "%<",                -- Truncates the file path if it becomes too long
+    "%f",                -- Full file path
+    " ",                 -- Adds a space
+    "%h",                -- Help flag
+    "%#StatusLineReadonly#", -- Switch highlight to StatusLineReadonly
+    "%m",                -- Modified flag (+ if modified)
+    "%r",                -- Readonly flag (readonly if file is readonly)
+    " ",                 -- Adds a space
+    "%#StatusLineFugitiveStatus#", -- Switch highlight to StatusLineFugitiveStatus
+    "%{FugitiveStatusline()}", -- Fugitive Git status
+    "%#Normal#",         -- Switch back to Normal highlight
+    "%=",                -- Centers the following components
+    -- "%-14.(",            -- Fixed width for the following BLOCK
+    "%-24.(",            -- Fixed width for the following BLOCK
+    "%{v:lua.Obsidian_status()}", -- Lua function call to get Obsidian status
+    " ",                 -- Adds a space
+    "%#StatusLineObsession#", -- Switch highlight to StatusLineObsession
+    "%{ObsessionStatus('','')}", -- Obsession plugin status
+    "%#Normal#",         -- Switch back to Normal highlight
+    "  ",                -- Adds two spaces
+    "%l",                -- Current line number
+    ",",                 -- Comma
+    "%c",                -- Current column number
+    "%V",                -- Virtual column number
+    "%)",                 -- Close the BLOCK
+    " ",                 -- Adds a space
+    "%P",                -- Percentage through the file
+}
+
+-- Set the statusline using table.concat
+vim.o.statusline = table.concat(statusline_components)
