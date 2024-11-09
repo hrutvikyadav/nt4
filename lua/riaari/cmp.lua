@@ -130,6 +130,7 @@ function M.config()
         sources = {
             { name = "nvim_lsp" },
             { name = "nvim_lua" },
+            { name = "lazydev", group_index = 0 },
             { name = "nvim_lsp_signature_help" },
             { name = "luasnip" },
             {
@@ -247,6 +248,7 @@ function M.config()
                     buffer = "Ω",
                     path = "🖫",
                     nvim_lua = "Π",
+                    lazydev = "Π",
                     git = "",
                 }
                 item.menu = menu_icon[entry.source.name]

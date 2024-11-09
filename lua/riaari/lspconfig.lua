@@ -2,7 +2,6 @@ local M = {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-        "folke/neodev.nvim",
         {
             "nvimdev/lspsaga.nvim",
             config = function()
@@ -11,11 +10,13 @@ local M = {
         },
         {
             "VidocqH/lsp-lens.nvim",
+            enabled = false,
             cmd = "LspLensToggle",
             config = function()
                 require("lsp-lens").setup({})
             end,
-        }
+        },
+        require("riaari.neoconf")
     },
 }
 
@@ -24,7 +25,7 @@ local function lsp_keymaps(bufnr)
     local keymap = vim.api.nvim_buf_set_keymap
 
     keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references()<cr>", opts)
+    keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<cr>", opts)
     keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
     keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
     --vim.kbufnr, eymap.set('n', '<leader>D', vim.lsp.buf.type_definition, {buffer = true, desc = 'LSP: type [D]efinition'})
@@ -121,11 +122,6 @@ function M.config()
         local require_ok, settings = pcall(require, "riaari.lspsettings." .. server)
         if require_ok then
             opts = vim.tbl_deep_extend("force", settings, opts)
-        end
-
-        if server == "lua_ls" then
-            print("setting up neodev")
-            require("neodev").setup({})
         end
 
         -- INFO: needed to setup custom lsp server START

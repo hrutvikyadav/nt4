@@ -33,6 +33,7 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
+vim.opt.cursorline = true
 
 vim.g.mapleader = " "
 
@@ -75,6 +76,7 @@ vim.opt.inccommand = 'split'
 
 -- wsl clipboard reference: https://github.com/memoryInject/wsl-clipboard
 vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
+vim.opt.laststatus = 3
 
 -- Set wsl-clipboard for vim clipboard if running WSL
 -- Check if the current linux kernal is microsoft WSL version
@@ -119,6 +121,14 @@ function Obsidian_status()
   end
 end
 
+function Lint_progress()
+    local linters = require("lint").get_running()
+    if #linters == 0 then
+        return "󰦕"
+    end
+    return "󱉶 " .. table.concat(linters, ", ")
+end
+
 -- Statusline vimscript
 -- vim.cmd([[
 --     set statusline=%<%f\ %h%#StatusLineReadonly#%m%r\ %#StatusLineFugitiveStatus#%{FugitiveStatusline()}%#Normal#%=%-24.(%{v:lua.Obsidian_status()}\ %#StatusLineObsession#%{ObsessionStatus('','')}%#Normal#\ \ %l,%c%V%)\ %P
@@ -139,13 +149,15 @@ local statusline_components = {
     "%#Normal#",         -- Switch back to Normal highlight
     "%=",                -- Centers the following components
     -- "%-14.(",            -- Fixed width for the following BLOCK
-    "%-24.(",            -- Fixed width for the following BLOCK
+    "%-44.(",            -- Fixed width for the following BLOCK
+    "%{v:lua.Lint_progress()}", -- Lua function call to get linting status
+    "   ",
     "%{v:lua.Obsidian_status()}", -- Lua function call to get Obsidian status
     " ",                 -- Adds a space
     "%#StatusLineObsession#", -- Switch highlight to StatusLineObsession
     "%{ObsessionStatus('','')}", -- Obsession plugin status
     "%#Normal#",         -- Switch back to Normal highlight
-    "  ",                -- Adds two spaces
+    "      ",                -- Adds spaces
     "%l",                -- Current line number
     ",",                 -- Comma
     "%c",                -- Current column number

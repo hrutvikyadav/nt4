@@ -5,6 +5,7 @@ local M = {
     dependencies = {
         "nvim-lua/plenary.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+        "nvim-telescope/telescope-dap.nvim",
     },
 }
 
@@ -30,6 +31,7 @@ function M.config()
 
     require("telescope").load_extension("fzf")
     pcall(require("telescope").load_extension, "ui-select")
+    require('telescope').load_extension('dap')
 
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "TELESCOPE [s]earch pwd [f]iles" })

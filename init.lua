@@ -4,7 +4,7 @@ require("riaari.remaps")
 require("riaari.usercommands")
 
 require("riaari.autocommands")
-require("riaari.colors")
+-- require("riaari.colors") loaded on after/colors
 
 --need to add specs before loading lazy
 spec("riaari.colorscheme") -- darkplus for now
@@ -12,7 +12,7 @@ spec("riaari.colorscheme2") -- rosepine
 spec("riaari.colorscheme3") -- tokyonight
 spec("riaari.colorscheme4") -- fluoromachine
 spec("riaari.colorscheme5") -- nightowl
-spec("riaari.neoconf")
+-- spec("riaari.neoconf")
 spec("riaari.neodev")
 spec("riaari.telescope")
 spec("riaari.telescope-ui-select")
@@ -49,6 +49,7 @@ spec("riaari.copilot")
 spec("riaari.cellauto")
 spec('riaari.gen')
 spec("riaari.obsidian")
+spec("riaari.debug")
 
 spec("riaari.emmet-vim")
 spec("riaari.package-info")
@@ -70,6 +71,15 @@ spec("riaari.rainbow-delimiters")
 spec("riaari.gh-actions")
 
 spec("riaari.obsession")
+spec("riaari.nvim-lint")
 
+-- mellow
+-- spec("riaari.colorscheme6")
+-- everforest
+-- sherbet
+-- oh-lucy
+--
+spec("riaari.dealwithit")
+spec("riaari.early-retirement")
 
 require("riaari.lazy")
