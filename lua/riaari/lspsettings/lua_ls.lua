@@ -8,7 +8,7 @@ return {
             diagnostics = {
                 globals = { "vim", "spec" },
                 -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-                diagnostics = { disable = { "missing-fields" } },
+                -- disable = { "missing-fields" },
             },
             runtime = {
                 version = "LuaJIT",
@@ -19,8 +19,9 @@ return {
             workspace = {
                 checkThirdParty = false,
                 library = {
-                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                    [vim.fn.stdpath("config") .. "/lua"] = true,
+                    vim.fn.expand("$VIMRUNTIME/lua"),
+                    vim.fn.stdpath("config") .. "/lua",
+                    -- [ "$HOME/.local/share/nvim/lazy/tokyonight.nvim" ] = true , -- INFO: load the types from this plugin
                 },
             },
             hint = {

@@ -4,6 +4,7 @@ local M = {
     ft = { "rust" },
     dependencies = {
         "ray-x/lsp_signature.nvim",
+        enabled = false,
         event = "VeryLazy",
         opts = {},
         config = function(_, opts)
@@ -15,12 +16,12 @@ local M = {
 vim.g.rustaceanvim = {
     server = {
         on_attach = function(client, bufnr)
-            require("lsp_signature").on_attach({
-                bind = true, -- This is mandatory, otherwise border config won't get registered.
-                handler_opts = {
-                    border = "rounded",
-                },
-            }, bufnr)
+            -- require("lsp_signature").on_attach({
+            --     bind = true, -- This is mandatory, otherwise border config won't get registered.
+            --     handler_opts = {
+            --         border = "rounded",
+            --     },
+            -- }, bufnr)
 
             local opts = { noremap = true, silent = true }
             local keymap = vim.api.nvim_buf_set_keymap
@@ -29,6 +30,9 @@ vim.g.rustaceanvim = {
             -- toggle inlay hints
             keymap(bufnr, "n", "<leader>vi", "<cmd>lua require('riaari.lspconfig').toggle_inlay_hints()<cr>", opts)
         end,
+    },
+    dap = {
+        autoload_configurations = false,
     },
 }
 

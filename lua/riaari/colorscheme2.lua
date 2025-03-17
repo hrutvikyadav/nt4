@@ -58,6 +58,22 @@ function M.config()
         highlight_groups = {
             -- Comment = { fg = "foam" },
             -- VertSplit = { fg = "muted", bg = "muted" },
+            -- :hi Folded guifg=#e0def4 guibg=#26233a
+            Folded = { fg = "text", bg = "overlay" }, -- for better looking UFO folds
+
+            -- rainbow parens + IBL highlights START
+            -- Red1 = { fg = "#ffcf00", bold = true, undercurl = true },
+            -- Red2 = { fg = "#ff4000", bold = true, undercurl = true },
+            -- Red3 = { fg = "#ff8000", bold = true, undercurl = true },
+            --
+            -- Red4 = { fg = "#ffffff", bg = "#bf4040"},
+            -- Red5 = { fg = "#ffffff", bg = "#cc3333"},
+            -- Red6 = { fg = "#ffffff", bg = "#d92626"},
+            --
+            -- SatRand1 = { fg = "#996673", bold = true, undercurl = true },
+            -- SatRand2 = { fg = "#736699", bold = true, undercurl = true },
+            -- SatRand3 = { fg = "#996699", bold = true, undercurl = true },
+            -- rainbow parens + IBL highlights END
         },
 
         before_highlight = function(group, highlight, palette)

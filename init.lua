@@ -21,7 +21,8 @@ spec("riaari.treesitter-context")
 spec("riaari.harpoon")
 spec("riaari.fugitive")
 spec("riaari.undotree")
-spec("riaari.schemastore")
+-- spec("riaari.schemastore")
+spec("riaari.oil")
 
 spec("riaari.mason")
 spec("riaari.lspconfig")
@@ -36,7 +37,7 @@ spec("riaari.gitsigns")
 spec("riaari.trouble")
 spec("riaari.git-worktree")
 spec("riaari.nvim-surround")
-spec("riaari.vim-illuminate")
+-- spec("riaari.vim-illuminate")
 spec("riaari.zenmode")
 spec("riaari.todo-comments")
 -- spec("riaari.comment")
@@ -68,10 +69,18 @@ spec("riaari.navigator")
 
 spec("riaari.ufo")
 spec("riaari.rainbow-delimiters")
-spec("riaari.gh-actions")
+-- spec("riaari.neogit")
+-- spec("riaari.gh-actions")
+-- spec("riaari.octo")
 
 spec("riaari.obsession")
 spec("riaari.nvim-lint")
+
+-- spec("riaari.ts_comment_string")
+-- spec("riaari.witt")
+spec("riaari.rssfeed")
+spec("riaari.flash")
+-- spec("riaari.sleuth")
 
 -- mellow
 -- spec("riaari.colorscheme6")
@@ -81,5 +90,8 @@ spec("riaari.nvim-lint")
 --
 spec("riaari.dealwithit")
 spec("riaari.early-retirement")
+
+-- spec("riaari.avante")
+spec("riaari.marks")
 
 require("riaari.lazy")

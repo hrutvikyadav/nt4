@@ -15,7 +15,7 @@ function M.config()
 
     require("mason-lspconfig").setup({
         ensure_installed = {
-            "tsserver",
+            -- "tsserver", -- BUG: name changed??
             "eslint",
             "rust_analyzer",
             "lua_ls",

@@ -9,6 +9,7 @@ local M = {
         "neovim/nvim-lspconfig",
         {
             "ray-x/lsp_signature.nvim",
+            enabled = false,
             event = "VeryLazy",
             opts = {},
             config = function(_, opts)
@@ -72,6 +73,8 @@ local function lsp_keymaps(bufnr)
 end
 
 function M.config()
+    local signature_help_handler = vim.lsp.handlers["textDocument/signatureHelp"]
+
     require("typescript-tools").setup({
         on_attach = function(client, bufnr)
             -- print("Attaching to LSP")
@@ -80,17 +83,47 @@ function M.config()
             if client.supports_method("textDocument/inlayHint") then
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr} )
             end
-            require("lsp_signature").on_attach({
-                bind = true, -- This is mandatory, otherwise border config won't get registered.
-                handler_opts = {
-                    border = "rounded",
-                },
-            }, bufnr)
+            -- require("lsp_signature").on_attach({
+            --     bind = true, -- This is mandatory, otherwise border config won't get registered.
+            --     handler_opts = {
+            --         border = "rounded",
+            --     },
+            -- }, bufnr)
+
+
+            -- The following two autocommands are used to highlight references of the
+            -- word under your cursor when your cursor rests there for a little while.
+            --    See `:help CursorHold` for information about when this is executed
+            --
+            -- When you move your cursor, the highlights will be cleared (the second autocommand).
+            -- local client = vim.lsp.get_client_by_id(event.data.client_id)
+            if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+                local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+                vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+                    buffer = bufnr,
+                    group = highlight_augroup,
+                    callback = vim.lsp.buf.document_highlight,
+                })
+
+                vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+                    buffer = bufnr,
+                    group = highlight_augroup,
+                    callback = vim.lsp.buf.clear_references,
+                })
+
+                vim.api.nvim_create_autocmd('LspDetach', {
+                    group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+                    callback = function(event2)
+                        vim.lsp.buf.clear_references()
+                        vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+                    end,
+                })
+            end
         end,
         settings = {
             publish_diagnostic_on = "insert_leave",
             tsserver_file_preferences = {
-                includeInlayParameterNameHints = "none", -- Supported values: 'none', 'literals', 'all'. Default: 'none'
+                includeInlayParameterNameHints = "all", -- Supported values: 'none', 'literals', 'all'. Default: 'none'
                 includeCompletionsForModuleExports = true,
                 includeInlayParameterNameHintsWhenArgumentMatchesName = true,
                 includeInlayFunctionParameterTypeHints = true,
@@ -105,12 +138,25 @@ function M.config()
             --     allowIncompleteCompletions = false,
             --     allowRenameOfImportPath = false,
             -- }
+            -- Code actions
+            -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
+            -- "remove_unused_imports"|"organize_imports") -- or string "all"
+            -- to include all supported code actions
+            -- specify commands exposed as code_actions
+            expose_as_code_action = { "fix_all", "add_missing_imports", "remove_unused", "remove_unused_imports", "organize_imports" },
 
             -- CodeLens
             -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
             -- possible values: ("off"|"all"|"implementations_only"|"references_only")
             code_lens = "off",
             disable_member_code_lens = true,
+        },
+        handlers = {
+            ["textDocument/signatureHelp"] = vim.lsp.with(
+                signature_help_handler, {
+                    border = "rounded",
+                }
+            )
         },
     })
 end

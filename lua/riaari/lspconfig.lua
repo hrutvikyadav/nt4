@@ -5,9 +5,17 @@ local M = {
         {
             "nvimdev/lspsaga.nvim",
             config = function()
-                require("lspsaga").setup({})
+                require("lspsaga").setup({
+                    symbol_in_winbar = {
+                        enable = false
+                    },
+                    lightbulb = {
+                        sign = false
+                    }
+                })
             end,
         },
+        "b0o/schemastore.nvim",
         {
             "VidocqH/lsp-lens.nvim",
             enabled = false,
@@ -16,7 +24,7 @@ local M = {
                 require("lsp-lens").setup({})
             end,
         },
-        require("riaari.neoconf")
+        -- require("riaari.neoconf")
     },
 }
 
@@ -56,7 +64,8 @@ M.on_attach = function(client, bufnr)
         vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
     end
 
-    nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+    -- nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+    vim.keymap.set({"n", "i"}, "<C-s>", function() vim.lsp.buf.signature_help() end, { buffer = bufnr, desc = "Signature Documentation"})
 
     nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
     nmap("<leader>ca", function()
@@ -78,12 +87,46 @@ M.on_attach = function(client, bufnr)
     if client.supports_method("textDocument/signatureHelp") then
         print("Client supports signature help")
     end
+
+
+    -- The following two autocommands are used to highlight references of the
+    -- word under your cursor when your cursor rests there for a little while.
+    --    See `:help CursorHold` for information about when this is executed
+    --
+    -- When you move your cursor, the highlights will be cleared (the second autocommand).
+    -- local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            buffer = bufnr,
+            group = highlight_augroup,
+            callback = vim.lsp.buf.document_highlight,
+        })
+
+        vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+            buffer = bufnr,
+            group = highlight_augroup,
+            callback = vim.lsp.buf.clear_references,
+        })
+
+        vim.api.nvim_create_autocmd('LspDetach', {
+            group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+            callback = function(event2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+            end,
+        })
+    end
+
 end
 
 function M.common_capabilities()
     local capabilites = vim.lsp.protocol.make_client_capabilities()
     capabilites.textDocument.completion.completionItem.snippetSupport = true
 
+    -- NOTE: experimental
+    capabilites = vim.tbl_deep_extend('force', capabilites, require('cmp_nvim_lsp').default_capabilities())
+    --
     return capabilites
 end
 
@@ -106,17 +149,34 @@ function M.config()
         "tinymist",
         "nil_ls",
         "ahk2",
+        "arduino_language_server",
+        "pyright",
+        "omnisharp"
     }
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-    vim.lsp.handlers["textDocument/signatureHelp"] =
-        vim.lsp.with(vim.lsp.handlers.signatureHelp, { border = "rounded" })
+    -- vim.lsp.handlers["textDocument/signatureHelp"] =
+    --     vim.lsp.with(vim.lsp.handlers.signatureHelp, { border = "rounded" })
     require("lspconfig.ui.windows").default_options.border = "rounded"
 
     for _, server in pairs(servers) do
+        local signature_help_handler = vim.lsp.handlers["textDocument/signatureHelp"]
+        -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+        --     signature_help_handler, {
+        --         border = "rounded",
+        --     }
+        -- )
+
         local opts = {
             on_attach = M.on_attach,
-            common_capabilities = M.common_capabilities(),
+            capabilities = M.common_capabilities(), -- FIXME: the key is capabilities not common_capabilities
+            handlers = {
+                ["textDocument/signatureHelp"] = vim.lsp.with(
+                    signature_help_handler, {
+                        border = "rounded",
+                    }
+                )
+            },
         }
 
         local require_ok, settings = pcall(require, "riaari.lspsettings." .. server)
@@ -132,6 +192,23 @@ function M.config()
             configs["ahk2"] = { default_config = opts }
         end
         -- custom lsp server END
+        --
+        if server == "arduino_language_server" then
+            print("setting up arduino_language_server")
+            opts.cmd = {
+                "/home/hrutvik_/go/bin/arduino-language-server",
+                "-clangd", "/home/hrutvik_/.local/share/nvim/mason/packages/clangd/clangd_18.1.3/bin/clangd",
+                "-cli", "~/.local/bin/arduino-cli",
+                "-cli-config", "~/.arduino15/arduino-cli.yaml",
+                "-fqbn", "arduino:avr:uno",
+            }
+            opts.capabilities = {}
+            opts.filetypes = { "arduino" }
+        end
+
+	if server == "omnisharp" then
+		print("setting up omni")
+	end
 
         lspconfig[server].setup(opts)
     end
@@ -154,11 +231,11 @@ sign({ name = "DiagnosticSignInfo", text = "" })
 --  error = "", "", "", "", "",
 
 vim.diagnostic.config({
-    virtual_text = false,
+    virtual_text = true,
     signs = true,
     update_in_insert = false,
     underline = true,
-    severity_sort = false,
+    severity_sort = true,
     focusable = true,
     float = {
         border = "rounded",

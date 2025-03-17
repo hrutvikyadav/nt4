@@ -1,6 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.keymap.set("n", "<C-F>", vim.cmd.Ex, { desc = "NetRW: [d]irectory [l]isting" })
+-- vim.keymap.set("n", "<C-F>", vim.cmd.Ex, { desc = "NetRW: [d]irectory [l]isting" })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "move visual selection down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "move visual selection up" })
@@ -44,13 +44,13 @@ vim.keymap.set("n", "<leader>gp", "<cmd>G push<cr>", { desc = "[G]it [p]ush to u
 vim.keymap.set("n", "<leader>gf", "<cmd>diffget //2<cr>", { desc = "diffget left" })
 vim.keymap.set("n", "<leader>gj", "<cmd>diffget //3<cr>", { desc = "diffget right" })
 
-vim.keymap.set({ "n", "i" }, "<C-s>", vim.cmd.write, { desc = "save file" }) -- add :e % (reloading for entr fmt to work correctly)
+-- vim.keymap.set({ "n"}, "<C-s>", vim.cmd.write, { desc = "save file" }) -- add :e % (reloading for entr fmt to work correctly)
 
 -- Unimpaired keymaps
 vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next QF item" })
 vim.keymap.set("n", "[q", vim.cmd.cprevious, { desc = "Prev QF item" })
-vim.keymap.set("n", "[Q", vim.cmd.cfirst, { desc = "First QF item" })
-vim.keymap.set("n", "]Q", vim.cmd.clast, { desc = "Last QF item" })
+vim.keymap.set("n", "[Q", vim.cmd.colder, { desc = "First QF item" })
+vim.keymap.set("n", "]Q", vim.cmd.cnewer, { desc = "Last QF item" })
 
 -- undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = '[u]ndotree' })

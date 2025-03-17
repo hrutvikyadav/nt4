@@ -6,6 +6,8 @@ local M = {
         "nvim-lua/plenary.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         "nvim-telescope/telescope-dap.nvim",
+        -- INFO: my first plugin extension wohoo!
+        { "hrutvikyadav/my-telescope-spartan-plugin", branch = "dev" },
     },
 }
 
@@ -25,6 +27,26 @@ function M.config()
             ['ui-select'] = {
                 require('telescope.themes').get_dropdown(),
             },
+            ["my-telescope-spartan-plugin"] = {
+                features = {
+                    "Task",
+                    -- "Time",
+                    -- "Bug",
+                },
+                maps = {
+                    -- WARN: disabled for now
+                    actions = {
+                        task_info = "<C-i>",
+                        task_edit = "<C-e>",
+                        task_terminal = "<C-t>",
+                        task_start = "<C-s>",
+                        task_stop = "<C-x>",
+                        task_annotate = "<C-a>",
+                        tasks_weekly_log = "<C-d>",
+                    },
+                }
+            },
+
         },
     }
 
@@ -32,6 +54,7 @@ function M.config()
     require("telescope").load_extension("fzf")
     pcall(require("telescope").load_extension, "ui-select")
     require('telescope').load_extension('dap')
+    require("telescope").load_extension("my-telescope-spartan-plugin")
 
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "TELESCOPE [s]earch pwd [f]iles" })
@@ -46,6 +69,9 @@ function M.config()
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+    -- spell suggest
+    vim.keymap.set("n", "z=", builtin.spell_suggest, {desc = "TELESCOPE Spell Suggestions"})
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()
@@ -70,6 +96,12 @@ function M.config()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
 
+    vim.keymap.set("n", "<leader>sst", function()
+        local config_opts = {} -- optional config for picker
+        -- example config ->
+        config_opts = require("telescope.themes").get_ivy{}
+        require("telescope").extensions["my-telescope-spartan-plugin"].taskwarrior(config_opts)
+    end)
 end
 
 return M
