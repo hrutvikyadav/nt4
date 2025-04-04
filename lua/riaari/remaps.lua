@@ -72,3 +72,6 @@ vim.keymap.set("n", "<leader>bk", function()
     print(bname .. "... killed 💀")
     vim.api.nvim_buf_delete(0, { force = false })
 end, { desc = "Close buffer with confirmation" })
+
+-- :nmap <Esc><Esc> <cmd>nohlsearch<cr>
+vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlights" })

@@ -24,6 +24,8 @@ spec("riaari.undotree")
 -- spec("riaari.schemastore")
 spec("riaari.oil")
 
+spec("riaari.nvim-navic")
+
 spec("riaari.mason")
 spec("riaari.lspconfig")
 spec("riaari.cmp")

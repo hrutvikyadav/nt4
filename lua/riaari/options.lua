@@ -21,7 +21,7 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
@@ -137,16 +137,16 @@ end
 
 -- Statusline lua
 local statusline_components = {
-    "%<",                -- Truncates the file path if it becomes too long
-    "%f",                -- Full file path
+    -- "%<",                -- Truncates the file path if it becomes too long
+    -- "%f",                -- Full file path
+    -- " ",                 -- Adds a space
+    "%#StatusLineFugitiveStatus#", -- Switch highlight to StatusLineFugitiveStatus
+    "%{FugitiveStatusline()}", -- Fugitive Git status
     " ",                 -- Adds a space
     "%h",                -- Help flag
     "%#StatusLineReadonly#", -- Switch highlight to StatusLineReadonly
     "%m",                -- Modified flag (+ if modified)
     "%r",                -- Readonly flag (readonly if file is readonly)
-    " ",                 -- Adds a space
-    "%#StatusLineFugitiveStatus#", -- Switch highlight to StatusLineFugitiveStatus
-    "%{FugitiveStatusline()}", -- Fugitive Git status
     "%#Normal#",         -- Switch back to Normal highlight
     "%=",                -- Centers the following components
     -- "%-14.(",            -- Fixed width for the following BLOCK
@@ -170,5 +170,26 @@ local statusline_components = {
     "%P",                -- Percentage through the file
 }
 
+vim.api.nvim_set_hl(0, "WinBar", { fg = "#908caa", bg = "none" })
+vim.api.nvim_set_hl(0, "WinbarFilename", { bold = true })
+
+function Only_filename(wo_extension)
+    if wo_extension then
+        return vim.fn.expand("%:t:r")
+    else
+        return vim.fn.expand("%:t")
+    end
+end
+
+local winbar_components = {
+    -- "%#WinbarFilename#", -- Switch highlight to WinbarFilename
+    "%<",                -- Truncates the file path if it becomes too long
+    -- "%f",                -- Full file path
+    "%{v:lua.Only_filename()}",                --  file name
+    -- "%#Normal#",         -- Switch back to Normal highlight
+    " ",                 -- Adds a space
+}
+
 -- Set the statusline using table.concat
 vim.o.statusline = table.concat(statusline_components)
+vim.o.winbar = table.concat(winbar_components)

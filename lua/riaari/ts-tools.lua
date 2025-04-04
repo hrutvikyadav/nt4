@@ -39,13 +39,13 @@ local function lsp_keymaps(bufnr)
         vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
     end
 
+    vim.keymap.set({"n", "i"}, "<C-s>", function() vim.lsp.buf.signature_help() end, { buffer = bufnr, desc = "Signature Documentation"})
     keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
     keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
     keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
     --vim.kbufnr, eymap.set('n', '<leader>D', vim.lsp.buf.type_definition, {buffer = true, desc = 'LSP: type [D]efinition'})
     keymap(bufnr, "n", "gT", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
     keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-    keymap(bufnr, "n", "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
 
     keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<cr>", opts)
     keymap(bufnr, "n", "<leader>Ds", "<cmd>Telescope lsp_document_symbols<cr>", opts)
@@ -74,6 +74,7 @@ end
 
 function M.config()
     local signature_help_handler = vim.lsp.handlers["textDocument/signatureHelp"]
+    local navic = require("nvim-navic")
 
     require("typescript-tools").setup({
         on_attach = function(client, bufnr)
@@ -83,6 +84,23 @@ function M.config()
             if client.supports_method("textDocument/inlayHint") then
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr} )
             end
+
+            if client.server_capabilities.documentSymbolProvider then
+                navic.attach(client, bufnr)
+
+                local winbar_components = {
+                    -- "%#WinbarFilename#", -- Switch highlight to WinbarFilename
+                    "%<",                -- Truncates the file path if it becomes too long
+                    -- "%f",                -- Full file path
+                    "%{v:lua.Only_filename()}",                --  file name
+                    -- "%#Normal#",         -- Switch back to Normal highlight
+                    " :: ",                 -- Adds a separator
+                    "%{%v:lua.require'nvim-navic'.get_location()%}", -- from navic readme
+                }
+
+                vim.o.winbar = table.concat(winbar_components)
+            end
+
             -- require("lsp_signature").on_attach({
             --     bind = true, -- This is mandatory, otherwise border config won't get registered.
             --     handler_opts = {

@@ -53,6 +53,8 @@ local function lsp_keymaps(bufnr)
     end, { desc = "Format current buffer with LSP" })
 end
 
+local navic = require("nvim-navic")
+
 M.on_attach = function(client, bufnr)
     lsp_keymaps(bufnr)
 
@@ -88,6 +90,19 @@ M.on_attach = function(client, bufnr)
         print("Client supports signature help")
     end
 
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+
+        local winbar_components = {
+            "%<",                -- Truncates the file path if it becomes too long
+            -- "%f",                -- Full file path
+            "%{v:lua.Only_filename()}",                --  file name
+            " :: ",                 -- Adds a separator
+            "%{%v:lua.require'nvim-navic'.get_location()%}", -- from navic readme
+        }
+
+        vim.o.winbar = table.concat(winbar_components)
+    end
 
     -- The following two autocommands are used to highlight references of the
     -- word under your cursor when your cursor rests there for a little while.
