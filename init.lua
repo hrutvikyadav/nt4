@@ -3,6 +3,7 @@ require("riaari.options")
 require("riaari.remaps")
 require("riaari.usercommands")
 require("riaari.myutil")
+require("riaari.moreutilz")
 
 require("riaari.autocommands")
 -- require("riaari.colors") loaded on after/colors
