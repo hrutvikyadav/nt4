@@ -30,6 +30,25 @@ vim.keymap.set(
     { desc = "EX: multicursor find and replace" }
 )
 
+
+-- <leader>r <cmd>lua GrepInRangeVimRegex('')<left><left>
+vim.keymap.set(
+    "n",
+    "<leader>r",
+    [[:lua GrepInRangeVimRegex('')<left><left>]],
+    { desc = "GrepInRangeVimRegex" }
+)
+
+
+-- <leader><S-r> <cmd>lua GrepInRangeVimRegex('', ,<C-r>=line('.'))
+-- NOTE: useless but the C-r = line example is useful
+-- vim.keymap.set(
+--     "n",
+--     "<localleader>r",
+--     [[:lua GrepInRangeVimRegex('', ,<C-r>=line('.')<cr>)<left><left>]],
+--     { desc = "GrepInRangeVimRegex" }
+-- )
+
 vim.keymap.set("n", "<Left>", "<<")
 vim.keymap.set("n", "<Right>", ">>")
 vim.keymap.set("v", "<Right>", ">gv")
@@ -49,8 +68,11 @@ vim.keymap.set("n", "<leader>gj", "<cmd>diffget //3<cr>", { desc = "diffget righ
 -- Unimpaired keymaps
 vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next QF item" })
 vim.keymap.set("n", "[q", vim.cmd.cprevious, { desc = "Prev QF item" })
-vim.keymap.set("n", "[Q", vim.cmd.colder, { desc = "First QF item" })
-vim.keymap.set("n", "]Q", vim.cmd.cnewer, { desc = "Last QF item" })
+vim.keymap.set("n", "[Q", vim.cmd.cfirst, { desc = "First QF item" })
+vim.keymap.set("n", "]Q", vim.cmd.clast, { desc = "Last QF item" })
+
+vim.keymap.set("n", "]<C-Q>", vim.cmd.cnewer, { desc = "Next QF List" })
+vim.keymap.set("n", "[<C-Q>", vim.cmd.colder, { desc = "Prev QF List" })
 
 -- undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = '[u]ndotree' })

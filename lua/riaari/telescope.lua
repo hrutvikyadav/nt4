@@ -55,6 +55,7 @@ function M.config()
     pcall(require("telescope").load_extension, "ui-select")
     require('telescope').load_extension('dap')
     require("telescope").load_extension("my-telescope-spartan-plugin")
+    require("telescope").load_extension('harpoon')
 
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "TELESCOPE [s]earch pwd [f]iles" })

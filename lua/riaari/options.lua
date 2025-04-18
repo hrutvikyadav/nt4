@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- NOTE: without IBL
-vim.opt.list = true
+vim.opt.list = false
 vim.opt.listchars = { tab = '<->', lead = '»', trail = '·', nbsp = '␣' ,multispace = '•', leadmultispace = '»···'}
 -- NOTE: without IBL
 

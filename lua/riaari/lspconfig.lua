@@ -69,7 +69,7 @@ M.on_attach = function(client, bufnr)
     -- nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
     vim.keymap.set({"n", "i"}, "<C-s>", function() vim.lsp.buf.signature_help() end, { buffer = bufnr, desc = "Signature Documentation"})
 
-    nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+    nmap("<leader>vrn", vim.lsp.buf.rename, "[R]e[n]ame")
     nmap("<leader>ca", function()
         vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
     end, "[C]ode [A]ction")

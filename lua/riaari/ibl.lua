@@ -17,7 +17,9 @@ function M.config()
         -- whitespace = { highlight = { "IndentGuideDark2", "NonText", "IndentGuideBlack" } }, -- Suited for transparent bg
         -- whitespace = { highlight = { "IndentGuideRed5", "IndentGuideRed6", "IndentGuideRed7" } }, -- shades of red
         --whitespace = { highlight = { "CursorColumn", "WhiteSpace" } }, -- shades of dark
-        whitespace = { highlight = { "Red4", "Red5", "Red6" } }, -- saturation of red
+
+        -- whitespace = { highlight = { "Red4", "Red5", "Red6" } }, -- saturation of red
+
         -- whitespace = { highlight = { "Red1", "Red2", "Red3" } }, -- rainbow parens
         scope = {
             show_start = false,

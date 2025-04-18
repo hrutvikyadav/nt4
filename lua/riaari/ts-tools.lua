@@ -66,7 +66,7 @@ local function lsp_keymaps(bufnr)
         vim.lsp.buf.format()
     end, { desc = "Format current buffer with LSP" }) ]]
 
-    nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+    nmap("<leader>vrn", vim.lsp.buf.rename, "[R]e[n]ame")
     nmap("<leader>ca", function()
         vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
     end, "[C]ode [A]ction")

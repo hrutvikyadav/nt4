@@ -4,6 +4,19 @@ local M = { "ThePrimeagen/harpoon",
 
 function M.config()
 
+    function Testharpoons()
+        -- get the current line idx
+        local idx = vim.fn.line(".")
+
+        -- read the current line
+        local line = vim.api.nvim_buf_get_lines(0, idx, idx-1, false)[1]
+        if line == nil then
+            return nil
+        end
+
+        return line
+    end
+
     local harpoon = require('harpoon')
     harpoon:setup( {
         [ "cmd" ] = {
@@ -84,22 +97,20 @@ function M.config()
 
         },
 
+        -- WARN: environment vars only works with .env.{development,production} files and not with direnv (.envrc)
+        -- Use send-keys as a solution to make it work with direnv
         [ "one_off" ] = {
 
             -- @param possible_value string only passed in when you alter the ui manual
             add = function(possible_value)
-                -- get the current line idx
-                local idx = vim.fn.line(".")
+                local cmd = Testharpoons()
 
-                -- read the current line
-                local cmd = vim.api.nvim_buf_get_lines(0, idx - 1, idx, false)[1]
                 if cmd == nil then
                     return nil
                 end
-
                 return {
                     value = cmd,
-                    context = { "Just for context this is from the readme" },
+                    context = {},
                 }
             end,
 
@@ -112,12 +123,27 @@ function M.config()
                 local parts = vim.split(list_item.value, "::")
                 -- vim.cmd([[call system("tmux neww ]] .. list_item.value .. [[ ")]] )
                 -- neww -S -n .. parts[1] .. -c .. vim.fn.getcwd() .. [[ ]] .. parts[2])
-                vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ ]] .. parts[2] .. [[ ")]] )
+
+                -- vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ ]] .. parts[2] .. [[ ")]] ) -- INFO: this works
+                -- TODO: check if parts[3] is not nil then remain on exit or don't
+                vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ ]] .. parts[2] .. [[ \; tmux set-option -wt:]] .. parts[1] .. (parts[3] and [[ remain-on-exit on ]] or [[ remain-on-exit off]]) .. [[ ")]] )
+                    -- [[ remain-on-exit on]] .. [[ ")]] )
+
+
+                -- vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ ]] .. parts[2] .. [[ \; tmux set-option -wt:]] .. parts[1] .. [[ remain-on-exit on]] .. [[ ")]] )
+                -- vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ \; tmux send-keys ]] .. parts[2] .. [[ ")]] )
+                -- local send_to_tmux = parts[2]:gsub(" ", " space ")
+                -- vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ \; tmux send-keys ]] .. send_to_tmux .. [[ ")]] ) -- NOTE: no C-m appended to send_to_tmux
+
+                -- NOTE: use a bash script to run the command using call system
             end
 
         }
 
     } )
+
+    local harpoon_extensions = require("harpoon.extensions")
+    harpoon:extend(harpoon_extensions.builtins.highlight_current_file())
 
     -- basic telescope configuration
     local conf = require("telescope.config").values

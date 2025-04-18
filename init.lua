@@ -2,6 +2,7 @@ require("riaari.launch")
 require("riaari.options")
 require("riaari.remaps")
 require("riaari.usercommands")
+require("riaari.myutil")
 
 require("riaari.autocommands")
 -- require("riaari.colors") loaded on after/colors
@@ -14,11 +15,11 @@ spec("riaari.colorscheme4") -- fluoromachine
 spec("riaari.colorscheme5") -- nightowl
 -- spec("riaari.neoconf")
 spec("riaari.neodev")
+spec("riaari.harpoon")
 spec("riaari.telescope")
 spec("riaari.telescope-ui-select")
 spec("riaari.treesitter")
 spec("riaari.treesitter-context")
-spec("riaari.harpoon")
 spec("riaari.fugitive")
 spec("riaari.undotree")
 -- spec("riaari.schemastore")

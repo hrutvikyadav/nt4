@@ -6,7 +6,8 @@ local template_definition = {
         local file = vim.fn.expand("%:p")
         --
         local cmd = { "npx", "prettier" }
-        local args = { "--write", "." }
+        -- local args = { "--write", "." } -- format all files
+        local args = { "--write", file } -- format current file
 
         return {
             cmd = cmd,
