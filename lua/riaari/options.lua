@@ -193,3 +193,5 @@ local winbar_components = {
 -- Set the statusline using table.concat
 vim.o.statusline = table.concat(statusline_components)
 vim.o.winbar = table.concat(winbar_components)
+
+vim.o.winborder = "none"

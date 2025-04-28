@@ -78,7 +78,6 @@ local function lsp_keymaps(bufnr)
 end
 
 function M.config()
-    local signature_help_handler = vim.lsp.handlers["textDocument/signatureHelp"]
     local navic = require("nvim-navic")
 
     require("typescript-tools").setup({
@@ -174,13 +173,15 @@ function M.config()
             code_lens = "all",
             disable_member_code_lens = true,
         },
-        handlers = {
-            ["textDocument/signatureHelp"] = vim.lsp.with(
-                signature_help_handler, {
-                    border = "rounded",
-                }
-            )
-        },
+        capabilities = require('riaari.lspconfig').common_capabilities()
+            -- M.common_capabilities(), -- FIXME: the key is capabilities not common_capabilities
+        -- handlers = {
+        --     ["textDocument/signatureHelp"] = vim.lsp.with(
+        --         signature_help_handler, {
+        --             border = "rounded",
+        --         }
+        --     )
+        -- },
     })
 end
 

@@ -7,8 +7,8 @@ return {
                 constantValues = true,
                 parameterNames = true
             },
-            codelenses = {
-                gc_details = false,
+            ["ui.codelenses"] = {
+                -- gc_details = false,
                 generate = true,
                 regenerate_cgo = true,
                 run_govulncheck = false,

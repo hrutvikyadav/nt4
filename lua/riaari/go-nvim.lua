@@ -11,7 +11,9 @@ local M = {
 }
 
 function M.config()
-    require("go").setup()
+    require("go").setup({
+        -- diagnostic = true,
+    })
 end
 
 return M

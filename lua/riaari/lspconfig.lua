@@ -160,8 +160,10 @@ function M.common_capabilities()
     capabilites.textDocument.completion.completionItem.snippetSupport = true
 
     -- NOTE: experimental
-    capabilites = vim.tbl_deep_extend('force', capabilites, require('cmp_nvim_lsp').default_capabilities())
+    -- capabilites = vim.tbl_deep_extend('force', capabilites, require('cmp_nvim_lsp').default_capabilities())
     --
+    capabilites = require("blink.cmp").get_lsp_capabilities(capabilites)
+
     return capabilites
 end
 
@@ -189,13 +191,13 @@ function M.config()
         "omnisharp"
     }
 
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
     -- vim.lsp.handlers["textDocument/signatureHelp"] =
     --     vim.lsp.with(vim.lsp.handlers.signatureHelp, { border = "rounded" })
-    require("lspconfig.ui.windows").default_options.border = "rounded"
+    -- require("lspconfig.ui.windows").default_options.border = "rounded"
 
     for _, server in pairs(servers) do
-        local signature_help_handler = vim.lsp.handlers["textDocument/signatureHelp"]
+        -- local signature_help_handler = vim.lsp.handlers["textDocument/signatureHelp"]
         -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
         --     signature_help_handler, {
         --         border = "rounded",
@@ -205,13 +207,13 @@ function M.config()
         local opts = {
             on_attach = M.on_attach,
             capabilities = M.common_capabilities(), -- FIXME: the key is capabilities not common_capabilities
-            handlers = {
-                ["textDocument/signatureHelp"] = vim.lsp.with(
-                    signature_help_handler, {
-                        border = "rounded",
-                    }
-                )
-            },
+            -- handlers = {
+            --     ["textDocument/signatureHelp"] = vim.lsp.with(
+            --         signature_help_handler, {
+            --             border = "rounded",
+            --         }
+            --     )
+            -- },
         }
 
         local require_ok, settings = pcall(require, "riaari.lspsettings." .. server)
@@ -250,24 +252,28 @@ function M.config()
 end
 
 -- LSP Diagnostics Options Setup
-local sign = function(opts)
-    vim.fn.sign_define(opts.name, {
-        texthl = opts.name,
-        text = opts.text,
-        numhl = opts.name,
-    })
-end
-
-sign({ name = "DiagnosticSignError", text = "" })
-sign({ name = "DiagnosticSignWarn", text = "" })
-sign({ name = "DiagnosticSignHint", text = "" })
-sign({ name = "DiagnosticSignInfo", text = "" })
 -- work for firacode
 --  error = "", "", "", "", "",
 
 vim.diagnostic.config({
-    virtual_text = true,
-    signs = true,
+    virtual_text = { current_line = true },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
+        },
+        linehl = {
+            [vim.diagnostic.severity.ERROR] = "DiffDelete",
+        },
+        numhl = {
+            [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+            [vim.diagnostic.severity.WARN] = "WarningMsg",
+            [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+            [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+        }
+    },
     update_in_insert = false,
     underline = true,
     severity_sort = true,

@@ -31,10 +31,10 @@ vim.keymap.set(
 )
 
 
--- <leader>r <cmd>lua GrepInRangeVimRegex('')<left><left>
+-- <leader>R <cmd>lua GrepInRangeVimRegex('')<left><left>
 vim.keymap.set(
     "n",
-    "<leader>r",
+    "<leader>R",
     [[:lua GrepInRangeVimRegex('')<left><left>]],
     { desc = "GrepInRangeVimRegex" }
 )
@@ -54,9 +54,6 @@ vim.keymap.set("n", "<Right>", ">>")
 vim.keymap.set("v", "<Right>", ">gv")
 vim.keymap.set("v", "<Left>", "<gv")
 
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 vim.keymap.set("n", "<leader>gp", "<cmd>G push<cr>", { desc = "[G]it [p]ush to upstream" })
@@ -65,14 +62,14 @@ vim.keymap.set("n", "<leader>gj", "<cmd>diffget //3<cr>", { desc = "diffget righ
 
 -- vim.keymap.set({ "n"}, "<C-s>", vim.cmd.write, { desc = "save file" }) -- add :e % (reloading for entr fmt to work correctly)
 
--- Unimpaired keymaps
-vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next QF item" })
-vim.keymap.set("n", "[q", vim.cmd.cprevious, { desc = "Prev QF item" })
-vim.keymap.set("n", "[Q", vim.cmd.cfirst, { desc = "First QF item" })
-vim.keymap.set("n", "]Q", vim.cmd.clast, { desc = "Last QF item" })
-
-vim.keymap.set("n", "]<C-Q>", vim.cmd.cnewer, { desc = "Next QF List" })
-vim.keymap.set("n", "[<C-Q>", vim.cmd.colder, { desc = "Prev QF List" })
+-- -- Unimpaired keymaps
+-- vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next QF item" })
+-- vim.keymap.set("n", "[q", vim.cmd.cprevious, { desc = "Prev QF item" })
+-- vim.keymap.set("n", "[Q", vim.cmd.cfirst, { desc = "First QF item" })
+-- vim.keymap.set("n", "]Q", vim.cmd.clast, { desc = "Last QF item" })
+--
+-- vim.keymap.set("n", "]<C-Q>", vim.cmd.cnewer, { desc = "Next QF List" })
+-- vim.keymap.set("n", "[<C-Q>", vim.cmd.colder, { desc = "Prev QF List" })
 
 -- undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = '[u]ndotree' })
