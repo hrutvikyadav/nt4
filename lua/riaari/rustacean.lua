@@ -25,7 +25,7 @@ vim.g.rustaceanvim = {
 
             local opts = { noremap = true, silent = true }
             local keymap = vim.api.nvim_buf_set_keymap
-            keymap(bufnr, "n", "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
+            vim.keymap.set({"n", "i"}, "<C-s>", function() vim.lsp.buf.signature_help() end, { buffer = bufnr, desc = "Signature Documentation"})
 
             -- toggle inlay hints
             keymap(bufnr, "n", "<leader>vi", "<cmd>lua require('riaari.lspconfig').toggle_inlay_hints()<cr>", opts)

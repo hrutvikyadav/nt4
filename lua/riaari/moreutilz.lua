@@ -19,7 +19,7 @@ function M.wtf_redux()
     local pattern = [[\V\<]] .. escaped .. [[\>]]
 
     -- Search current buffer
-    vim.cmd("vimgrep /" .. pattern .. "/j %")
+    vim.cmd("vimgrep /" .. pattern .. "/gj %")
     vim.cmd("copen")
 end
 

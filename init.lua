@@ -97,6 +97,7 @@ spec("riaari.early-retirement")
 
 -- spec("riaari.avante")
 spec("riaari.marks")
+spec("riaari.yeti")
 spec("riaari.hlpatterns")
 
 require("riaari.lazy")

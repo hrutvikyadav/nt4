@@ -53,7 +53,12 @@ local function lsp_keymaps(bufnr)
     -- toggle inlay hints
     keymap(bufnr, "n", "<leader>vi", "<cmd>lua require('riaari.lspconfig').toggle_inlay_hints()<cr>", opts)
     -- codelens action
-    keymap(bufnr, "n", "<leader>tll", "<cmd>lua vim.lsp.codelens.run()<cr>", opts)
+    -- keymap(bufnr, "n", "<leader>tll", "<cmd>lua vim.lsp.codelens.run()<cr>", opts)
+    vim.keymap.set("n", "<leader>tll", function()
+        vim.lsp.codelens.run() -- this is similar to go to references and send to quickfix (for the symbol under cursor)
+        -- vim.lsp.codelens.display(vim.lsp.codelens.get(bufnr), bufnr, 0) -- displayed automatically
+    end, { buffer = bufnr, desc = "LSP: [T]est [L]ens" })
+    --
     -- lesser used
     nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
     nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
@@ -166,7 +171,7 @@ function M.config()
             -- CodeLens
             -- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
             -- possible values: ("off"|"all"|"implementations_only"|"references_only")
-            code_lens = "off",
+            code_lens = "all",
             disable_member_code_lens = true,
         },
         handlers = {

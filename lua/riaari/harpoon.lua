@@ -187,6 +187,11 @@ function M.config()
     vim.keymap.set("n", "[H", function() harpoon:list("one_off"):prev() end)
     vim.keymap.set("n", "]H", function() harpoon:list("one_off"):next() end)
 
+    -- create user command for     vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+    vim.api.nvim_create_user_command("HarpoonAdd", function()
+        harpoon:list("one_off"):add()
+    end, { desc = "Add current line to Harpoon One Off List" })
+
     harpoon:extend({
         UI_CREATE = function(cx)
             vim.keymap.set("n", "<C-v>", function()

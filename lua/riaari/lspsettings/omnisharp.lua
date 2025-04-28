@@ -1,5 +1,5 @@
 
-return {
+local old = {
     cmd = {"/home/hrutvik_/.local/share/nvim/mason/bin/omnisharp"},
 
     -- Enables support for reading code style, naming convention and analyzer
@@ -38,3 +38,61 @@ return {
     analyze_open_documents_only = true,
 }
 
+local new = {
+    -- cmd = { "/home/c3zbane/Downloads/omnisharp-deez-nutz/OmniSharp", "-z", "--hostPID", "1946", "DotNet:enablePackageRestore=false", "--encoding", "utf-8", "--languageserver" },
+    cmd = { "/home/hrutvik_/Downloads/omni/OmniSharp" },
+    capabilities = {
+        workspace = {
+            workspaceFolders = false
+        }
+    },
+    filetypes = { "cs", "vb" },
+    root_markers = { ".sln", ".csproj", "omnisharp.json", "function.json" },
+
+    settings = {
+        RoslynExtensionsOptions = {
+            documentAnalysisTimeoutMs = 30000,
+            enableDecompilationSupport = true,
+            enableImportCompletion = true,
+            enableAnalyzersSupport = true,
+            diagnosticWorkersThreadCount = 8,
+            inlayHintsOptions = {
+                enableForParameters = true,
+                forLiteralParameters = true,
+                forIndexerParameters = true,
+                forObjectCreationParameters = true,
+                forOtherParameters = true,
+                suppressForParametersThatDifferOnlyBySuffix = false,
+                suppressForParametersThatMatchMethodIntent = false,
+                suppressForParametersThatMatchArgumentName = false,
+                enableForTypes = true,
+                forImplicitVariableTypes = true,
+                forLambdaParameterTypes = true,
+                forImplicitObjectCreation = true
+            }
+        },
+        FormattingOptions = {
+            EnableEditorConfigSupport = true
+        },
+        -- MsBuild = {},
+        RenameOptions = {
+            RenameInComments = false,
+            RenameOverloads = false,
+            RenameInStrings = false
+        },
+        Sdk = {
+            IncludePrereleases = true
+        },
+        fileOptions = {
+            systemExcludeSearchPatterns = {
+                "**/node_modules/**/*",
+                "**/bin/**/*",
+                "**/obj/**/*",
+            },
+            excludeSearchPatterns = {},
+        }
+
+    }
+}
+
+return new

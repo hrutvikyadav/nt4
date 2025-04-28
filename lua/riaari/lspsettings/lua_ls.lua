@@ -36,6 +36,9 @@ return {
             signatureHelp = {
                 enable = true,
             },
+            codeLens = {
+                enable = true,
+            },
             telemetry = {
                 enable = false,
             },

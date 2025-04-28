@@ -25,6 +25,7 @@ local M = {
             end,
         },
         -- require("riaari.neoconf")
+        { "Hoffs/omnisharp-extended-lsp.nvim" },
     },
 }
 
@@ -94,9 +95,11 @@ M.on_attach = function(client, bufnr)
         navic.attach(client, bufnr)
 
         local winbar_components = {
+            -- "%#WinbarFilename#", -- Switch highlight to WinbarFilename
             "%<",                -- Truncates the file path if it becomes too long
             -- "%f",                -- Full file path
             "%{v:lua.Only_filename()}",                --  file name
+            -- "%#NavicText#",         -- Switch back to Normal highlight
             " :: ",                 -- Adds a separator
             "%{%v:lua.require'nvim-navic'.get_location()%}", -- from navic readme
         }
@@ -131,6 +134,23 @@ M.on_attach = function(client, bufnr)
                 vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
             end,
         })
+    end
+
+    -- print(client.name .. " attached")
+    if client.name == "omnisharp" then
+        local omnisharp_extended = require("omnisharp_extended")
+        -- -- replaces vim.lsp.buf.definition()
+        -- nnoremap gd <cmd>lua require('omnisharp_extended').lsp_definition()<cr>
+        vim.keymap.set("n", "gd", function() omnisharp_extended.lsp_definition() end, { buffer = bufnr, desc = "LSP: [G]oto [D]efinition" })
+        -- -- replaces vim.lsp.buf.type_definition()
+        -- nnoremap <leader>D <cmd>lua require('omnisharp_extended').lsp_type_definition()<cr>
+        vim.keymap.set("n", "gT", function() omnisharp_extended.lsp_type_definition() end, { buffer = bufnr, desc = "LSP: [D]efinition" })
+        -- -- replaces vim.lsp.buf.references()
+        -- nnoremap gr <cmd>lua require('omnisharp_extended').lsp_references()<cr>
+        vim.keymap.set("n", "gr", function() omnisharp_extended.lsp_references() end, { buffer = bufnr, desc = "LSP: [G]oto [R]eferences" })
+        -- -- replaces vim.lsp.buf.implementation()
+        -- nnoremap gi <cmd>lua require('omnisharp_extended').lsp_implementation()<cr>
+        vim.keymap.set("n", "gi", function() omnisharp_extended.lsp_implementation() end, { buffer = bufnr, desc = "LSP: [G]oto [I]mplementation" })
     end
 
 end

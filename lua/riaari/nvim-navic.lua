@@ -8,6 +8,7 @@ function M.config()
     })
 
     vim.api.nvim_set_hl(0, "WinBar", { fg = "#908caa", bg = "none" })
+    vim.api.nvim_set_hl(0, "WinbarFilename", { bold = true })
 end
 
 return M
