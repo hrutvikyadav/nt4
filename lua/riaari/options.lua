@@ -194,4 +194,5 @@ local winbar_components = {
 vim.o.statusline = table.concat(statusline_components)
 vim.o.winbar = table.concat(winbar_components)
 
-vim.o.winborder = "none"
+vim.o.winborder = "solid" -- use with no transparency colorscheme
+-- vim.o.winborder = "rounded" -- use with transparent colorscheme and no telescope border
