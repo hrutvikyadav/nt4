@@ -62,6 +62,20 @@ local M_git = {
     }
 }
 
+local M_tmux = {
+    module = "blink-cmp-tmux",
+    name = "tmux",
+    -- default options
+    opts = {
+        all_panes = false,
+        capture_history = false,
+        -- only suggest completions from `tmux` if the `trigger_chars` are
+        -- used
+        triggered_only = false,
+        trigger_chars = { "." }
+    },
+}
+
 local M = {
     'saghen/blink.cmp',
 
@@ -74,6 +88,7 @@ local M = {
         },
         { 'disrupted/blink-cmp-conventional-commits' },
         { "fang2hou/blink-copilot" },
+        { "mgalliou/blink-cmp-tmux" },
         {
             "L3MON4D3/LuaSnip",
             -- follow latest release.
@@ -134,7 +149,7 @@ local M = {
         },
 
         sources = {
-            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "copilot" },
+            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "copilot", "tmux" },
             providers = {
                 lazydev = {
                     name = "LazyDev",
@@ -159,6 +174,7 @@ local M = {
                     score_offset = 100,
                     async = true,
                 },
+                tmux = M_tmux,
             },
         },
 
