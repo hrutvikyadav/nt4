@@ -73,6 +73,7 @@ local M = {
             'Kaiser-Yang/blink-cmp-git',
         },
         { 'disrupted/blink-cmp-conventional-commits' },
+        { "fang2hou/blink-copilot" },
         {
             "L3MON4D3/LuaSnip",
             -- follow latest release.
@@ -133,7 +134,7 @@ local M = {
         },
 
         sources = {
-            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", },
+            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "copilot" },
             providers = {
                 lazydev = {
                     name = "LazyDev",
@@ -151,6 +152,12 @@ local M = {
                     ---@module 'blink-cmp-conventional-commits'
                     ---@type blink-cmp-conventional-commits.Options
                     opts = {}, -- none so far
+                },
+                copilot = {
+                    name = "copilot",
+                    module = "blink-copilot",
+                    score_offset = 100,
+                    async = true,
                 },
             },
         },
