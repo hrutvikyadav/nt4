@@ -1,3 +1,67 @@
+local M_git = {
+    module = 'blink-cmp-git',
+    name = 'Git',
+    -- only enable this source when filetype is gitcommit, markdown, or 'octo'
+    enabled = function()
+        return vim.tbl_contains({ 'octo', 'gitcommit', 'markdown' }, vim.bo.filetype)
+    end,
+    --- @module 'blink-cmp-git'
+    --- @type blink-cmp-git.Options
+    opts = {
+        commit = {
+            -- You may want to customize when it should be enabled
+            -- The default will enable this when `git` is found and `cwd` is in a git repository
+            -- enable = function() end
+            -- You may want to change the triggers
+            -- triggers = { ':' },
+        },
+        git_centers = {
+            github = {
+                -- Those below have the same fields with `commit`
+                -- Those features will be enabled when `git` and `gh` (or `curl`) are found and
+                -- remote contains `github.com`
+                -- issue = {
+                --     get_token = function() return '' end,
+                -- },
+                -- pull_request = {
+                --     get_token = function() return '' end,
+                -- },
+                -- mention = {
+                --     get_token = function() return '' end,
+                --     get_documentation = function(item)
+                --         local default = require('blink-cmp-git.default.github')
+                --             .mention.get_documentation(item)
+                --         default.get_token = function() return '' end
+                --         return default
+                --     end
+                -- }
+            },
+            gitlab = {
+                -- Those below have the same fields with `commit`
+                -- Those features will be enabled when `git` and `glab` (or `curl`) are found and
+                -- remote contains `gitlab.com`
+                -- issue = {
+                --     get_token = function() return '' end,
+                -- },
+                -- NOTE:
+                -- Even for `gitlab`, you should use `pull_request` rather than`merge_request`
+                -- pull_request = {
+                --     get_token = function() return '' end,
+                -- },
+                -- mention = {
+                --     get_token = function() return '' end,
+                --     get_documentation = function(item)
+                --         local default = require('blink-cmp-git.default.gitlab')
+                --            .mention.get_documentation(item)
+                --         default.get_token = function() return '' end
+                --         return default
+                --     end
+                -- }
+            }
+        }
+    }
+}
+
 local M = {
     'saghen/blink.cmp',
 
@@ -5,6 +69,9 @@ local M = {
 
     dependencies = {
         "xzbdmw/colorful-menu.nvim",
+        {
+            'Kaiser-Yang/blink-cmp-git',
+        },
         {
             "L3MON4D3/LuaSnip",
             -- follow latest release.
@@ -65,7 +132,7 @@ local M = {
         },
 
         sources = {
-            default = {"lazydev", "lsp", "path", "snippets", "buffer" },
+            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git" },
             providers = {
                 lazydev = {
                     name = "LazyDev",
@@ -73,6 +140,7 @@ local M = {
                     -- make lazydev completions top priority (see `:h blink.cmp`)
                     score_offset = 100,
                 },
+                git = M_git
             },
         },
 
