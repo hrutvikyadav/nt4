@@ -72,6 +72,7 @@ local M = {
         {
             'Kaiser-Yang/blink-cmp-git',
         },
+        { 'disrupted/blink-cmp-conventional-commits' },
         {
             "L3MON4D3/LuaSnip",
             -- follow latest release.
@@ -132,7 +133,7 @@ local M = {
         },
 
         sources = {
-            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git" },
+            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", },
             providers = {
                 lazydev = {
                     name = "LazyDev",
@@ -140,7 +141,17 @@ local M = {
                     -- make lazydev completions top priority (see `:h blink.cmp`)
                     score_offset = 100,
                 },
-                git = M_git
+                git = M_git,
+                conventional_commits = {
+                    name = 'Conventional Commits',
+                    module = 'blink-cmp-conventional-commits',
+                    enabled = function()
+                        return vim.bo.filetype == 'gitcommit'
+                    end,
+                    ---@module 'blink-cmp-conventional-commits'
+                    ---@type blink-cmp-conventional-commits.Options
+                    opts = {}, -- none so far
+                },
             },
         },
 
