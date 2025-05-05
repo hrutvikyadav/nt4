@@ -20,16 +20,9 @@ local M = {
         },
         {
             'kristijanhusak/vim-dadbod-completion',
-            lazy = true,
-            init = function()
-                vim.g.vim_dadbod_completion_mark = "[DBOD]"
-            end,
-            config = function()
-                vim.cmd(
-                    [[ autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} }) ]]
-                )
-            end
-        }, -- ft = { 'sql', 'mysql', 'plsql' },
+            ft = { 'sql', 'mysql', 'plsql' },
+            lazy = true
+        },
     }
 }
 

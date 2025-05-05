@@ -150,6 +150,9 @@ local M = {
 
         sources = {
             default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "copilot", "tmux" },
+            per_filetype = {
+                sql = { 'snippets', 'dadbod', 'buffer' },
+            },
             providers = {
                 lazydev = {
                     name = "LazyDev",
@@ -175,6 +178,7 @@ local M = {
                     async = true,
                 },
                 tmux = M_tmux,
+                dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
             },
         },
 
