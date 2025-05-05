@@ -12,7 +12,7 @@ local M = {
 
 function M.config()
     require("go").setup({
-        -- diagnostic = true,
+        diagnostic = false,
     })
 end
 

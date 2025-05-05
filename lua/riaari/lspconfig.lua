@@ -188,7 +188,8 @@ function M.config()
         "ahk2",
         "arduino_language_server",
         "pyright",
-        "omnisharp"
+        "omnisharp",
+        "harper_ls"
     }
 
     -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })

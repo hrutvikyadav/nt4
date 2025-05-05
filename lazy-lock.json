@@ -21,7 +21,7 @@
   "gen.nvim": { "branch": "main", "commit": "e09a8dbffa139ad60d5b47998fcc8669ead1ebf4" },
   "git-worktree.nvim": { "branch": "master", "commit": "f247308e68dab9f1133759b05d944569ad054546" },
   "gitsigns.nvim": { "branch": "main", "commit": "562dc47189ad3c8696dbf460d38603a74d544849" },
-  "go.nvim": { "branch": "master", "commit": "8f8ab4b968d08bd70ecda1f2909fb5e6177452ca" },
+  "go.nvim": { "branch": "master", "commit": "fbceaf55e18e9e473f289df008d6b508a479fbf8" },
   "guihua.lua": { "branch": "master", "commit": "a53b76514ad42d92a821d75d712ef71e71898fcf" },
   "harpoon": { "branch": "harpoon2", "commit": "ed1f853847ffd04b2b61c314865665e1dadf22c7" },
   "himalaya-vim": { "branch": "master", "commit": "bb8d0ebbe82b1ba1d487354fab86d81f12a82c4d" },
