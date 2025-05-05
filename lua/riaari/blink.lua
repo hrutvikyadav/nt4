@@ -90,6 +90,10 @@ local M = {
         { "fang2hou/blink-copilot" },
         { "mgalliou/blink-cmp-tmux" },
         {
+            'Kaiser-Yang/blink-cmp-dictionary',
+            dependencies = { 'nvim-lua/plenary.nvim' },
+        },
+        {
             "L3MON4D3/LuaSnip",
             -- follow latest release.
             version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
@@ -149,7 +153,7 @@ local M = {
         },
 
         sources = {
-            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "copilot", "tmux" },
+            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "copilot", "tmux", "dictionary" },
             per_filetype = {
                 sql = { 'snippets', 'dadbod', 'buffer' },
             },
@@ -179,6 +183,20 @@ local M = {
                 },
                 tmux = M_tmux,
                 dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+                dictionary = {
+                    module = 'blink-cmp-dictionary',
+                    name = 'Dict',
+                    -- Make sure this is at least 2.
+                    -- 3 is recommended
+                    min_keyword_length = 3,
+                    opts = {
+                        -- options for blink-cmp-dictionary
+                        --
+                        -- All .txt files in these directories will be treated as dictionary files
+                        -- example: { vim.fn.expand('~/.config/nvim/dictionary') }
+                        dictionary_directories = { vim.fn.expand('~/.config/nvim/dictionary') },
+                    }
+                },
             },
         },
 
