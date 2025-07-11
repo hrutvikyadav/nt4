@@ -25,6 +25,7 @@ spec("riaari.fugitive")
 spec("riaari.undotree")
 -- spec("riaari.schemastore")
 spec("riaari.oil")
+spec("riaari.noice")
 
 spec("riaari.nvim-navic")
 
@@ -36,8 +37,9 @@ spec("riaari.ts-tools")
 spec("riaari.rustacean")
 spec("riaari.go-nvim")
 
+spec("riaari.mini")
 spec("riaari.fidget")
-spec("riaari.ibl")
+-- spec("riaari.ibl")
 spec("riaari.gitsigns")
 spec("riaari.trouble")
 spec("riaari.git-worktree")

@@ -87,7 +87,7 @@ local M = {
             'Kaiser-Yang/blink-cmp-git',
         },
         { 'disrupted/blink-cmp-conventional-commits' },
-        { "fang2hou/blink-copilot" },
+        -- { "fang2hou/blink-copilot" },
         { "mgalliou/blink-cmp-tmux" },
         {
             'Kaiser-Yang/blink-cmp-dictionary',
@@ -153,7 +153,8 @@ local M = {
         },
 
         sources = {
-            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "copilot", "tmux", "dictionary" },
+            -- default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "copilot", "tmux", "dictionary" },
+            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "tmux" },
             per_filetype = {
                 sql = { 'snippets', 'dadbod', 'buffer' },
             },
@@ -175,12 +176,12 @@ local M = {
                     ---@type blink-cmp-conventional-commits.Options
                     opts = {}, -- none so far
                 },
-                copilot = {
-                    name = "copilot",
-                    module = "blink-copilot",
-                    score_offset = 100,
-                    async = true,
-                },
+                -- copilot = {
+                --     name = "copilot",
+                --     module = "blink-copilot",
+                --     score_offset = 100,
+                --     async = true,
+                -- },
                 tmux = M_tmux,
                 dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
                 dictionary = {
@@ -240,6 +241,11 @@ local M = {
         },
 
         snippets = { preset = "luasnip" },
+
+        cmdline = {
+            keymap = { preset = 'inherit' },
+            completion = { menu = { auto_show = false } },
+        },
 
     },
 
