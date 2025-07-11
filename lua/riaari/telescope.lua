@@ -18,7 +18,7 @@ function M.config()
         --  All the info you're looking for is in `:help telescope.setup()`
         --
         defaults = {
-            border = false,
+            -- border = false,
             mappings = {
                 i = { ['<c-enter>'] = 'to_fuzzy_refine' },
             },
@@ -61,21 +61,57 @@ function M.config()
     require("telescope").load_extension('harpoon')
 
     local builtin = require("telescope.builtin")
-    vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "TELESCOPE [s]earch pwd [f]iles" })
-    vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "TELESCOPE git files" })
-    vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "TELESCOPE live grep pwd files" })
+    vim.keymap.set("n", "<leader>sf", function()
+        builtin.find_files { winblend = 20 }
+    end, { desc = "TELESCOPE [s]earch pwd [f]iles" })
+    vim.keymap.set("n", "<C-p>", function ()
+        builtin.git_files(require("telescope.themes").get_ivy {
+            winblend = 10,
+            
+            attach_mappings = function(_, map)
+                map("i", "asdf", function(_prompt_bufnr)
+                    print "You typed asdf"
+                end)
 
-    vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "TELESCOPE [G]it [c]ommits" })
-    vim.keymap.set("n", "<leader>g/c", builtin.git_bcommits, { desc = "TELESCOPE [G]it [B]commits" })
-    vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "TELESCOPE [G]it [b]ranches" })
+                map({"i", "n"}, "<C-o>", function(_prompt_bufnr)
+                    print "You typed <C-r>"
+                end)
+
+                -- needs to return true if you want to map default_mappings and
+                -- false if not
+                return true
+            end,
+        } )
+    end , { desc = "TELESCOPE git files" })
+    vim.keymap.set("n", "<leader>sg", function()
+        builtin.live_grep(require("telescope.themes").get_ivy { winblend = 20,  } )
+    end, { desc = "TELESCOPE live grep pwd files" })
+
+    vim.keymap.set("n", "<leader>gc", function()
+        builtin.git_commits(require("telescope.themes").get_ivy { winblend = 20,  } )
+    end, { desc = "TELESCOPE [G]it [c]ommits" })
+    vim.keymap.set("n", "<leader>g/c", function()
+        builtin.git_bcommits(require("telescope.themes").get_ivy { winblend = 20,  } )
+    end, { desc = "TELESCOPE [G]it [B]commits" })
+    vim.keymap.set("n", "<leader>gb", function()
+        builtin.git_branches(require("telescope.themes").get_ivy { winblend = 20,  } )
+    end, { desc = "TELESCOPE [G]it [b]ranches" })
 
     -- from kickstart
-    vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-    vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-    vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[ ] Find existing buffers' })
+    vim.keymap.set('n', '<leader>sr', function()
+        builtin.resume(require("telescope.themes").get_ivy { winblend = 20,  } )
+    end, { desc = '[S]earch [R]esume' })
+    vim.keymap.set('n', '<leader>s.', function()
+        builtin.oldfiles(require("telescope.themes").get_ivy { winblend = 20,  } )
+    end, { desc = '[S]earch Recent Files ("." for repeat)' })
+    vim.keymap.set('n', '<leader>sb', function()
+        builtin.buffers(require("telescope.themes").get_ivy { winblend = 20,  } )
+    end, { desc = '[ ] Find existing buffers' })
 
     -- spell suggest
-    vim.keymap.set("n", "z=", builtin.spell_suggest, {desc = "TELESCOPE Spell Suggestions"})
+    vim.keymap.set("n", "z=", function()
+        builtin.spell_suggest(require("telescope.themes").get_ivy { winblend = 20,  } )
+    end, {desc = "TELESCOPE Spell Suggestions"})
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()
@@ -103,7 +139,7 @@ function M.config()
     vim.keymap.set("n", "<leader>sst", function()
         local config_opts = {} -- optional config for picker
         -- example config ->
-        config_opts = require("telescope.themes").get_ivy{}
+        config_opts = require("telescope.themes").get_ivy{ winblend = 20 }
         require("telescope").extensions["my-telescope-spartan-plugin"].taskwarrior(config_opts)
     end)
 end

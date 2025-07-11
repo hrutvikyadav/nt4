@@ -135,6 +135,10 @@ end
 --     set statusline=%<%f\ %h%#StatusLineReadonly#%m%r\ %#StatusLineFugitiveStatus#%{FugitiveStatusline()}%#Normal#%=%-24.(%{v:lua.Obsidian_status()}\ %#StatusLineObsession#%{ObsessionStatus('','')}%#Normal#\ \ %l,%c%V%)\ %P
 -- ]])
 
+vim.api.nvim_set_hl(0, "NoiceCmd", { fg = "#ff9e64", bold = true })
+vim.api.nvim_set_hl(0, "NoiceMode", { fg = "#a6e3a1", bold = true })
+vim.api.nvim_set_hl(0, "NoiceSearch", { fg = "#89b4fa", bold = true })
+
 -- Statusline lua
 local statusline_components = {
     -- "%<",                -- Truncates the file path if it becomes too long
@@ -150,7 +154,13 @@ local statusline_components = {
     "%#Normal#",         -- Switch back to Normal highlight
     "%=",                -- Centers the following components
     -- "%-14.(",            -- Fixed width for the following BLOCK
-    "%-44.(",            -- Fixed width for the following BLOCK
+    "%-54.(",            -- Fixed width for the following BLOCK
+
+    "%#DiagnosticDefaultInfo#",         -- Switch back to Normal highlight
+    "%{v:lua.require'riaari.noice_status'.status2()}", -- Noice status output
+    "%#Normal#",         -- Switch back to Normal highlight
+    " ",
+
     "%{v:lua.Lint_progress()}", -- Lua function call to get linting status
     "   ",
     "%{v:lua.Obsidian_status()}", -- Lua function call to get Obsidian status
@@ -158,7 +168,7 @@ local statusline_components = {
     "%#StatusLineObsession#", -- Switch highlight to StatusLineObsession
     "%{ObsessionStatus('','')}", -- Obsession plugin status
     "%#Normal#",         -- Switch back to Normal highlight
-    "      ",                -- Adds spaces
+    "   ",                -- Adds spaces
     "%l",                -- Current line number
     ",",                 -- Comma
     "%c",                -- Current column number
@@ -194,5 +204,6 @@ local winbar_components = {
 vim.o.statusline = table.concat(statusline_components)
 vim.o.winbar = table.concat(winbar_components)
 
-vim.o.winborder = "solid" -- use with no transparency colorscheme
+vim.o.winborder = "none" -- use solid with no transparency colorscheme
 -- vim.o.winborder = "rounded" -- use with transparent colorscheme and no telescope border
+vim.opt.winblend = 2

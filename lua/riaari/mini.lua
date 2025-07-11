@@ -51,8 +51,8 @@ local indentscope_opts = {
   },
 
   -- Which character to use for drawing scope indicator
-    -- '┊', `┋`,  `▏`, `│`, '╎'
-  symbol = '▏',
+    -- '┊', `┋`,  `▏`, `│`, '╎', `▍`
+  symbol = '▍',
 }
 
 function M.config()

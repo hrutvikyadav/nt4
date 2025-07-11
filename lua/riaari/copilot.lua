@@ -1,6 +1,6 @@
 local M = {
     "github/copilot.vim",
-    -- enabled = false,
+    enabled = false,
     cmd = "Copilot",
     event = "BufWinEnter",
     init = function()

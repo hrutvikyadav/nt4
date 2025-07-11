@@ -40,7 +40,7 @@ local old = {
 
 local new = {
     -- cmd = { "/home/c3zbane/Downloads/omnisharp-deez-nutz/OmniSharp", "-z", "--hostPID", "1946", "DotNet:enablePackageRestore=false", "--encoding", "utf-8", "--languageserver" },
-    cmd = { "/home/hrutvik_/Downloads/omni/OmniSharp" },
+    cmd = { "/home/hrutvik_/Downloads/omni/OmniSharp", "-z", "DotNet:enablePackageRestore=false", "--encoding", "utf-8", "--languageserver" },
     capabilities = {
         workspace = {
             workspaceFolders = false

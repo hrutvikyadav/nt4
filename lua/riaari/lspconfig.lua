@@ -258,6 +258,7 @@ end
 
 vim.diagnostic.config({
     virtual_text = { current_line = true },
+    virtual_lines = false,
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = "",

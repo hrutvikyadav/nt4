@@ -37,3 +37,14 @@ function GrepInRangeVimRegex(pattern, start_line, end_line)
     vim.fn.setqflist(qf_list, 'r')
     vim.cmd("copen")
 end
+
+
+-- Check if the current linux kernal is microsoft WSL version
+function Is_wsl()
+    local version_file = io.open("/proc/version", "rb")
+    if version_file ~= nil and string.find(version_file:read("*a"), "microsoft") then
+        version_file:close()
+        return true
+    end
+    return false
+end

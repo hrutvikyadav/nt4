@@ -1,8 +1,8 @@
 require("riaari.launch")
+require("riaari.myutil")
 require("riaari.options")
 require("riaari.remaps")
 require("riaari.usercommands")
-require("riaari.myutil")
 require("riaari.moreutilz")
 
 require("riaari.autocommands")
@@ -103,5 +103,6 @@ spec("riaari.marks")
 spec("riaari.yeti")
 spec("riaari.hlpatterns")
 spec("riaari.refactoring")
-
+spec("riaari.pantran")
+spec("riaari.present")
 require("riaari.lazy")

@@ -68,8 +68,8 @@ vim.keymap.set("n", "<leader>gj", "<cmd>diffget //3<cr>", { desc = "diffget righ
 -- vim.keymap.set("n", "[Q", vim.cmd.cfirst, { desc = "First QF item" })
 -- vim.keymap.set("n", "]Q", vim.cmd.clast, { desc = "Last QF item" })
 --
--- vim.keymap.set("n", "]<C-Q>", vim.cmd.cnewer, { desc = "Next QF List" })
--- vim.keymap.set("n", "[<C-Q>", vim.cmd.colder, { desc = "Prev QF List" })
+vim.keymap.set("n", "]<C-Q>", vim.cmd.cnewer, { desc = "Next QF List" })
+vim.keymap.set("n", "[<C-Q>", vim.cmd.colder, { desc = "Prev QF List" })
 
 -- undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = '[u]ndotree' })
@@ -94,3 +94,15 @@ end, { desc = "Close buffer with confirmation" })
 
 -- :nmap <Esc><Esc> <cmd>nohlsearch<cr>
 vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlights" })
+
+
+if Is_wsl() then
+    vim.keymap.set("n", "gx", function()
+        local url = vim.fn.expand("<cfile>")
+        if url ~= "" then
+            vim.ui.open(url, { cmd = { "wsl-open" } })
+        else
+            vim.notify("No URL found under cursor", vim.log.levels.WARN)
+        end
+    end, { desc = "Open URL under cursor with wsl-open" })
+end

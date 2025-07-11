@@ -17,33 +17,49 @@ end
 
 local function prepare_worktree(branch, callback)
     if not branch or branch == "" then
-        print("Error: Branch name required.")
-        return
+        -- print("Error: Branch name required.")
+        -- print info: Create new branch based on HEAD using the neovim logger
+        branch = vim.fn.input("Create new branch based on HEAD: ", "", "customlist,v:lua.h_git_branch_complete")
+
+        Job:new({
+            command = "git",
+            args = { "branch", branch },
+            on_exit = function(_, track_exit)
+                if track_exit == 0 then
+                    print("Local branch created: " .. branch)
+                else
+                    print("Branch may already exist. Continuing...")
+                end
+                if callback then vim.schedule(callback) end
+            end,
+        }):start()
+    else
+        -- create from existing origin branch
+        Job:new({
+            command = "git",
+            args = { "fetch", "origin" },
+            on_exit = function(_, fetch_exit)
+                if fetch_exit ~= 0 then
+                    print("git fetch failed")
+                    return
+                end
+
+                Job:new({
+                    command = "git",
+                    args = { "branch", "--track", branch, "origin/" .. branch },
+                    on_exit = function(_, track_exit)
+                        if track_exit == 0 then
+                            print("Tracking branch created for " .. branch)
+                        else
+                            print("Tracking branch may already exist. Continuing...")
+                        end
+                        if callback then vim.schedule(callback) end
+                    end,
+                }):start()
+            end,
+        }):start()
     end
 
-    Job:new({
-        command = "git",
-        args = { "fetch", "origin" },
-        on_exit = function(_, fetch_exit)
-            if fetch_exit ~= 0 then
-                print("git fetch failed")
-                return
-            end
-
-            Job:new({
-                command = "git",
-                args = { "branch", "--track", branch, "origin/" .. branch },
-                on_exit = function(_, track_exit)
-                    if track_exit == 0 then
-                        print("Tracking branch created for " .. branch)
-                    else
-                        print("Tracking branch may already exist. Continuing...")
-                    end
-                    if callback then vim.schedule(callback) end
-                end,
-            }):start()
-        end,
-    }):start()
 end
 
 function M.config()
@@ -61,15 +77,19 @@ function M.config()
     require("telescope").load_extension("git_worktree")
 
     vim.keymap.set("n", "<leader>gww", function()
-        require("telescope").extensions.git_worktree.git_worktrees()
+        require("telescope").extensions.git_worktree.git_worktrees(
+            require('telescope.themes').get_ivy { winblend = 10, }
+        )
     end)
     -- <Enter> - switches to that worktree
     -- <c-d> - deletes that worktree
     -- <c-f> - toggles forcing of the next deletion
     vim.keymap.set("n", "<leader>gwc", function()
-        local branch = vim.fn.input("Branch name: ", "", "customlist,v:lua.h_git_branch_complete")
+        local branch = vim.fn.input("Create new branch from existing remote branch: ", "", "customlist,v:lua.h_git_branch_complete")
         prepare_worktree(branch, function()
-            require("telescope").extensions.git_worktree.create_git_worktree()
+            require("telescope").extensions.git_worktree.create_git_worktree(
+                require('telescope.themes').get_ivy { winblend = 10, }
+            )
         end)
     end)
 
