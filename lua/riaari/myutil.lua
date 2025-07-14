@@ -4,7 +4,7 @@ function GrepInRangeVimRegex(pattern, start_line, end_line)
 
     -- pattern = pattern or vim.fn.input("Pattern: ")
     if not pattern then
-        print("No pattern provided")
+        vim.notify("No pattern provided", vim.log.levels.ERROR)
         return
     end
 

@@ -88,7 +88,7 @@ M.on_attach = function(client, bufnr)
 
     -- TODO: if client supports signature help, print a message
     if client.supports_method("textDocument/signatureHelp") then
-        print("Client supports signature help")
+        vim.notify("Client supports signature help", vim.log.levels.INFO)
     end
 
     if client.server_capabilities.documentSymbolProvider then
@@ -225,7 +225,6 @@ function M.config()
         -- INFO: needed to setup custom lsp server START
         -- i.e. one which is not listed in lspconfig configurations.md
         if server == "ahk2" then
-            print("setting up ahk2")
             local configs = require "lspconfig.configs"
             configs["ahk2"] = { default_config = opts }
         end

@@ -7,7 +7,7 @@ function M.wtf_redux()
     -- Strip `useLazy` or `use`, and `Query` from word
     local core = word:gsub("^useLazy", ""):gsub("^use", ""):gsub("Query$", "")
     if core == word then
-        print("Pattern not matched or nothing to strip.")
+        vim.notify("Pattern not matched or nothing to strip.", vim.log.levels.ERROR)
         return
     end
 
@@ -44,9 +44,9 @@ function M.add_mits11_default_envrc()
     if env_file then
         env_file:write(line)
         env_file:close()
-        print(".env.development created at " .. env_path)
+        vim.notify(".env.development created at " .. env_path, vim.log.levels.INFO)
     else
-        print("Failed to write .env.development")
+        vim.notify("Failed to write .env.development", vim.log.levels.ERROR)
     end
 
     -- Write to .envrc
@@ -54,9 +54,9 @@ function M.add_mits11_default_envrc()
     if envrc_file then
         envrc_file:write("export " .. line)
         envrc_file:close()
-        print(".envrc created at " .. envrc_path)
+        vim.notify(".envrc created at " .. envrc_path, vim.log.levels.INFO)
     else
-        print("Failed to write .envrc")
+        vim.notify("Failed to write .envrc", vim.log.levels.ERROR)
     end
 end
 

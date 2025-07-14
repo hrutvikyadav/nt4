@@ -29,7 +29,7 @@ function M.config()
     -- 2. Or run manually with keymap
     -- keymap leader v l to lint
     vim.keymap.set("n", "<leader>vl", function()
-        print("linting")
+        vim.notify("linting", vim.log.levels.INFO)
         lint.try_lint()
     end)
 end

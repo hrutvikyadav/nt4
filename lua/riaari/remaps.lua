@@ -88,7 +88,7 @@ vim.cmd "tnoremap <localleader><Esc> <C-\\><C-n>"
 vim.keymap.set("n", "<localleader><localleader>", "<cmd>set conceallevel=2 | Obsidian<cr>", {silent = true})
 vim.keymap.set("n", "<leader>bk", function()
     local bname = vim.api.nvim_buf_get_name(0)
-    print(bname .. "... killed 💀")
+    vim.notify(bname .. "... killed 💀", vim.log.levels.INFO)
     vim.api.nvim_buf_delete(0, { force = false })
 end, { desc = "Close buffer with confirmation" })
 

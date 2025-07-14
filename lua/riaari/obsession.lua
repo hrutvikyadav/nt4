@@ -6,7 +6,7 @@ function M.config()
     local session_file = vim.fn.getcwd() .. "/Session.vim"
 
     if vim.fn.filereadable(session_file) == 1 then
-        print("Session file exists")
+        vim.notify("Session file exists", vim.log.levels.INFO)
     else
         vim.cmd "Obsession"
     end
