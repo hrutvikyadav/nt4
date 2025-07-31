@@ -64,7 +64,11 @@ end
 
 function M.config()
     local Worktree = require("git-worktree")
-    local harpoon = require('harpoon')
+    -- local harpoon = require('harpoon')
+    local harpoon_ok, harpoon = pcall(require, "harpoon")
+    if not harpoon_ok then
+        vim.notify("harpoon not ok on worktree", vim.log.levels.WARN)
+    end
 
     Worktree.setup({
         change_directory_command = "cd", -- default: "cd",
@@ -104,7 +108,7 @@ function M.config()
     --          branch = branch name
     --          upstream = upstream remote name
     --      Delete
-    --          path = path where worktree deleted
+    --          path = path where worktree deleted.
 
     Worktree.on_tree_change(function(op, metadata)
         if op == Worktree.Operations.Switch then
@@ -115,8 +119,12 @@ function M.config()
         end
         if op == Worktree.Operations.Create then
             vim.notify("Created worktree at " .. metadata.path .. " for branch " .. metadata.branch, vim.log.levels.INFO)
+            -- BUG: Switch automatically runs after Create; so below line will have no effect
             -- open harpoon one_off list
-            vim.schedule(function() harpoon.ui:toggle_quick_menu(harpoon:list("one_off")) end)
+            -- vim.schedule(function() harpoon.ui:toggle_quick_menu(harpoon:list("one_off")) end)
+
+            local mulz = require("riaari.moreutilz")
+            mulz.add_harpoon_default_bak(metadata.path .. "/.harpoon")
         end
         if op == Worktree.Operations.Delete then
             vim.notify("Deleted worktree at " .. metadata.path, vim.log.levels.INFO)

@@ -207,6 +207,31 @@ function M.config()
             end, { buffer = cx.bufnr })
         end,
     })
+
+    -- Define a named autocommand group
+    local augroup = vim.api.nvim_create_augroup("BhadveKiAulad", { clear = true })
+
+    vim.api.nvim_create_autocmd("DirChangedPre", {
+        group = augroup,
+        desc = "Write Harpoon items to .harpoon in CWD before changing directory",
+        callback = function()
+            local cwd = vim.fn.getcwd()
+            local path = cwd .. "/.harpoon"
+            local file = io.open(path, "a")
+            if not file then
+                vim.notify("Could not open " .. path .. " for writing", vim.log.levels.ERROR)
+                return
+            end
+
+            local list = harpoon:list()
+            for _, item in ipairs(list.items) do
+                if item and item.value then
+                    file:write(item.value .. "\n")
+                end
+            end
+            file:close()
+        end
+    })
 end
 
 return M

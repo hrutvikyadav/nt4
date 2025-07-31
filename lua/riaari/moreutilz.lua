@@ -27,6 +27,36 @@ function M.other_util()
     print("other_util")
 end
 
+function M.add_harpoon_default_bak(optional_path)
+    local path = optional_path or (vim.fn.getcwd() .. "/.harpoon")
+    local file = io.open(path, "a")
+    if file then
+        file:write("-- From the 🌙\n")
+        file:close()
+        print(".harpoon file created at " .. path)
+    else
+        print("Failed to create .harpoon file at " .. path)
+    end
+end
+
+
+function M.copy_existing_harpoon_bak_to_clipboard()
+    local path = vim.fn.getcwd() .. "/.harpoon"
+    local file = io.open(path, "r")
+
+    if file then
+        local content = file:read("*a")
+        file:close()
+
+        -- Copy to system clipboard (requires `+clipboard` support in Neovim)
+        vim.fn.setreg("+", content)
+        print(".harpoon file copied to clipboard.")
+    else
+        print("No .harpoon file found at " .. path .. "\nRun a train on the moon")
+    end
+end
+
+
 function M.add_mits11_default_envrc()
 
     local cwd = vim.fn.getcwd()
