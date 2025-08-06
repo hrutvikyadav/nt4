@@ -206,4 +206,4 @@ vim.o.winbar = table.concat(winbar_components)
 
 vim.o.winborder = "none" -- use solid with no transparency colorscheme
 -- vim.o.winborder = "rounded" -- use with transparent colorscheme and no telescope border
-vim.opt.winblend = 2
+vim.opt.winblend = 0

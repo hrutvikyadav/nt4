@@ -74,6 +74,40 @@ function M.config()
             -- SatRand2 = { fg = "#736699", bold = true, undercurl = true },
             -- SatRand3 = { fg = "#996699", bold = true, undercurl = true },
             -- rainbow parens + IBL highlights END
+            --
+            -- StatusLine = { fg = "love", bg = "love", blend = 10 },
+            StatusLine = { fg = "rose", bg = "rose", blend = 10 },
+            TreesitterContext = { fg = "iris", bg = "iris", blend = 15 }, -- foam
+            NormalFloat = { fg = "text", bg = "gold", blend = 14 }, -- foam
+            -- FloatTitle = { fg = "foam", bg = "foam", blend = 14 }, -- foam
+
+            -- TELESCOPE no border
+            TelescopeBorder = { fg = "overlay", bg = "overlay" },
+            TelescopeNormal = { fg = "subtle", bg = "overlay" },
+            TelescopeSelection = { fg = "text", bg = "highlight_med" },
+            TelescopeSelectionCaret = { fg = "love", bg = "highlight_med" },
+            TelescopeMultiSelection = { fg = "text", bg = "highlight_high" },
+
+            TelescopeTitle = { fg = "base", bg = "love" },
+            TelescopePromptTitle = { fg = "base", bg = "pine" },
+            TelescopePreviewTitle = { fg = "base", bg = "iris" },
+
+            TelescopePromptNormal = { fg = "text", bg = "surface" },
+            TelescopePromptBorder = { fg = "surface", bg = "surface" },
+            -- TELESCOPE no border END
+
+            -- FOR noice
+            NotifyERRORBody = { link = "Normal" },
+            NotifyWARNBody = { link = "Normal" },
+            NotifyINFOBody = { link = "Normal" },
+            NotifyDEBUGBody = { link = "Normal" },
+            NotifyTRACEBody = { link = "Normal" },
+            NoiceSplit = { link = "Normal" },
+            -- end noice
+            --
+            -- leafy Search recipe
+            CurSearch = { fg = "base", bg = "leaf", inherit = false },
+            Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
         },
 
         before_highlight = function(group, highlight, palette)

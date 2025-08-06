@@ -62,11 +62,11 @@ function M.config()
 
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>sf", function()
-        builtin.find_files { winblend = 20 }
+        builtin.find_files { winblend = 0 }
     end, { desc = "TELESCOPE [s]earch pwd [f]iles" })
     vim.keymap.set("n", "<C-p>", function ()
         builtin.git_files(require("telescope.themes").get_ivy {
-            winblend = 10,
+            winblend = 0,
             
             attach_mappings = function(_, map)
                 map("i", "asdf", function(_prompt_bufnr)
@@ -84,40 +84,40 @@ function M.config()
         } )
     end , { desc = "TELESCOPE git files" })
     vim.keymap.set("n", "<leader>sg", function()
-        builtin.live_grep(require("telescope.themes").get_ivy { winblend = 20,  } )
+        builtin.live_grep(require("telescope.themes").get_ivy { winblend = 0,  } )
     end, { desc = "TELESCOPE live grep pwd files" })
 
     vim.keymap.set("n", "<leader>gc", function()
-        builtin.git_commits(require("telescope.themes").get_ivy { winblend = 20,  } )
+        builtin.git_commits(require("telescope.themes").get_ivy { winblend = 0,  } )
     end, { desc = "TELESCOPE [G]it [c]ommits" })
     vim.keymap.set("n", "<leader>g/c", function()
-        builtin.git_bcommits(require("telescope.themes").get_ivy { winblend = 20,  } )
+        builtin.git_bcommits(require("telescope.themes").get_ivy { winblend = 0,  } )
     end, { desc = "TELESCOPE [G]it [B]commits" })
     vim.keymap.set("n", "<leader>gb", function()
-        builtin.git_branches(require("telescope.themes").get_ivy { winblend = 20,  } )
+        builtin.git_branches(require("telescope.themes").get_ivy { winblend = 0,  } )
     end, { desc = "TELESCOPE [G]it [b]ranches" })
 
     -- from kickstart
     vim.keymap.set('n', '<leader>sr', function()
-        builtin.resume(require("telescope.themes").get_ivy { winblend = 20,  } )
+        builtin.resume(require("telescope.themes").get_ivy { winblend = 0,  } )
     end, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', function()
-        builtin.oldfiles(require("telescope.themes").get_ivy { winblend = 20,  } )
+        builtin.oldfiles(require("telescope.themes").get_ivy { winblend = 0,  } )
     end, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader>sb', function()
-        builtin.buffers(require("telescope.themes").get_ivy { winblend = 20,  } )
+        builtin.buffers(require("telescope.themes").get_ivy { winblend = 0,  } )
     end, { desc = '[ ] Find existing buffers' })
 
     -- spell suggest
     vim.keymap.set("n", "z=", function()
-        builtin.spell_suggest(require("telescope.themes").get_ivy { winblend = 20,  } )
+        builtin.spell_suggest(require("telescope.themes").get_ivy { winblend = 0,  } )
     end, {desc = "TELESCOPE Spell Suggestions"})
 
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-            winblend = 10,
+            winblend = 0,
             previewer = false,
         })
     end, { desc = '[/] Fuzzily search in current buffer' })
@@ -139,7 +139,7 @@ function M.config()
     vim.keymap.set("n", "<leader>sst", function()
         local config_opts = {} -- optional config for picker
         -- example config ->
-        config_opts = require("telescope.themes").get_ivy{ winblend = 20 }
+        config_opts = require("telescope.themes").get_ivy{ winblend = 0 }
         require("telescope").extensions["my-telescope-spartan-plugin"].taskwarrior(config_opts)
     end)
 end

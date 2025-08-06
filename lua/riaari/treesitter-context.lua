@@ -1,7 +1,7 @@
 local M = {
     "nvim-treesitter/nvim-treesitter-context",
     opts = {
-        separator = ">",
+        -- separator = ">",
     },
     event = { "BufReadPre", "BufNewFile" },
 }
