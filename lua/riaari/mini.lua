@@ -4,7 +4,7 @@ local indentscope_opts = {
   -- Draw options
   draw = {
     -- Delay (in ms) between event and start of drawing scope indicator
-    delay = 100,
+    delay = 400,
 
     -- Animation rule for scope's first drawing. A function which, given
     -- next and total step numbers, returns wait time (in ms). See
@@ -52,7 +52,7 @@ local indentscope_opts = {
 
   -- Which character to use for drawing scope indicator
     -- '┊', `┋`,  `▏`, `│`, '╎', `▍`
-  symbol = '▍',
+  symbol = '│',
 }
 
 function M.config()
