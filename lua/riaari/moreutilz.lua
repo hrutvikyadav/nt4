@@ -107,3 +107,5 @@ vim.keymap.set("n", "<leader>lu", function()
     end
   end)
 end, { desc = "Run Lua Utility" })
+
+return M
