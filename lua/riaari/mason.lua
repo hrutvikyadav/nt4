@@ -10,6 +10,10 @@ local M = {
 
 function M.config()
     require("mason").setup({
+        registries = {
+            "github:mason-org/mason-registry",
+            "github:Crashdummyy/mason-registry",
+        },
         ui = { border = "rounded" },
     })
 

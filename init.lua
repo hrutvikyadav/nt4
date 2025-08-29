@@ -36,6 +36,7 @@ spec("riaari.lspconfig")
 spec("riaari.ts-tools")
 spec("riaari.rustacean")
 spec("riaari.go-nvim")
+spec("riaari.roslyn")
 
 spec("riaari.mini")
 spec("riaari.fidget")

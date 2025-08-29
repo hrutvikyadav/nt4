@@ -25,7 +25,7 @@ local M = {
             end,
         },
         -- require("riaari.neoconf")
-        { "Hoffs/omnisharp-extended-lsp.nvim" },
+        -- { "Hoffs/omnisharp-extended-lsp.nvim" },
     },
 }
 
@@ -46,7 +46,7 @@ local function lsp_keymaps(bufnr)
     -- toggle inlay hints
     keymap(bufnr, "n", "<leader>tlh", "<cmd>lua require('riaari.lspconfig').toggle_inlay_hints()<cr>", opts)
     -- codelens action
-    keymap(bufnr, "n", "<leader>tll", "<cmd>lua vim.lsp.codelens.run()<cr>", opts)
+    keymap(bufnr, "n", "<leader>vcc", "<cmd>lua vim.lsp.codelens.run()<cr>", opts)
 
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
@@ -95,6 +95,8 @@ M.on_attach = function(client, bufnr)
         vim.notify("Client supports signature help", vim.log.levels.INFO)
     end
 
+    vim.keymap.set("n", "<leader>vcr", vim.lsp.codelens.refresh, { desc = "Vim CodeLens Refresh" })
+
     if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
 
@@ -141,21 +143,21 @@ M.on_attach = function(client, bufnr)
     end
 
     -- print(client.name .. " attached")
-    if client.name == "omnisharp" then
-        local omnisharp_extended = require("omnisharp_extended")
-        -- -- replaces vim.lsp.buf.definition()
-        -- nnoremap gd <cmd>lua require('omnisharp_extended').lsp_definition()<cr>
-        vim.keymap.set("n", "gd", function() omnisharp_extended.lsp_definition() end, { buffer = bufnr, desc = "LSP: [G]oto [D]efinition" })
-        -- -- replaces vim.lsp.buf.type_definition()
-        -- nnoremap <leader>D <cmd>lua require('omnisharp_extended').lsp_type_definition()<cr>
-        vim.keymap.set("n", "gT", function() omnisharp_extended.lsp_type_definition() end, { buffer = bufnr, desc = "LSP: [D]efinition" })
-        -- -- replaces vim.lsp.buf.references()
-        -- nnoremap gr <cmd>lua require('omnisharp_extended').lsp_references()<cr>
-        vim.keymap.set("n", "gr", function() omnisharp_extended.lsp_references() end, { buffer = bufnr, desc = "LSP: [G]oto [R]eferences" })
-        -- -- replaces vim.lsp.buf.implementation()
-        -- nnoremap gi <cmd>lua require('omnisharp_extended').lsp_implementation()<cr>
-        vim.keymap.set("n", "gi", function() omnisharp_extended.lsp_implementation() end, { buffer = bufnr, desc = "LSP: [G]oto [I]mplementation" })
-    end
+    -- if client.name == "omnisharp" then
+    --     local omnisharp_extended = require("omnisharp_extended")
+    --     -- -- replaces vim.lsp.buf.definition()
+    --     -- nnoremap gd <cmd>lua require('omnisharp_extended').lsp_definition()<cr>
+    --     vim.keymap.set("n", "gd", function() omnisharp_extended.lsp_definition() end, { buffer = bufnr, desc = "LSP: [G]oto [D]efinition" })
+    --     -- -- replaces vim.lsp.buf.type_definition()
+    --     -- nnoremap <leader>D <cmd>lua require('omnisharp_extended').lsp_type_definition()<cr>
+    --     vim.keymap.set("n", "gT", function() omnisharp_extended.lsp_type_definition() end, { buffer = bufnr, desc = "LSP: [D]efinition" })
+    --     -- -- replaces vim.lsp.buf.references()
+    --     -- nnoremap gr <cmd>lua require('omnisharp_extended').lsp_references()<cr>
+    --     vim.keymap.set("n", "gr", function() omnisharp_extended.lsp_references() end, { buffer = bufnr, desc = "LSP: [G]oto [R]eferences" })
+    --     -- -- replaces vim.lsp.buf.implementation()
+    --     -- nnoremap gi <cmd>lua require('omnisharp_extended').lsp_implementation()<cr>
+    --     vim.keymap.set("n", "gi", function() omnisharp_extended.lsp_implementation() end, { buffer = bufnr, desc = "LSP: [G]oto [I]mplementation" })
+    -- end
 
 end
 
@@ -192,7 +194,8 @@ function M.config()
         "ahk2",
         "arduino_language_server",
         "pyright",
-        "omnisharp",
+        -- "omnisharp",
+        "roslyn",
         "harper_ls"
     }
 
@@ -247,11 +250,80 @@ function M.config()
             opts.filetypes = { "arduino" }
         end
 
-	if server == "omnisharp" then
-		print("setting up omni")
-	end
+        if server == "omnisharp" then
+            -- print("setting up omni")
+        end
 
-        lspconfig[server].setup(opts)
+        local my_roslyn = {
+            ["csharp|inlay_hints"] = {
+                -- csharp_enable_inlay_hints_for_implicit_object_creation = true,
+                -- csharp_enable_inlay_hints_for_implicit_variable_types = true,
+                dotnet_enable_inlay_hints_for_literal_parameters = true,
+                dotnet_enable_inlay_hints_for_indexer_parameters = true,
+                dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+                dotnet_enable_inlay_hints_for_other_parameters = true,
+                dotnet_enable_inlay_hints_for_parameters = true,
+                csharp_enable_inlay_hints_for_types = true,
+                csharp_enable_inlay_hints_for_implicit_variable_types = true,
+                csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+                csharp_enable_inlay_hints_for_implicit_object_creation = true,
+
+            },
+            ["csharp|code_lens"] = {
+                dotnet_enable_references_code_lens = true,
+                dotnet_enable_tests_code_lens = true,
+            },
+            -- csharp|symbol_search.dotnet_search_reference_assemblies
+            -- csharp|background_analysis.dotnet_analyzer_diagnostics_scope
+            -- csharp|background_analysis.dotnet_compiler_diagnostics_scope
+            ["csharp|symbol_search"] = {
+                dotnet_search_reference_assemblies = true
+            },
+            ["csharp|background_analysis"] = {
+                dotnet_analyzer_diagnostics_scope = "fullSolution",
+                dotnet_compiler_diagnostics_scope = "fullSolution",
+            }
+        }
+
+        if server == "roslyn" then
+            vim.lsp.config("roslyn", {
+                on_attach = M.on_attach,
+                capabilities = M.common_capabilities(),
+                settings = {
+                    ["csharp|background_analysis"] = {
+                        dotnet_analyzer_diagnostics_scope = "fullSolution",
+                        dotnet_compiler_diagnostics_scope = "fullSolution"
+                    },
+                    ["csharp|code_lens"] = {
+                        dotnet_enable_references_code_lens = true
+                    },
+                    ["csharp|completion"] = {
+                        dotnet_provide_regex_completions = true,
+                        dotnet_show_completion_items_from_unimported_namespaces = true,
+                        dotnet_show_name_completion_suggestions = true
+                    },
+                    ["csharp|inlay_hints"] = {
+                        csharp_enable_inlay_hints_for_implicit_object_creation = true,
+                        csharp_enable_inlay_hints_for_implicit_variable_types = true,
+                        csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+                        csharp_enable_inlay_hints_for_types = true,
+                        dotnet_enable_inlay_hints_for_indexer_parameters = true,
+                        dotnet_enable_inlay_hints_for_literal_parameters = true,
+                        dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+                        dotnet_enable_inlay_hints_for_other_parameters = true,
+                        dotnet_enable_inlay_hints_for_parameters = true,
+                        dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+                        dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+                        dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true
+                    },
+                    ["csharp|symbol_search"] = {
+                        dotnet_search_reference_assemblies = true
+                    }
+                }
+            })
+        else
+            lspconfig[server].setup(opts)
+        end
     end
 end
 
