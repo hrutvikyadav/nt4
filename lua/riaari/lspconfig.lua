@@ -193,7 +193,7 @@ function M.config()
         "nil_ls",
         "ahk2",
         "arduino_language_server",
-        "pyright",
+        "basedpyright",
         -- "omnisharp",
         "roslyn",
         "harper_ls"
