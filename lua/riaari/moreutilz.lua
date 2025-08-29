@@ -90,6 +90,9 @@ function M.add_mits11_default_envrc()
     end
 end
 
+function M.azure_pr()
+    vim.system({ "wsl-open", "https://dev.azure.com/arbinSW/_git/MITS11" })
+end
 
 vim.keymap.set("n", "<leader>lu", function()
   local utils = M

@@ -166,7 +166,7 @@ local statusline_components = {
     "%{v:lua.Obsidian_status()}", -- Lua function call to get Obsidian status
     " ",                 -- Adds a space
     "%#StatusLineObsession#", -- Switch highlight to StatusLineObsession
-    "%{ObsessionStatus('','')}", -- Obsession plugin status
+    "%{ObsessionStatus(' ',' ')}", -- Obsession plugin status
     "%#Normal#",         -- Switch back to Normal highlight
     "   ",                -- Adds spaces
     "%l",                -- Current line number

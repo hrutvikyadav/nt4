@@ -75,6 +75,10 @@ M.on_attach = function(client, bufnr)
         vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
     end, "[C]ode [A]ction")
 
+    nmap("<localleader>ca", function()
+        vim.lsp.buf.code_action()
+    end, "[C]ode [A]ction")
+
     -- Lesser used LSP functionality
     nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
     nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")

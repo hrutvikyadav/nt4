@@ -95,6 +95,19 @@ function M.config()
         },
         -- NOTE: experimental end
     })
+
+    vim.keymap.set("c", "<S-Enter>", function()
+        require("noice").redirect(vim.fn.getcmdline())
+    end, { desc = "Redirect Cmdline" })
+    vim.keymap.set("n", "<localleader>nh", function()
+        require("noice").cmd("history")
+    end)
+    vim.keymap.set("n", "<localleader>nd", function()
+        require("noice").cmd("dismiss")
+    end)
+    vim.keymap.set("n", "<localleader>nt", function()
+        require("noice").cmd("telescope")
+    end)
 end
 
 return M

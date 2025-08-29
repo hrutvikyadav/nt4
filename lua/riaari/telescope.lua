@@ -25,6 +25,7 @@ function M.config()
         },
         -- pickers = {}
         extensions = {
+            fzf = {},
             ['ui-select'] = {
                 require('telescope.themes').get_dropdown({
                     border = true,
@@ -95,6 +96,9 @@ function M.config()
     end, { desc = "TELESCOPE [G]it [B]commits" })
     vim.keymap.set("n", "<leader>gb", function()
         builtin.git_branches(require("telescope.themes").get_ivy { winblend = 0,  } )
+    end, { desc = "TELESCOPE [G]it [b]ranches" })
+    vim.keymap.set("n", "<leader>ss", function()
+        builtin.grep_string(require("telescope.themes").get_ivy { winblend = 0,  } )
     end, { desc = "TELESCOPE [G]it [b]ranches" })
 
     -- from kickstart

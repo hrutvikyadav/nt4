@@ -75,6 +75,10 @@ local function lsp_keymaps(bufnr)
     nmap("<leader>ca", function()
         vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
     end, "[C]ode [A]ction")
+
+    nmap("<localleader>ca", function()
+        vim.lsp.buf.code_action()
+    end, "[C]ode [A]ction")
 end
 
 function M.config()

@@ -78,7 +78,11 @@ function M.config()
             -- StatusLine = { fg = "love", bg = "love", blend = 10 },
             StatusLine = { fg = "rose", bg = "rose", blend = 10 },
             TreesitterContext = { fg = "iris", bg = "iris", blend = 15 }, -- foam
-            NormalFloat = { fg = "text", bg = "gold", blend = 14 }, -- foam
+            -- hi TreesitterContextBottom gui=underline guisp=Grey 
+            TreesitterContextBottom = { underline = true, sp = "Grey", },
+            -- NormalFloat = { fg = "text", bg = "gold", blend = 14 }, -- foam
+            NormalFloat = { fg = "text", bg = "#26233a", blend = 0 }, -- foam
+
             -- FloatTitle = { fg = "foam", bg = "foam", blend = 14 }, -- foam
 
             -- TELESCOPE no border
