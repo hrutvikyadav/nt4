@@ -16,6 +16,13 @@ vim.api.nvim_create_user_command("EditorSupport", function()
     ]])
 end, {})
 
+vim.api.nvim_create_user_command("Minimalist", function ()
+    vim.opt.nu = false
+    vim.opt.relativenumber = false
+    -- vim.cmd("TSContextToggle")
+    vim.cmd("TSContextDisable")
+end, {})
+
 function HP(obj)
     print(vim.inspect(obj))
 end
