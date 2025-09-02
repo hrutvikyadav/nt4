@@ -238,7 +238,7 @@ function M.config()
         -- custom lsp server END
         --
         if server == "arduino_language_server" then
-            print("setting up arduino_language_server")
+            -- print("setting up arduino_language_server")
             opts.cmd = {
                 "/home/hrutvik_/go/bin/arduino-language-server",
                 "-clangd", "/home/hrutvik_/.local/share/nvim/mason/packages/clangd/clangd_18.1.3/bin/clangd",
