@@ -93,8 +93,8 @@ vim.keymap.set("n", "<leader>bk", function()
 end, { desc = "Close buffer with confirmation" })
 
 -- :nmap <Esc><Esc> <cmd>nohlsearch<cr>
-vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlights" })
-
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlights" })
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessioniza<cr>")
 
 if Is_wsl() then
     vim.keymap.set("n", "gx", function()
