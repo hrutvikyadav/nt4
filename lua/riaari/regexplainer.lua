@@ -8,7 +8,7 @@ local M = {
     config = function() require'regexplainer'.setup() end,
 }
 
-function mconfig()
+local function mconfig()
     -- defaults
     require'regexplainer'.setup {
         -- 'narrative'
