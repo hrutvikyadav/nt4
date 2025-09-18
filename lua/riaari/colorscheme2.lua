@@ -75,8 +75,9 @@ function M.config()
             -- SatRand3 = { fg = "#996699", bold = true, undercurl = true },
             -- rainbow parens + IBL highlights END
             --
+            RandNee = { fg = "love", bg = "love", blend = 10 },
             -- StatusLine = { fg = "love", bg = "love", blend = 10 },
-            StatusLine = { fg = "rose", bg = "rose", blend = 10 },
+            -- StatusLine = { fg = "rose", bg = "rose", blend = 10 },
             TreesitterContext = { fg = "iris", bg = "iris", blend = 15 }, -- foam
             -- hi TreesitterContextBottom gui=underline guisp=Grey 
             TreesitterContextBottom = { underline = true, sp = "Grey", },

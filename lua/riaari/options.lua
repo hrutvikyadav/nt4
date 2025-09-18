@@ -32,6 +32,11 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
+-- Decrease mapped sequence wait time
+vim.o.timeoutlen = 300
+-- Configure how new splits should be opened
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 vim.opt.colorcolumn = "80"
 vim.opt.cursorline = true
@@ -76,7 +81,7 @@ vim.g.copilot_no_tab_map = true ]]
 vim.opt.inccommand = 'split'
 
 -- wsl clipboard reference: https://github.com/memoryInject/wsl-clipboard
-vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
+-- vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard NOTE: use `y` key for nvim clipboard and ` y` for system
 vim.opt.laststatus = 3
 
 -- Set wsl-clipboard for vim clipboard if running WSL
@@ -153,12 +158,17 @@ local statusline_components = {
     "%r",                -- Readonly flag (readonly if file is readonly)
     "%#Normal#",         -- Switch back to Normal highlight
     "%=",                -- Centers the following components
+    "%#RandNee#",
+    "󱆉  ",
+    "%{v:lua.TruncFileName()}",                --  file name
+    "%#Normal#",         -- Switch back to Normal highlight
+    "%=",                -- Centers the following components
     -- "%-14.(",            -- Fixed width for the following BLOCK
-    "%-54.(",            -- Fixed width for the following BLOCK
+    -- "%-54.(",            -- Fixed width for the following BLOCK
 
     "%#DiagnosticDefaultInfo#",         -- Switch back to Normal highlight
     "%{v:lua.require'riaari.noice_status'.status2()}", -- Noice status output
-    "%#Normal#",         -- Switch back to Normal highlight
+    "%#Statusline#",         -- Switch back to Normal highlight
     " ",
 
     "%{v:lua.Lint_progress()}", -- Lua function call to get linting status
@@ -167,14 +177,15 @@ local statusline_components = {
     " ",                 -- Adds a space
     "%#StatusLineObsession#", -- Switch highlight to StatusLineObsession
     "%{ObsessionStatus(' ',' ')}", -- Obsession plugin status
-    "%#Normal#",         -- Switch back to Normal highlight
-    "   ",                -- Adds spaces
+    "%#Statusline#",         -- Switch back to Normal highlight
+    " │ ",                 -- Adds a space
+    -- "%)",                 -- Close the BLOCK
+    -- "%=",                -- Centers the following components
     "%l",                -- Current line number
     ",",                 -- Comma
     "%c",                -- Current column number
     "%V",                -- Virtual column number
-    "%)",                 -- Close the BLOCK
-    " ",                 -- Adds a space
+    " │ ",                 -- Adds a space
     "%{getfsize(expand(@%))}", -- file size in bytes
     " B  ",                 -- Adds a space
     "%P",                -- Percentage through the file
@@ -191,6 +202,33 @@ function Only_filename(wo_extension)
     end
 end
 
+function TruncFileName()
+    local name = vim.fn.expand('%:P')
+
+    local function truncate_all(path)
+        local parts = {}
+        for part in string.gmatch(path, "[^/]+") do
+            table.insert(parts, part)
+        end
+
+        if #parts <= 1 then
+            return path -- only filename, nothing to truncate
+        end
+
+        local initials = {}
+        for i = 1, #parts - 1 do
+            table.insert(initials, parts[i]:sub(1,1))
+        end
+
+        local filename = parts[#parts]
+        table.insert(initials, filename)
+
+        return table.concat(initials, "/")
+    end
+
+    return truncate_all(name)
+end
+
 local winbar_components = {
     -- "%#WinbarFilename#", -- Switch highlight to WinbarFilename
     "%<",                -- Truncates the file path if it becomes too long
@@ -202,7 +240,7 @@ local winbar_components = {
 
 -- Set the statusline using table.concat
 vim.o.statusline = table.concat(statusline_components)
-vim.o.winbar = table.concat(winbar_components)
+-- vim.o.winbar = table.concat(winbar_components)
 
 vim.o.winborder = "none" -- use solid with no transparency colorscheme
 -- vim.o.winborder = "rounded" -- use with transparent colorscheme and no telescope border

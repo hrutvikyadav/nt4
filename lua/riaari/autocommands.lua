@@ -23,3 +23,19 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt.listchars = { tab = '<->', lead = '»', trail = '·', nbsp = '␣' ,multispace = '•', leadmultispace = '»·'}
   end,
 })
+
+vim.api.nvim_create_autocmd("WinEnter", {
+  callback = function()
+    local win = vim.api.nvim_get_current_win()
+    local config = vim.api.nvim_win_get_config(win)
+
+    -- Check if it's a floating window (relative ~= "")
+    if config.relative ~= "" then
+      vim.wo.statusline = " FLOAT "   -- minimal statusline for floats
+    elseif vim.bo.buftype == "prompt" then
+      vim.wo.statusline = " PROMPT "
+    else
+      vim.wo.statusline = vim.o.statusline -- restore global statusline
+    end
+  end,
+})

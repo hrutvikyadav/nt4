@@ -102,11 +102,11 @@ M.on_attach = function(client, bufnr)
 
         local winbar_components = {
             -- "%#WinbarFilename#", -- Switch highlight to WinbarFilename
-            "%<",                -- Truncates the file path if it becomes too long
+            -- "%<",                -- Truncates the file path if it becomes too long
             -- "%f",                -- Full file path
-            "%{v:lua.Only_filename()}",                --  file name
+            -- "%{v:lua.Only_filename()}",                --  file name
             -- "%#NavicText#",         -- Switch back to Normal highlight
-            " :: ",                 -- Adds a separator
+            -- " :: ",                 -- Adds a separator
             "%{%v:lua.require'nvim-navic'.get_location()%}", -- from navic readme
         }
 
