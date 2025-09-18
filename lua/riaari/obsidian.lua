@@ -60,4 +60,79 @@ function M.config()
 
 end
 
-return M
+local N = {
+    "obsidian-nvim/obsidian.nvim",
+    version = "*", -- recommended, use latest release instead of latest commit
+    ft = "markdown",
+    dependencies = {
+        -- 'MeanderingProgrammer/render-markdown.nvim',
+        -- "obsidian-nvim/obsidian-markmap.nvim",
+    },
+    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+    -- event = {
+    --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+    --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
+    --   -- refer to `:h file-pattern` for more examples
+    --   "BufReadPre path/to/my-vault/*.md",
+    --   "BufNewFile path/to/my-vault/*.md",
+    -- },
+    ---@module 'obsidian'
+    ---@type obsidian.config
+    -- opts = {
+    --     workspaces = {
+    --         {
+    --             name = "personal",
+    --             path = "~/vaults/personal",
+    --         },
+    --         {
+    --             name = "work",
+    --             path = "~/vaults/work",
+    --         },
+    --     },
+    --
+    --     -- see below for full list of options 👇
+    -- },
+}
+
+function N.config()
+    require("obsidian").setup({
+        workspaces = {
+            {
+                name = "personal",
+                path = "/mnt/c/Users/Admin/Desktop/Pers/Devlogs/Obsidian/KB",
+                -- "~/vaults/personal"
+            },
+            { name = "work", path = "/mnt/c/Users/Admin/Desktop/Pers/Devlogs/Obsidian/Home" },
+            { name = "shared-work", path = "/mnt/c/Users/Admin/OneDrive - Arbin Instruments/Arbin India Software Obsidian Vault" }
+            --  C:\Users\ArbinLab3\OneDrive - Arbin Instruments\Arbin India Software Obsidian Vault
+        },
+        completion = {
+            -- Enables completion using nvim_cmp
+            nvim_cmp = false,
+            -- Enables completion using blink.cmp
+            blink = true,
+            -- Trigger completion at 2 chars.
+            min_chars = 2,
+            -- Set to false to disable new note creation in the picker
+            create_new = true,
+        },
+        ui = {
+            -- useful to disable if working with render-markdown nvim
+            enable = true,
+        },
+    })
+
+    vim.keymap.set("n", "<localleader>oi", "<cmd>Obsidian tags index<cr>", {}) -- goto index quickly
+    vim.keymap.set("n", "<localleader>ot", "<cmd>Obsidian tags<cr>", {}) -- search tags
+    vim.keymap.set("n", "<localleader>os", "<cmd>Obsidian search<cr>", {}) -- Create notes quickly and more..
+    vim.keymap.set("n", "<localleader>oq", "<cmd>Obsidian quick_switch<cr>", {}) -- Switch between notes
+    vim.keymap.set("n", "<localleader>orn", function()
+        local n = vim.fn.input("NewName> ")
+        vim.cmd("Obsidian rename " .. n)
+    end, {})
+    vim.keymap.set("n", "<localleader>ow", "<cmd>Obsidian workspace<cr>", {}) -- switch workspace
+    vim.keymap.set("n", "<localleader>ob", "<cmd>Obsidian backlinks<cr>", {}) -- backlinks
+
+end
+
+return N
