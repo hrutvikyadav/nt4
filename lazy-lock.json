@@ -1,6 +1,7 @@
 {
   "LuaSnip": { "branch": "master", "commit": "03c8e67eb7293c404845b3982db895d59c0d1538" },
   "Navigator.nvim": { "branch": "master", "commit": "91d86506ac2a039504d5205d32a1d4bc7aa57072" },
+  "agrolens.nvim": { "branch": "main", "commit": "d7ef2e57455dc3696e385bc0d42c05f36e1b4682" },
   "blink-cmp-conventional-commits": { "branch": "main", "commit": "e7ce3ddcc6d4044067d6d77ab41d480202e814ad" },
   "blink-cmp-dictionary": { "branch": "master", "commit": "5f1a703416e5090b9633c43873dba8ba03b0fb23" },
   "blink-cmp-git": { "branch": "master", "commit": "59c19ac2c26cf32ae05362b4b85e14370f83bf80" },
@@ -35,7 +36,7 @@
   "mason-nvim-dap.nvim": { "branch": "main", "commit": "8b9363d83b5d779813cdd2819b8308651cec2a09" },
   "mason.nvim": { "branch": "main", "commit": "fc98833b6da5de5a9c5b1446ac541577059555be" },
   "mini.nvim": { "branch": "main", "commit": "0420076298c4457f200c2de468f65d080597a347" },
-  "my-telescope-spartan-plugin": { "branch": "dev", "commit": "d0af0e45574fbb90c20d2363ae4a7fd8d870791a" },
+  "my-telescope-spartan-plugin": { "branch": "dev", "commit": "ec100e2336cf7474a640bc2146dd38713d788d7a" },
   "night-owl.nvim": { "branch": "main", "commit": "9e95ff4bb6fa0e7dfd40472b9dde19fd0b75aa0e" },
   "noice.nvim": { "branch": "main", "commit": "0427460c2d7f673ad60eb02b35f5e9926cf67c59" },
   "nui.nvim": { "branch": "main", "commit": "322978c734866996274467de084a95e4f9b5e0b1" },

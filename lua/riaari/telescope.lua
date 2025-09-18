@@ -8,6 +8,7 @@ local M = {
         "nvim-telescope/telescope-dap.nvim",
         -- INFO: my first plugin extension wohoo!
         { "hrutvikyadav/my-telescope-spartan-plugin", branch = "dev" },
+        { "desdic/agrolens.nvim" },
     },
 }
 
@@ -50,7 +51,7 @@ function M.config()
                     },
                 }
             },
-
+            agrolens = {},
         },
     }
 
@@ -60,6 +61,7 @@ function M.config()
     require('telescope').load_extension('dap')
     require("telescope").load_extension("my-telescope-spartan-plugin")
     require("telescope").load_extension('harpoon')
+    require "telescope".load_extension("agrolens")
 
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>sf", function()
@@ -124,6 +126,7 @@ function M.config()
     vim.keymap.set('n', '<localleader>tr', function() builtin.registers(require("telescope.themes").get_ivy { winblend = 0,  } ) end, { desc = '[ ] Find registers' })
     vim.keymap.set('n', '<localleader>tj', function() builtin.jumplist(require("telescope.themes").get_ivy { winblend = 0,  } ) end, { desc = '[ ] Find jumps' })
     vim.keymap.set('n', '<localleader>tt', function() builtin.treesitter(require("telescope.themes").get_ivy { winblend = 0,  } ) end, { desc = '[ ] Find treesitter nodes' })
+    vim.keymap.set('n', '<localleader>tk', function() builtin.keymaps(require("telescope.themes").get_ivy { winblend = 0,  } ) end, { desc = '[ ] Find keymaps' })
 
     -- spell suggest
     vim.keymap.set("n", "z=", function()
