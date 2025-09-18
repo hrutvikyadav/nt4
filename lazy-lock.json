@@ -25,6 +25,7 @@
   "go.nvim": { "branch": "master", "commit": "fbceaf55e18e9e473f289df008d6b508a479fbf8" },
   "guihua.lua": { "branch": "master", "commit": "a53b76514ad42d92a821d75d712ef71e71898fcf" },
   "harpoon": { "branch": "harpoon2", "commit": "ed1f853847ffd04b2b61c314865665e1dadf22c7" },
+  "hexer.nvim": { "branch": "main", "commit": "b3dc877b1872d01ca06097cdfa28b61afe878329" },
   "himalaya-vim": { "branch": "master", "commit": "bb8d0ebbe82b1ba1d487354fab86d81f12a82c4d" },
   "import-cost.nvim": { "branch": "main", "commit": "332b9870c7b22dcfb297a0be7d7a87c148181694" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
