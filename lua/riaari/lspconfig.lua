@@ -58,6 +58,34 @@ end
 
 local navic = require("nvim-navic")
 
+local function add_ruby_deps_command(client, bufnr)
+  vim.api.nvim_buf_create_user_command(bufnr, "ShowRubyDeps", function(opts)
+    local params = vim.lsp.util.make_text_document_params()
+    local showAll = opts.args == "all"
+
+    client.request("rubyLsp/workspace/dependencies", params, function(error, result)
+      if error then
+        print("Error showing deps: " .. error)
+        return
+      end
+
+      local qf_list = {}
+      for _, item in ipairs(result) do
+        if showAll or item.dependency then
+          table.insert(qf_list, {
+            text = string.format("%s (%s) - %s", item.name, item.version, item.dependency),
+            filename = item.path
+          })
+        end
+      end
+
+      vim.fn.setqflist(qf_list)
+      vim.cmd('copen')
+    end, bufnr)
+  end,
+  {nargs = "?", complete = function() return {"all"} end})
+end
+
 M.on_attach = function(client, bufnr)
     lsp_keymaps(bufnr)
 
@@ -145,7 +173,7 @@ M.on_attach = function(client, bufnr)
         })
     end
 
-    -- print(client.name .. " attached")
+    print(client.name .. " attached")
     -- if client.name == "omnisharp" then
     --     local omnisharp_extended = require("omnisharp_extended")
     --     -- -- replaces vim.lsp.buf.definition()
@@ -162,6 +190,9 @@ M.on_attach = function(client, bufnr)
     --     vim.keymap.set("n", "gi", function() omnisharp_extended.lsp_implementation() end, { buffer = bufnr, desc = "LSP: [G]oto [I]mplementation" })
     -- end
 
+    if client.name == "ruby_lsp" then
+        add_ruby_deps_command(client, bufnr)
+    end
 end
 
 function M.common_capabilities()
@@ -200,6 +231,7 @@ function M.config()
         "harper_ls",
         "jdtls",
         "rust_analyzer"
+        "ruby_lsp"
     }
 
     for _, server in pairs(servers) do
