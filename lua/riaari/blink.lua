@@ -154,7 +154,7 @@ local M = {
 
         sources = {
             -- default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "copilot", "tmux", "dictionary" },
-            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "tmux" },
+            default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "tmux", "dictionary" },
             per_filetype = {
                 sql = { 'snippets', 'dadbod', 'buffer' },
             },
@@ -195,7 +195,14 @@ local M = {
                         --
                         -- All .txt files in these directories will be treated as dictionary files
                         -- example: { vim.fn.expand('~/.config/nvim/dictionary') }
-                        dictionary_directories = { vim.fn.expand('~/.config/nvim/dictionary') },
+                        -- dictionary_directories = { vim.fn.expand('~/.config/nvim/dictionary') },
+                        dictionary_files = function()
+                            if vim.bo.filetype == 'markdown' then
+                                return { vim.fn.expand('~/.config/nvim/dictionary/words.txt') }
+                            end
+                            -- return { vim.fn.expand('~/.config/nvim/dictionary/words.dict') }
+                            return nil
+                        end,
                     }
                 },
             },
