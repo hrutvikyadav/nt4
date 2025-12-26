@@ -78,11 +78,14 @@ function M.config()
             RandNee = { fg = "love", bg = "love", blend = 10 },
             -- StatusLine = { fg = "love", bg = "love", blend = 10 },
             -- StatusLine = { fg = "rose", bg = "rose", blend = 10 },
-            TreesitterContext = { fg = "iris", bg = "iris", blend = 15 }, -- foam
+
+            -- TreesitterContext = { fg = "iris", bg = "iris", blend = 15 }, -- foam
+            TreesitterContext = { fg = "iris", bg = "surface" }, -- foam
             -- hi TreesitterContextBottom gui=underline guisp=Grey 
             TreesitterContextBottom = { underline = true, sp = "Grey", },
-            -- NormalFloat = { fg = "text", bg = "gold", blend = 14 }, -- foam
-            NormalFloat = { fg = "text", bg = "#26233a", blend = 0 }, -- foam
+            -- NormalFloat = { fg = "text", bg = "iris", blend = 14 }, -- foam
+            NormalFloat = { fg = "text", bg = "overlay" }, -- foam
+            -- NormalFloat = { fg = "text", bg = "#26233a", blend = 0 }, -- foam
 
             -- FloatTitle = { fg = "foam", bg = "foam", blend = 14 }, -- foam
 
@@ -111,8 +114,8 @@ function M.config()
             -- end noice
             --
             -- leafy Search recipe
-            CurSearch = { fg = "base", bg = "leaf", inherit = false },
-            Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
+            -- CurSearch = { fg = "base", bg = "leaf", inherit = false },
+            -- Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
         },
 
         before_highlight = function(group, highlight, palette)
@@ -128,7 +131,7 @@ function M.config()
         end,
     })
 
-    vim.cmd.colorscheme "rose-pine"
+    -- vim.cmd.colorscheme "rose-pine"
     -- vim.cmd("colorscheme rose-pine-main")
     -- vim.cmd("colorscheme rose-pine-moon")
     -- vim.cmd("colorscheme rose-pine-dawn")

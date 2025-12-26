@@ -94,6 +94,10 @@ function M.azure_pr()
     vim.system({ "wsl-open", "https://dev.azure.com/arbinSW/_git/MITS11" })
 end
 
+function M.reload_rose_pine()
+    require("riaari.colorscheme2").config()
+end
+
 vim.keymap.set("n", "<leader>lu", function()
   local utils = M
   local options = {}
