@@ -4,12 +4,14 @@ local M = {
     dependencies = {
         {
             "nvimdev/lspsaga.nvim",
+            enabled = false,
             config = function()
                 require("lspsaga").setup({
                     symbol_in_winbar = {
                         enable = false
                     },
                     lightbulb = {
+                        enable = false,
                         sign = false
                     }
                 })
@@ -46,7 +48,7 @@ local function lsp_keymaps(bufnr)
     -- toggle inlay hints
     keymap(bufnr, "n", "<leader>tlh", "<cmd>lua require('riaari.lspconfig').toggle_inlay_hints()<cr>", opts)
     -- codelens action
-    keymap(bufnr, "n", "<leader>vcc", "<cmd>lua vim.lsp.codelens.run()<cr>", opts)
+    keymap(bufnr, "n", "<leader>vcr", "<cmd>lua vim.lsp.codelens.run()<cr>", opts)
 
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
@@ -95,7 +97,8 @@ M.on_attach = function(client, bufnr)
         vim.notify("Client supports signature help", vim.log.levels.INFO)
     end
 
-    vim.keymap.set("n", "<leader>vcr", vim.lsp.codelens.refresh, { desc = "Vim CodeLens Refresh" })
+    vim.keymap.set("n", "<leader>vce", vim.lsp.codelens.refresh, { desc = "Vim CodeLens Enable" })
+    vim.keymap.set("n", "<leader>vcd", vim.lsp.codelens.clear, { desc = "Vim CodeLens Disable" })
 
     if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
@@ -179,12 +182,10 @@ M.toggle_inlay_hints = function()
 end
 
 function M.config()
-    local lspconfig = require("lspconfig")
-    -- local icons = require("riaari.icons") TODO: add icons later
 
     local servers = {
         "lua_ls",
-        -- "tsserver", WARN: setup by typescript-tools
+        "ts_ls", -- "tsserver", WARN: setup by typescript-tools
         "jsonls",
         "tailwindcss",
         "clangd",
@@ -199,30 +200,14 @@ function M.config()
         "harper_ls"
     }
 
-    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-    -- vim.lsp.handlers["textDocument/signatureHelp"] =
-    --     vim.lsp.with(vim.lsp.handlers.signatureHelp, { border = "rounded" })
-    -- require("lspconfig.ui.windows").default_options.border = "rounded"
-
     for _, server in pairs(servers) do
-        -- local signature_help_handler = vim.lsp.handlers["textDocument/signatureHelp"]
-        -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-        --     signature_help_handler, {
-        --         border = "rounded",
-        --     }
-        -- )
 
         local opts = {
             on_attach = M.on_attach,
             capabilities = M.common_capabilities(), -- FIXME: the key is capabilities not common_capabilities
-            -- handlers = {
-            --     ["textDocument/signatureHelp"] = vim.lsp.with(
-            --         signature_help_handler, {
-            --             border = "rounded",
-            --         }
-            --     )
-            -- },
         }
+
+        vim.lsp.config('*', opts)
 
         local require_ok, settings = pcall(require, "riaari.lspsettings." .. server)
         if require_ok then
@@ -322,7 +307,13 @@ function M.config()
                 }
             })
         else
-            lspconfig[server].setup(opts)
+            -- Migration instructions
+            -- Upgrade to Nvim 0.11+
+            -- (Optional) Use vim.lsp.config('…') (not require'lspconfig'.….setup{}) to customize or define a config.
+            -- Use vim.lsp.enable('…') (not require'lspconfig'.….setup{}) to enable a config, so that it activates for its filetypes.
+            -- lspconfig[server].setup(opts)
+            vim.lsp.config(server, opts)
+            vim.lsp.enable(server)
         end
     end
 end
@@ -341,9 +332,9 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.HINT] = "",
             [vim.diagnostic.severity.INFO] = "",
         },
-        linehl = {
-            [vim.diagnostic.severity.ERROR] = "DiffDelete",
-        },
+        -- linehl = {
+        --     [vim.diagnostic.severity.ERROR] = "DiffDelete",
+        -- },
         numhl = {
             [vim.diagnostic.severity.ERROR] = "ErrorMsg",
             [vim.diagnostic.severity.WARN] = "WarningMsg",
