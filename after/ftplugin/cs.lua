@@ -6,8 +6,10 @@ function Roslyn_solution()
 end
 
 -- append to existing statusline (use %{} for runtime eval)
-vim.opt_local.statusline = vim.opt_local.statusline:get() ..
-  " │ %{v:lua.Roslyn_solution()}"
+local current = vim.opt_local.statusline:get()
+if not string.find(current, "%.sln") then
+    vim.opt_local.statusline = current .. " │ %{v:lua.Roslyn_solution()}"
+end
 
 local roslyn_diag_augroup = vim.api.nvim_create_augroup('roslyn_diag_augroup', { clear = true })
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
