@@ -10,8 +10,8 @@ function M.config()
         templates = { "builtin", "commontasks.first_task" },
     })
 
-    vim.keymap.set("n", "<leader>o<leader>", "<cmd>OverseerToggle<cr>", {})
-    vim.keymap.set("n", "<leader>ota", "<cmd>OverseerTaskAction<cr>", {})
+    vim.keymap.set("n", "<leader>ot", "<cmd>OverseerToggle<cr>", {})
+    vim.keymap.set("n", "<leader>oa", "<cmd>OverseerTaskAction<cr>", {})
     --[[ overseer.run_template({ name = "Display Whost home" }, function(task)
                 if task then
                     overseer.run_action(task, 'open float')

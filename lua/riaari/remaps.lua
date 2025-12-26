@@ -75,7 +75,7 @@ vim.keymap.set("n", "[<C-Q>", vim.cmd.colder, { desc = "Prev QF List" })
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = '[u]ndotree' })
 
 -- oveseer
-vim.keymap.set("n", "<leader><leader>", "<cmd>OverseerRun<cr>", {})
+vim.keymap.set("n", "<leader>o<leader>", "<cmd>OverseerRun<cr>", {})
 
 -- navigate to first and last non space char in line
 vim.keymap.set({ "n", "o", "x" }, "<S-h>", "^", {})

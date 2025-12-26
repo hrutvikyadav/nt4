@@ -173,12 +173,17 @@ function M.config()
     -- vim.keymap.set("n", "<localleader>ha", function() harpoon:list("cmd"):add() end)
     -- vim.keymap.set("n", "<localleader><C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list("cmd")) end) -- only for testing
     vim.keymap.set("n", "<localleader>hb", function() harpoon.ui:toggle_quick_menu(harpoon:list("bookmarks")) end)
-    vim.keymap.set("n", "<localleader>ho", function() harpoon.ui:toggle_quick_menu(harpoon:list("one_off")) end)
+    vim.keymap.set("n", "<localleader><leader>", function() harpoon.ui:toggle_quick_menu(harpoon:list("one_off")) end)
 
     vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
     vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
     vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
     vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
+
+    vim.keymap.set("n", "<leader><leader>1", function() harpoon:list("one_off"):select(1) end)
+    vim.keymap.set("n", "<leader><leader>2", function() harpoon:list("one_off"):select(2) end)
+    vim.keymap.set("n", "<leader><leader>3", function() harpoon:list("one_off"):select(3) end)
+    vim.keymap.set("n", "<leader><leader>4", function() harpoon:list("one_off"):select(4) end)
 
     -- Toggle previous & next buffers stored within Harpoon list
     vim.keymap.set("n", "[h", function() harpoon:list():prev() end)
