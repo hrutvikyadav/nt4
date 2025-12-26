@@ -1,6 +1,6 @@
 local M = {
     "j-hui/fidget.nvim",
-    enabled = false
+    -- enabled = false
 }
 
 function M.config()

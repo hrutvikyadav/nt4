@@ -1,6 +1,6 @@
 local M = {
     "folke/noice.nvim",
-    -- enabled = false,
+    enabled = false,
     event = "VeryLazy",
     opts = {
         -- add any options here
@@ -100,13 +100,13 @@ function M.config()
     vim.keymap.set("c", "<S-Enter>", function()
         require("noice").redirect(vim.fn.getcmdline())
     end, { desc = "Redirect Cmdline" })
-    vim.keymap.set("n", "<localleader>nh", function()
+    vim.keymap.set("n", "<leader>nh", function()
         require("noice").cmd("history")
     end)
-    vim.keymap.set("n", "<localleader>nd", function()
+    vim.keymap.set("n", "<leader>nd", function()
         require("noice").cmd("dismiss")
     end)
-    vim.keymap.set("n", "<localleader>nt", function()
+    vim.keymap.set("n", "<leader>nt", function()
         require("noice").cmd("telescope")
     end)
 end
