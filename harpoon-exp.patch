@@ -1,0 +1,26 @@
+diff --git a/lua/riaari/harpoon.lua b/lua/riaari/harpoon.lua
+index 38a1745..c88b5a2 100644
+--- a/lua/riaari/harpoon.lua
++++ b/lua/riaari/harpoon.lua
+@@ -124,16 +124,18 @@ function M.config()
+                 -- vim.cmd([[call system("tmux neww ]] .. list_item.value .. [[ ")]] )
+                 -- neww -S -n .. parts[1] .. -c .. vim.fn.getcwd() .. [[ ]] .. parts[2])
+ 
++                HP(parts)
++                print(parts)
+                 -- vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ ]] .. parts[2] .. [[ ")]] ) -- INFO: this works
+                 -- TODO: check if parts[3] is not nil then remain on exit or don't
+-                vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ ]] .. parts[2] .. [[ \; tmux set-option -wt:]] .. parts[1] .. (parts[3] and [[ remain-on-exit on ]] or [[ remain-on-exit off]]) .. [[ ")]] )
++                -- vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ ]] .. parts[2] .. [[ \; tmux set-option -wt:]] .. parts[1] .. (parts[3] and [[ remain-on-exit on ]] or [[ remain-on-exit off]]) .. [[ ")]] )
+                     -- [[ remain-on-exit on]] .. [[ ")]] )
+ 
+ 
+                 -- vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ ]] .. parts[2] .. [[ \; tmux set-option -wt:]] .. parts[1] .. [[ remain-on-exit on]] .. [[ ")]] )
+                 -- vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ \; tmux send-keys ]] .. parts[2] .. [[ ")]] )
+-                -- local send_to_tmux = parts[2]:gsub(" ", " space ")
+-                -- vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ \; tmux send-keys ]] .. send_to_tmux .. [[ ")]] ) -- NOTE: no C-m appended to send_to_tmux
++                local send_to_tmux = parts[2]:gsub(" ", " space ")
++                vim.cmd([[call system("tmux neww -S -n ]] .. parts[1] .. [[ -c ]] .. vim.fn.getcwd() .. [[ \; tmux send-keys ]] .. send_to_tmux .. [[ ")]] ) -- NOTE: no C-m appended to send_to_tmux
+ 
+                 -- NOTE: use a bash script to run the command using call system
+             end

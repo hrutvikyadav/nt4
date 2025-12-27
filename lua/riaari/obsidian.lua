@@ -34,11 +34,11 @@ function M.config()
         workspaces = {
             {
                 name = "personal",
-                path = "/mnt/c/Users/Admin/Desktop/Pers/Devlogs/Obsidian/KB",
+                path = "/home/c3zbane/Documents/knowledge-base",
                 -- "~/vaults/personal"
             },
-            { name = "work", path = "/mnt/c/Users/Admin/Desktop/Pers/Devlogs/Obsidian/Home" },
-            { name = "shared-work", path = "/mnt/c/Users/Admin/OneDrive - Arbin Instruments/Arbin India Software Obsidian Vault" }
+            -- { name = "work", path = "/mnt/c/Users/Admin/Desktop/Pers/Devlogs/Obsidian/Home" },
+            -- { name = "shared-work", path = "/mnt/c/Users/Admin/OneDrive - Arbin Instruments/Arbin India Software Obsidian Vault" }
             --  C:\Users\ArbinLab3\OneDrive - Arbin Instruments\Arbin India Software Obsidian Vault
         },
         ui = {
@@ -100,12 +100,8 @@ function N.config()
         workspaces = {
             {
                 name = "personal",
-                path = "/mnt/c/Users/Admin/Desktop/Pers/Devlogs/Obsidian/KB",
-                -- "~/vaults/personal"
+                path = "/home/c3zbane/Documents/knowledge-base",
             },
-            { name = "work", path = "/mnt/c/Users/Admin/Desktop/Pers/Devlogs/Obsidian/Home" },
-            { name = "shared-work", path = "/mnt/c/Users/Admin/OneDrive - Arbin Instruments/Arbin India Software Obsidian Vault" }
-            --  C:\Users\ArbinLab3\OneDrive - Arbin Instruments\Arbin India Software Obsidian Vault
         },
         completion = {
             -- Enables completion using nvim_cmp
@@ -121,6 +117,7 @@ function N.config()
             -- useful to disable if working with render-markdown nvim
             enable = true,
         },
+        legacy_commands = false
     })
 
     vim.keymap.set("n", "<localleader>oi", "<cmd>Obsidian tags index<cr>", {}) -- goto index quickly

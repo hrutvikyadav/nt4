@@ -32,7 +32,7 @@ function M.config()
         },
         lsp = {
             progress = {
-                enabled = false, -- WARN: not working for roslyn
+                enabled = true, -- WARN: not working for roslyn
 
                 -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
                 -- See the section on formatting for more details on how to customize.
