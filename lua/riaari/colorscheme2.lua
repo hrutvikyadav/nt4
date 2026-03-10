@@ -55,7 +55,7 @@ function M.config()
             h6 = "foam",
         },
 
-        highlight_groups = {
+        highlight_groups_for_opaque = {
             -- Comment = { fg = "foam" },
             -- VertSplit = { fg = "muted", bg = "muted" },
             -- :hi Folded guifg=#e0def4 guibg=#26233a
@@ -84,8 +84,13 @@ function M.config()
             -- hi TreesitterContextBottom gui=underline guisp=Grey 
             TreesitterContextBottom = { underline = true, sp = "Grey", },
             -- NormalFloat = { fg = "text", bg = "iris", blend = 14 }, -- foam
-            NormalFloat = { fg = "text", bg = "overlay" }, -- foam
-            -- NormalFloat = { fg = "text", bg = "#26233a", blend = 0 }, -- foam
+            -- NormalFloat = { fg = "text", bg = "overlay" }, -- foam
+            NormalFloat = { fg = "text", bg = "#26233a", blend = 0 }, -- foam
+            -- Pmenu          xxx guifg=#908caa
+            -- PmenuSel       xxx guifg=#e0def4 guibg=#26233a
+            Pmenu = { bg = "#26233a", blend = 0 }, -- foam
+            -- BlinkCmpDoc guifg=#e0def4 guibg=#26233a
+            BlinkCmpDoc = { fg = "#e0def4", bg = "#26233a"},
 
             -- FloatTitle = { fg = "foam", bg = "foam", blend = 14 }, -- foam
 
