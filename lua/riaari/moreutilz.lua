@@ -98,6 +98,10 @@ function M.reload_rose_pine()
     require("riaari.colorscheme2").config()
 end
 
+function M.toggle_indentscope()
+    vim.g.miniindentscope_disable = not vim.g.miniindentscope_disable
+end
+
 vim.keymap.set("n", "<leader>lu", function()
   local utils = M
   local options = {}

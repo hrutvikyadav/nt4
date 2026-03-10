@@ -96,6 +96,7 @@ local N = {
 
 function N.config()
     require("obsidian").setup({
+        legacy_commands = false,
         workspaces = {
             {
                 name = "personal",

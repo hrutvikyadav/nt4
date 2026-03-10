@@ -87,6 +87,33 @@ local my_snippet_4 = s("choice", {
     }),
 })
 
+ls.add_snippets("go", {
+    s("tRun", {
+        -- equivalent to "${1:cond} ? ${2:then} : ${3:else}"
+        -- i(1, "cond"), t(" ? "), i(2, "then"), t(" : "), i(3, "else")
+        -- 	t.Run("should generate html from Posts", func(t *testing.T) {
+
+        t( "t.Run(\""), i(1, "test case"), t("\", func(t *testing.T) {" ),
+        i(0, "..."),
+        t("})"),
+    }),
+    s("err!nil", {
+	    t("if err != nil {"),
+        i(0, "..."),
+        t("}"),
+    }),
+    s("errnil", {
+	    t("if err == nil {"),
+        i(0, "..."),
+        t("}"),
+    }),
+    s("err!niltest", {
+	    t({ "if err != nil {", "t.Fatal(err)", "}"}),
+    }),
+    s("errniltest", {
+	    t({ "if err == nil {", "t.Error(\"expected error but did not get one\")", "}"}),
+    }),
+})
 ls.add_snippets("all", {
     s("ternary", {
         -- equivalent to "${1:cond} ? ${2:then} : ${3:else}"
@@ -122,7 +149,8 @@ ls.add_snippets("all", {
         t({ ')', '   ' }),
         i(3, '--body'),
         t({ '', 'end' })
-    })
+    }),
+    s("ac", t("\\033[")),
 })
 
 

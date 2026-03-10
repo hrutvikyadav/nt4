@@ -20,7 +20,8 @@ vim.api.nvim_create_user_command("Minimalist", function ()
     vim.opt.nu = false
     vim.opt.relativenumber = false
     -- vim.cmd("TSContextToggle")
-    vim.cmd("TSContextDisable")
+    vim.cmd("TSContextToggle")
+    vim.g.miniindentscope_disable = not vim.g.miniindentscope_disable
 end, {})
 
 function HP(obj)

@@ -5,6 +5,9 @@ if vim.b.did_ftplugin then
 end
 
 vim.b.did_ftplugin = 1
+
+vim.bo.commentstring = "<!-- %s -->"
+
 vim.cmd("set conceallevel=2")
 vim.cmd("set wrap")
 
