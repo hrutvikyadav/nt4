@@ -8,7 +8,7 @@ end
 -- append to existing statusline (use %{} for runtime eval)
 local current = vim.opt_local.statusline:get()
 if not string.find(current, "%.sln") then
-    vim.opt_local.statusline = current .. " │ %{v:lua.Roslyn_solution()}"
+    -- vim.opt_local.statusline = current .. " │ %{v:lua.Roslyn_solution()}"
 end
 
 local roslyn_diag_augroup = vim.api.nvim_create_augroup('roslyn_diag_augroup', { clear = true })
