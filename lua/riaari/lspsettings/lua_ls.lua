@@ -22,6 +22,9 @@ return {
                     'lua/?.lua',
                     'lua/?/init.lua',
                 },
+                special = {
+                    spec = "require",
+                },
             },
             -- Make the server aware of Neovim runtime files
             workspace = {

@@ -197,7 +197,8 @@ function M.config()
         "basedpyright",
         -- "omnisharp",
         "roslyn",
-        "harper_ls"
+        "harper_ls",
+        "jdtls"
     }
 
     for _, server in pairs(servers) do
