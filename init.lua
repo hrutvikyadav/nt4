@@ -34,7 +34,7 @@ spec("riaari.blink")
 spec("riaari.lspconfig")
 -- spec("riaari.cmp")
 -- spec("riaari.ts-tools")
-spec("riaari.rustacean")
+-- spec("riaari.rustacean")
 spec("riaari.go-nvim")
 spec("riaari.roslyn")
 

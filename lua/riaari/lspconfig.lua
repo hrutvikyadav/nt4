@@ -198,7 +198,8 @@ function M.config()
         -- "omnisharp",
         "roslyn",
         "harper_ls",
-        "jdtls"
+        "jdtls",
+        "rust_analyzer"
     }
 
     for _, server in pairs(servers) do
