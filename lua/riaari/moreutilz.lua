@@ -98,8 +98,28 @@ function M.reload_rose_pine()
     require("riaari.colorscheme2").config()
 end
 
+M.indent_enabled = false
 function M.toggle_indentscope()
-    vim.g.miniindentscope_disable = not vim.g.miniindentscope_disable
+    -- vim.g.miniindentscope_disable = not vim.g.miniindentscope_disable
+    if M.indent_enabled then
+        Snacks.indent.disable()
+        M.indent_enabled = false
+    else
+        Snacks.indent.enable()
+        M.indent_enabled = true
+    end
+end
+
+M.dim_enabled = false
+function M.toggle_dim()
+    -- vim.g.miniindentscope_disable = not vim.g.miniindentscope_disable
+    if M.dim_enabled then
+        Snacks.indent.disable()
+        M.dim_enabled = false
+    else
+        Snacks.indent.enable()
+        M.dim_enabled = true
+    end
 end
 
 vim.keymap.set("n", "<leader>lu", function()

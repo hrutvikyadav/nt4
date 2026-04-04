@@ -9,18 +9,19 @@ local M = {
     config = function()
         require("hplugins.zenmode")
     end,
-    dependencies = {
-        "folke/twilight.nvim",
-        opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        },
-    },
+    -- dependencies = {
+    --     "folke/twilight.nvim",
+    --     opts = {
+    --         -- your configuration comes here
+    --         -- or leave it empty to use the default settings
+    --         -- refer to the configuration section below
+    --     },
+    -- },
 }
 
 function M.config()
     local zen = require("zen-mode")
+    local more = require("riaari.moreutilz")
 
     vim.keymap.set("n", "<leader>Z", function()
         zen.toggle({
@@ -28,6 +29,7 @@ function M.config()
             --    width = .60,
             --}
         })
+        more.toggle_dim()
     end, { desc = "Toggle ZenMode" })
 end
 

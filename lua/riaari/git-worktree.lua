@@ -81,9 +81,7 @@ function M.config()
     require("telescope").load_extension("git_worktree")
 
     vim.keymap.set("n", "<leader>gww", function()
-        require("telescope").extensions.git_worktree.git_worktrees(
-            require('telescope.themes').get_ivy { winblend = 0, }
-        )
+        require("telescope").extensions.git_worktree.git_worktrees()
     end)
     -- <Enter> - switches to that worktree
     -- <c-d> - deletes that worktree
@@ -91,9 +89,7 @@ function M.config()
     vim.keymap.set("n", "<leader>gwc", function()
         local branch = vim.fn.input("Create new branch from existing remote branch: ", "", "customlist,v:lua.h_git_branch_complete")
         prepare_worktree(branch, function()
-            require("telescope").extensions.git_worktree.create_git_worktree(
-                require('telescope.themes').get_ivy { winblend = 0, }
-            )
+            require("telescope").extensions.git_worktree.create_git_worktree()
         end)
     end)
 
