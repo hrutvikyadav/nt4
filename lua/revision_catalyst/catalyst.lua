@@ -185,15 +185,22 @@ function M.build_highlighter(config)
         table.insert(temp_highlights, id)
     end
 
+    local extract_hl_names = function()
+        local hl_labels = {}
+        for key, _ in pairs(config.hl_groups) do
+            table.insert(hl_labels, key)
+        end
+        return hl_labels
+    end
     local prompt_and_highlight = function()
         vim.ui.select(
-            {'y', 'v', 'g', 'r', 'b'},
+            extract_hl_names(),
             {
                 prompt = 'Choose highlight:',
                 format_item = function(item)
                     local labels = config.hl_groups
 
-                    return labels[item]
+                    return "[" .. item .. "]"
                 end,
             },
             function(choice)
