@@ -41,7 +41,7 @@ vim.o.splitbelow = true
 
 vim.opt.colorcolumn = "0"
 vim.opt.cursorline = true
-vim.opt.cursorlineopt="number"
+vim.opt.cursorlineopt = "number"
 
 vim.g.mapleader = " "
 
@@ -242,7 +242,7 @@ local winbar_components = {
 
 -- Set the statusline using table.concat
 -- vim.o.statusline = table.concat(statusline_components)
-vim.cmd("colorscheme Batman")
+-- vim.cmd("colorscheme Batman")
 -- vim.o.winbar = table.concat(winbar_components)
 
 -- vim.o.winborder = "none" -- use solid with no transparency colorscheme

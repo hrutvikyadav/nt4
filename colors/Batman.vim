@@ -63,7 +63,7 @@ hi Ignore guifg=#1b1d1e
 " Cursor and line highlighting
 hi Cursor guifg=#000000 guibg=#fcef0c
 "hi CursorLine guibg=#4d504c
-hi CursorLine guibg=NONE
+hi CursorLine guibg=none
 hi CursorColumn guibg=#4d504c
 
 " Visual selection
@@ -76,7 +76,8 @@ hi IncSearch guibg=#feed6c guifg=#1b1d1e
 " Line numbers
 hi LineNr guifg=#505354
 "hi CursorLineNr guifg=#6f6f6f
-hi CursorLineNr guifg=#c8be46
+"hi CursorLineNr guifg=#c8be46
+hi CursorLineNr guifg=#f4fd22 gui=bold
 
 " Status line
 hi StatusLine guifg=#6f6f6f guibg=NONE

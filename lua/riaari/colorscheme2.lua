@@ -55,7 +55,7 @@ function M.config()
             h6 = "foam",
         },
 
-        highlight_groups_for_opaque = {
+        highlight_groups = {
             -- Comment = { fg = "foam" },
             -- VertSplit = { fg = "muted", bg = "muted" },
             -- :hi Folded guifg=#e0def4 guibg=#26233a
@@ -85,7 +85,7 @@ function M.config()
             TreesitterContextBottom = { underline = true, sp = "Grey", },
             -- NormalFloat = { fg = "text", bg = "iris", blend = 14 }, -- foam
             -- NormalFloat = { fg = "text", bg = "overlay" }, -- foam
-            NormalFloat = { fg = "text", bg = "#26233a", blend = 0 }, -- foam
+            NormalFloat = { bg = "#26233a" }, -- foam
             -- Pmenu          xxx guifg=#908caa
             -- PmenuSel       xxx guifg=#e0def4 guibg=#26233a
             Pmenu = { bg = "#26233a", blend = 0 }, -- foam
@@ -136,7 +136,7 @@ function M.config()
         end,
     })
 
-    -- vim.cmd.colorscheme "rose-pine"
+    vim.cmd.colorscheme "rose-pine"
     -- vim.cmd("colorscheme rose-pine-main")
     -- vim.cmd("colorscheme rose-pine-moon")
     -- vim.cmd("colorscheme rose-pine-dawn")

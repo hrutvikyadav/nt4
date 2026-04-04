@@ -218,7 +218,7 @@ function M.config()
         "lua_ls",
         "ts_ls", -- "tsserver", WARN: setup by typescript-tools
         "jsonls",
-        "tailwindcss",
+        -- "tailwindcss",
         "clangd",
         "gopls",
         "tinymist",
@@ -230,7 +230,7 @@ function M.config()
         "roslyn",
         "harper_ls",
         "jdtls",
-        "rust_analyzer"
+        "rust_analyzer",
         "ruby_lsp"
     }
 
