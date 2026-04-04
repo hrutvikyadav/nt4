@@ -28,6 +28,7 @@ vim.opt.termguicolors = true
 
 -- vim.opt.scrolloff = 8
 vim.opt.scrolloff = 999
+vim.opt.sidescrolloff = 20
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
@@ -38,8 +39,9 @@ vim.o.timeoutlen = 300
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-vim.opt.colorcolumn = "80"
-vim.opt.cursorline = false
+vim.opt.colorcolumn = "0"
+vim.opt.cursorline = true
+vim.opt.cursorlineopt="number"
 
 vim.g.mapleader = " "
 
@@ -243,6 +245,6 @@ local winbar_components = {
 vim.cmd("colorscheme Batman")
 -- vim.o.winbar = table.concat(winbar_components)
 
-vim.o.winborder = "none" -- use solid with no transparency colorscheme
--- vim.o.winborder = "rounded" -- use with transparent colorscheme and no telescope border
+-- vim.o.winborder = "none" -- use solid with no transparency colorscheme
+vim.o.winborder = "rounded" -- OK with snacks 
 vim.opt.winblend = 0

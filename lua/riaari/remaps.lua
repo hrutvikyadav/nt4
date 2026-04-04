@@ -106,3 +106,5 @@ if Is_wsl() then
         end
     end, { desc = "Open URL under cursor with wsl-open" })
 end
+
+vim.keymap.set("n", "<leader>it", require("riaari.moreutilz").toggle_indentscope, {desc = "toggle indents"})
