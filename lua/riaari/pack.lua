@@ -19,6 +19,17 @@ vim.pack.add({
     "https://github.com/SmiteshP/nvim-navic",
     "https://github.com/j-hui/fidget.nvim",
     "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/rafamadriz/friendly-snippets",
+    "https://github.com/xzbdmw/colorful-menu.nvim",
+    {
+        -- "",
+        src = "https://github.com/L3MON4D3/LuaSnip",
+        version = vim.version.range('2.5'),
+    },
+    {
+        src = "https://github.com/saghen/blink.cmp",
+        version = vim.version.range('1.10'),
+    },
 })
 
 require("riaari.colorscheme2").config()
@@ -141,7 +152,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
             -- client.server_capabilities.completionProvider.triggerCharacters = chars
 
-            vim.lsp.completion.enable(true, client.id, ev.buf, {autotrigger = false})
+            -- vim.lsp.completion.enable(true, client.id, ev.buf, {autotrigger = false})
         end
 
         -- Auto-format ("lint") on save.
@@ -237,5 +248,236 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- vim.lsp.config["lua_ls"] = require("riaari.lspsettings.lua_ls")
-vim.lsp.config("lua_ls", require("riaari.lspsettings.lua_ls"))
-vim.lsp.enable("lua_ls")
+-- vim.lsp.config("lua_ls", require("riaari.lspsettings.lua_ls"))
+-- vim.lsp.enable("lua_ls")
+
+local function lsp_config()
+
+    local servers = {
+        "lua_ls",
+        "ts_ls", -- "tsserver", WARN: setup by typescript-tools
+        "jsonls",
+        -- "tailwindcss",
+        "clangd",
+        "gopls",
+        "tinymist",
+        "nil_ls",
+        "ahk2",
+        "arduino_language_server",
+        "basedpyright",
+        -- "omnisharp",
+        "roslyn",
+        "harper_ls",
+        "jdtls",
+        "rust_analyzer",
+        "ruby_lsp"
+    }
+
+    local Hlspconfig = require("riaari.lspconfig")
+
+    for _, server in pairs(servers) do
+
+        local opts = {
+            -- capabilities = Hlspconfig.common_capabilities(), -- FIXME: the key is capabilities not common_capabilities
+        }
+
+        vim.lsp.config('*', opts)
+
+        local require_ok, settings = pcall(require, "riaari.lspsettings." .. server)
+        if require_ok then
+            opts = vim.tbl_deep_extend("force", settings, opts)
+        end
+
+        if server == "omnisharp" then
+            -- print("setting up omni")
+        end
+
+        local my_roslyn = {
+            ["csharp|inlay_hints"] = {
+                -- csharp_enable_inlay_hints_for_implicit_object_creation = true,
+                -- csharp_enable_inlay_hints_for_implicit_variable_types = true,
+                dotnet_enable_inlay_hints_for_literal_parameters = true,
+                dotnet_enable_inlay_hints_for_indexer_parameters = true,
+                dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+                dotnet_enable_inlay_hints_for_other_parameters = true,
+                dotnet_enable_inlay_hints_for_parameters = true,
+                csharp_enable_inlay_hints_for_types = true,
+                csharp_enable_inlay_hints_for_implicit_variable_types = true,
+                csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+                csharp_enable_inlay_hints_for_implicit_object_creation = true,
+
+            },
+            ["csharp|code_lens"] = {
+                dotnet_enable_references_code_lens = true,
+                dotnet_enable_tests_code_lens = true,
+            },
+            -- csharp|symbol_search.dotnet_search_reference_assemblies
+            -- csharp|background_analysis.dotnet_analyzer_diagnostics_scope
+            -- csharp|background_analysis.dotnet_compiler_diagnostics_scope
+            ["csharp|symbol_search"] = {
+                dotnet_search_reference_assemblies = true
+            },
+            ["csharp|background_analysis"] = {
+                dotnet_analyzer_diagnostics_scope = "fullSolution",
+                dotnet_compiler_diagnostics_scope = "fullSolution",
+            }
+        }
+
+        if server == "roslyn" then
+            vim.lsp.config("roslyn", {
+                -- on_attach = M.on_attach, replaced by autocommand
+                -- capabilities = M.common_capabilities(),
+                settings = {
+                    ["csharp|background_analysis"] = {
+                        dotnet_analyzer_diagnostics_scope = "fullSolution",
+                        dotnet_compiler_diagnostics_scope = "fullSolution"
+                    },
+                    ["csharp|code_lens"] = {
+                        dotnet_enable_references_code_lens = true
+                    },
+                    ["csharp|completion"] = {
+                        dotnet_provide_regex_completions = true,
+                        dotnet_show_completion_items_from_unimported_namespaces = true,
+                        dotnet_show_name_completion_suggestions = true
+                    },
+                    ["csharp|inlay_hints"] = {
+                        csharp_enable_inlay_hints_for_implicit_object_creation = true,
+                        csharp_enable_inlay_hints_for_implicit_variable_types = true,
+                        csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+                        csharp_enable_inlay_hints_for_types = true,
+                        dotnet_enable_inlay_hints_for_indexer_parameters = true,
+                        dotnet_enable_inlay_hints_for_literal_parameters = true,
+                        dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+                        dotnet_enable_inlay_hints_for_other_parameters = true,
+                        dotnet_enable_inlay_hints_for_parameters = true,
+                        dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+                        dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+                        dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true
+                    },
+                    ["csharp|symbol_search"] = {
+                        dotnet_search_reference_assemblies = true
+                    }
+                }
+            })
+        else
+            vim.lsp.config(server, opts)
+            vim.lsp.enable(server)
+        end
+    end
+end
+
+lsp_config()
+
+local function luasnip_config()
+
+    -- "L3MON4D3/LuaSnip",
+    -- -- follow latest release.
+    -- version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- --event = 'InsertEnter',
+    -- dependencies = { "rafamadriz/friendly-snippets" },
+
+    local ls = require("luasnip")
+    local types = require("luasnip.util.types")
+    ls.setup({
+        history = true,
+        -- Update more often, :h events for more info.
+        update_events = "TextChanged,TextChangedI",
+        -- Snippets aren't automatically removed if their text is deleted.
+        -- `delete_check_events` determines on which events (:h events) a check for
+        -- deleted snippets is performed.
+        -- This can be especially useful when `history` is enabled.
+        delete_check_events = "TextChanged",
+        ext_opts = {
+            [types.choiceNode] = {
+                active = {
+                    virt_text = { { "choiceNode", "Comment" } },
+                },
+            },
+        },
+        enable_autosnippets = true,
+    })
+
+    vim.keymap.set({ "i" }, "<M-e>", function()
+        ls.expand()
+    end, { silent = true })
+    vim.keymap.set({ "i", "s" }, "<C-L>", function()
+        ls.jump(1)
+    end, { silent = true })
+    vim.keymap.set({ "i", "s" }, "<C-J>", function()
+        ls.jump(-1)
+    end, { silent = true })
+
+    vim.keymap.set({ "i", "s" }, "<M-,>", function()
+        if ls.choice_active() then
+            ls.change_choice(1)
+        end
+    end, { silent = true })
+
+    -- custom snippets
+    require("riaari.snippets")
+end
+
+luasnip_config()
+
+local blink_opts = {
+    keymap = {preset = "default"},
+
+    appearance = {
+        nerd_font_variant = 'normal',
+    },
+
+    sources = {
+        -- default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "copilot", "tmux", "dictionary" },
+        -- default = {"lazydev", "lsp", "path", "snippets", "buffer", "git", "conventional_commits", "tmux", "dictionary" },
+        -- per_filetype = {
+        --     sql = { 'snippets', 'dadbod', 'buffer' },
+        -- },
+    },
+    completion = {
+        -- NOTE:
+        -- completion.menu.auto_show = false -- only show menu on manual <C-space>
+        -- completion.ghost_text.show_with_menu = false -- only show when menu is closed
+        menu = {
+            -- border = 'single',
+            -- NOTE: normal
+            -- draw = { columns = { { "label", "label_description", gap = 1 }, { "kind_icon", gap = 1 }, { "kind" } }, },
+            -- NOTE: with colorful menu plugin
+            draw = {
+                -- We don't need label_description now because label and label_description are already
+                -- combined together in label by colorful-menu.nvim.
+                columns = { { "kind_icon" }, { "label", gap = 1 } },
+                components = {
+                    label = {
+                        text = function(ctx)
+                            return require("colorful-menu").blink_components_text(ctx)
+                        end,
+                        highlight = function(ctx)
+                            return require("colorful-menu").blink_components_highlight(ctx)
+                        end,
+                    },
+                },
+            },
+            auto_show = false,
+        },
+        documentation = { auto_show = false },
+        ghost_text = {
+            enabled = true,
+            show_with_menu = false,
+        },
+    },
+
+    signature = {
+        enabled = true,
+        -- You may want to set signature.window.show_documentation = false to only show the signature, and not the documentation
+    },
+
+    snippets = { preset = "luasnip" },
+
+    cmdline = {
+        keymap = { preset = 'inherit' },
+        completion = { menu = { auto_show = false } },
+    },
+
+}
+
+require('blink.cmp').setup(blink_opts)

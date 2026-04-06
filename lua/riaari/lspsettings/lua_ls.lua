@@ -1,4 +1,5 @@
 -- https://luals.github.io/wiki/settings/
+---@type vim.lsp.Config
 return {
     on_init = function(client)
         if client.workspace_folders then
@@ -57,6 +58,7 @@ return {
     -- Nested lists indicate equal priority, see |vim.lsp.Config|.
     -- root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
     --#endregion NO NVIM-LSPCONFIG
+    ---@type lspconfig.settings.lua_ls
     settings = {
         Lua = {
             format = {
