@@ -54,6 +54,36 @@ local function lsp_keymaps(bufnr)
     vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
         vim.lsp.buf.format()
     end, { desc = "Format current buffer with LSP" })
+
+    local nmap = function(keys, func, desc)
+        if desc then
+            desc = "LSP: " .. desc
+        end
+
+        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+    end
+
+    -- nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+    vim.keymap.set({"n", "i"}, "<C-s>", function() vim.lsp.buf.signature_help() end, { buffer = bufnr, desc = "Signature Documentation"})
+
+    nmap("<leader>vrn", vim.lsp.buf.rename, "[R]e[n]ame")
+    nmap("<leader>ca", function()
+        vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
+    end, "[C]ode [A]ction")
+
+    nmap("<localleader>ca", function()
+        vim.lsp.buf.code_action()
+    end, "[C]ode [A]ction")
+
+    -- Lesser used LSP functionality
+    nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
+    nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
+    nmap("<leader>wl", function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, "[W]orkspace [L]ist Folders")
+
+    vim.keymap.set("n", "<leader>vce", vim.lsp.codelens.refresh, { desc = "Vim CodeLens Enable" })
+    vim.keymap.set("n", "<leader>vcd", vim.lsp.codelens.clear, { desc = "Vim CodeLens Disable" })
 end
 
 local navic = require("nvim-navic")
@@ -89,33 +119,6 @@ end
 M.on_attach = function(client, bufnr)
     lsp_keymaps(bufnr)
 
-    local nmap = function(keys, func, desc)
-        if desc then
-            desc = "LSP: " .. desc
-        end
-
-        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-    end
-
-    -- nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-    vim.keymap.set({"n", "i"}, "<C-s>", function() vim.lsp.buf.signature_help() end, { buffer = bufnr, desc = "Signature Documentation"})
-
-    nmap("<leader>vrn", vim.lsp.buf.rename, "[R]e[n]ame")
-    nmap("<leader>ca", function()
-        vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
-    end, "[C]ode [A]ction")
-
-    nmap("<localleader>ca", function()
-        vim.lsp.buf.code_action()
-    end, "[C]ode [A]ction")
-
-    -- Lesser used LSP functionality
-    nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-    nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-    nmap("<leader>wl", function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, "[W]orkspace [L]ist Folders")
-
     if client.supports_method("textDocument/inlayHint") then
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr} )
     end
@@ -124,9 +127,6 @@ M.on_attach = function(client, bufnr)
     if client.supports_method("textDocument/signatureHelp") then
         vim.notify("Client supports signature help", vim.log.levels.INFO)
     end
-
-    vim.keymap.set("n", "<leader>vce", vim.lsp.codelens.refresh, { desc = "Vim CodeLens Enable" })
-    vim.keymap.set("n", "<leader>vcd", vim.lsp.codelens.clear, { desc = "Vim CodeLens Disable" })
 
     if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, bufnr)
@@ -356,36 +356,36 @@ end
 -- work for firacode
 --  error = "", "", "", "", "",
 
-vim.diagnostic.config({
-    virtual_text = { current_line = true },
-    virtual_lines = false,
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = "",
-            [vim.diagnostic.severity.WARN] = "",
-            [vim.diagnostic.severity.HINT] = "",
-            [vim.diagnostic.severity.INFO] = "",
-        },
-        -- linehl = {
-        --     [vim.diagnostic.severity.ERROR] = "DiffDelete",
-        -- },
-        numhl = {
-            [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-            [vim.diagnostic.severity.WARN] = "WarningMsg",
-            [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-            [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
-        }
-    },
-    update_in_insert = false,
-    underline = true,
-    severity_sort = true,
-    focusable = true,
-    float = {
-        border = "rounded",
-        source = "if_many",
-        header = "",
-        prefix = "",
-    },
-})
+-- vim.diagnostic.config({
+--     virtual_text = { current_line = true },
+--     virtual_lines = false,
+--     signs = {
+--         text = {
+--             [vim.diagnostic.severity.ERROR] = "",
+--             [vim.diagnostic.severity.WARN] = "",
+--             [vim.diagnostic.severity.HINT] = "",
+--             [vim.diagnostic.severity.INFO] = "",
+--         },
+--         -- linehl = {
+--         --     [vim.diagnostic.severity.ERROR] = "DiffDelete",
+--         -- },
+--         numhl = {
+--             [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+--             [vim.diagnostic.severity.WARN] = "WarningMsg",
+--             [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+--             [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+--         }
+--     },
+--     update_in_insert = false,
+--     underline = true,
+--     severity_sort = true,
+--     focusable = true,
+--     float = {
+--         border = "rounded",
+--         source = "if_many",
+--         header = "",
+--         prefix = "",
+--     },
+-- })
 
 return M

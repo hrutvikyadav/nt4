@@ -42,6 +42,7 @@ vim.o.splitbelow = true
 vim.opt.colorcolumn = "0"
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
+-- vim.opt.cmdheight = 0
 
 vim.g.mapleader = " "
 

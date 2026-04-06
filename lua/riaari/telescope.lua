@@ -27,41 +27,43 @@ function M.config()
         -- pickers = {}
         extensions = {
             fzf = {},
-            ['ui-select'] = {
-                require('telescope.themes').get_dropdown({
-                    border = true,
-                }),
-            },
-            ["my-telescope-spartan-plugin"] = {
-                features = {
-                    "Task",
-                    -- "Time",
-                    -- "Bug",
-                },
-                maps = {
-                    -- WARN: disabled for now
-                    actions = {
-                        task_info = "<C-i>",
-                        task_edit = "<C-e>",
-                        task_terminal = "<C-t>",
-                        task_start = "<C-s>",
-                        task_stop = "<C-x>",
-                        task_annotate = "<C-a>",
-                        tasks_weekly_log = "<C-d>",
-                    },
-                }
-            },
-            agrolens = {},
+            -- ['ui-select'] = {
+            --     require('telescope.themes').get_dropdown({
+            --         border = true,
+            --     }),
+            -- },
+            -- ["my-telescope-spartan-plugin"] = {
+            --     features = {
+            --         "Task",
+            --         -- "Time",
+            --         -- "Bug",
+            --     },
+            --     maps = {
+            --         -- WARN: disabled for now
+            --         actions = {
+            --             task_info = "<C-i>",
+            --             task_edit = "<C-e>",
+            --             task_terminal = "<C-t>",
+            --             task_start = "<C-s>",
+            --             task_stop = "<C-x>",
+            --             task_annotate = "<C-a>",
+            --             tasks_weekly_log = "<C-d>",
+            --         },
+            --     }
+            -- },
+            -- agrolens = {},
         },
     }
 
 
     require("telescope").load_extension("fzf")
     pcall(require("telescope").load_extension, "ui-select")
-    require('telescope').load_extension('dap')
-    require("telescope").load_extension("my-telescope-spartan-plugin")
-    require("telescope").load_extension('harpoon')
-    require "telescope".load_extension("agrolens")
+    local builtin = require("telescope.builtin")
+    vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Telescope find files' })
+    -- require('telescope').load_extension('dap')
+    -- require("telescope").load_extension("my-telescope-spartan-plugin")
+    -- require("telescope").load_extension('harpoon')
+    -- require "telescope".load_extension("agrolens")
 
     -- local builtin = require("telescope.builtin")
     -- vim.keymap.set("n", "<leader>sf", function()

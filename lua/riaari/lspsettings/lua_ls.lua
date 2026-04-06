@@ -46,6 +46,17 @@ return {
             }
         })
     end,
+
+    --#region NO NVIM-LSPCONFIG
+    -- Command and arguments to start the server.
+    -- cmd = { '/home/c3zbane/.local/share/nvim/mason/bin/lua-language-server' },
+    -- Filetypes to automatically attach to.
+    -- filetypes = { 'lua' },
+    -- Sets the "workspace" to the directory where any of these files is found.
+    -- Files that share a root directory will reuse the LSP server connection.
+    -- Nested lists indicate equal priority, see |vim.lsp.Config|.
+    -- root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
+    --#endregion NO NVIM-LSPCONFIG
     settings = {
         Lua = {
             format = {
