@@ -112,10 +112,31 @@ vim.schedule(function()
     vim.pack.add({
         "https://github.com/lewis6991/gitsigns.nvim",
         "https://github.com/ThePrimeagen/git-worktree.nvim",
+        "https://github.com/numToStr/Navigator.nvim",
+        "https://github.com/folke/flash.nvim",
+        "https://github.com/chrisgrieser/nvim-early-retirement",
+        "https://github.com/ThePrimeagen/refactoring.nvim", -- plenary and treesitter
+        "https://github.com/yarospace/dev-tools.nvim", -- plenary, treesitter, refactoring, snacks
     })
 
     require("riaari.gitsigns").config()
     require("riaari.git-worktree").config()
+    require("riaari.navigator").config()
+
+    local flash = require("flash")
+    flash.setup(require("riaari.flash").opts)
+
+    vim.keymap.set({ "n", "x", "o" }, "<localleader>s", function() flash.jump() end, {desc = "Flash" }) -- search and jump to one of muliple matches visible in across buffers
+    vim.keymap.set({ "n", "x", "o" }, "<localleader>S", function() flash.treesitter() end, {desc = "Flash Treesitter" }) -- jump to one of multiple visible treesitter nodes
+    vim.keymap.set("o", "r", function() flash.remote() end, {desc = "Remote Flash" }) -- perform an operation but at a remote location instead of the current cursor location, i.e. in o mode, first search -> jump then do a motion
+    vim.keymap.set({ "o", "x" }, "R", function() flash.treesitter_search() end, {desc = "Treesitter Search" }) -- perform an operation but on remote treesitter nodes surrounding your search instead of the current cursor location, i.e. in o mode, first search text then select a surrounding node to jump to and execute the operation
+    vim.keymap.set({ "c" }, "<localleader><C-s>", function() flash.toggle() end, {desc = "Toggle Flash Search" }) -- start search with /, then instead of pressing n or N a bunch of times, use this to jump to any match
+
+    require("early-retirement").setup({})
+    require("riaari.refactoring").config()
+
+    local devtools = require("dev-tools")
+    devtools.setup(require("riaari.devtools").opts)
 
     local as = require("abshelper.scanner")
     as.setup()
