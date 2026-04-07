@@ -58,8 +58,6 @@ function M.config()
 
     require("telescope").load_extension("fzf")
     pcall(require("telescope").load_extension, "ui-select")
-    local builtin = require("telescope.builtin")
-    vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = 'Telescope find files' })
     -- require('telescope').load_extension('dap')
     -- require("telescope").load_extension("my-telescope-spartan-plugin")
     -- require("telescope").load_extension('harpoon')

@@ -26,9 +26,9 @@ local function prepare_worktree(branch, callback)
             args = { "branch", branch },
             on_exit = function(_, track_exit)
                 if track_exit == 0 then
-                    vim.notify("Local branch created: " .. branch, vim.log.levels.INFO)
+                    print("Local branch created: " .. branch)
                 else
-                    vim.notify("Branch may already exist. Continuing...", vim.log.levels.WARN)
+                    print("Branch may already exist. Continuing...")
                 end
                 if callback then vim.schedule(callback) end
             end,
@@ -40,7 +40,7 @@ local function prepare_worktree(branch, callback)
             args = { "fetch", "origin" },
             on_exit = function(_, fetch_exit)
                 if fetch_exit ~= 0 then
-                    vim.notify("git fetch failed", vim.log.levels.ERROR)
+                    print("git fetch failed")
                     return
                 end
 
@@ -49,9 +49,9 @@ local function prepare_worktree(branch, callback)
                     args = { "branch", "--track", branch, "origin/" .. branch },
                     on_exit = function(_, track_exit)
                         if track_exit == 0 then
-                            vim.notify("Tracking branch created for " .. branch, vim.log.levels.INFO)
+                            print("Tracking branch created for " .. branch)
                         else
-                            vim.notify("Tracking branch may already exist. Continuing...", vim.log.levels.WARN)
+                            print("Tracking branch may already exist. Continuing...")
                         end
                         if callback then vim.schedule(callback) end
                     end,
@@ -67,7 +67,7 @@ function M.config()
     -- local harpoon = require('harpoon')
     local harpoon_ok, harpoon = pcall(require, "harpoon")
     if not harpoon_ok then
-        vim.notify("harpoon not ok on worktree", vim.log.levels.WARN)
+        print("harpoon not ok on worktree")
     end
 
     Worktree.setup({
@@ -108,13 +108,13 @@ function M.config()
 
     Worktree.on_tree_change(function(op, metadata)
         if op == Worktree.Operations.Switch then
-            vim.notify("Switched from " .. metadata.prev_path .. " to " .. metadata.path, vim.log.levels.INFO)
+            print("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
             vim.schedule(function()
                 vim.cmd("Telescope my-telescope-spartan-plugin taskwarrior")
             end)
         end
         if op == Worktree.Operations.Create then
-            vim.notify("Created worktree at " .. metadata.path .. " for branch " .. metadata.branch, vim.log.levels.INFO)
+            print("Created worktree at " .. metadata.path .. " for branch " .. metadata.branch)
             -- BUG: Switch automatically runs after Create; so below line will have no effect
             -- open harpoon one_off list
             -- vim.schedule(function() harpoon.ui:toggle_quick_menu(harpoon:list("one_off")) end)
@@ -123,7 +123,7 @@ function M.config()
             mulz.add_harpoon_default_bak(metadata.path .. "/.harpoon")
         end
         if op == Worktree.Operations.Delete then
-            vim.notify("Deleted worktree at " .. metadata.path, vim.log.levels.INFO)
+            print("Deleted worktree at " .. metadata.path)
         end
     end)
 end

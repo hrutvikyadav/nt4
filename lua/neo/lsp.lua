@@ -312,4 +312,36 @@ function M.lsp_config()
     end
 end
 
+vim.diagnostic.config({
+    virtual_text = { current_line = true },
+    virtual_lines = false,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
+        },
+        -- linehl = {
+        --     [vim.diagnostic.severity.ERROR] = "DiffDelete",
+        -- },
+        numhl = {
+            [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+            [vim.diagnostic.severity.WARN] = "WarningMsg",
+            [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+            [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+        }
+    },
+    update_in_insert = false,
+    underline = true,
+    severity_sort = true,
+    focusable = true,
+    float = {
+        border = "rounded",
+        source = "if_many",
+        header = "",
+        prefix = "",
+    },
+})
+
 return M
