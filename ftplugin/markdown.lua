@@ -6,6 +6,15 @@ end
 
 vim.b.did_ftplugin = 1
 
+vim.pack.add({
+    {
+        src = "https://github.com/obsidian-nvim/obsidian.nvim",
+        version = vim.version.range('*')
+    }
+})
+
+require("riaari.obsidian").config()
+
 vim.bo.commentstring = "<!-- %s -->"
 
 vim.cmd("set conceallevel=2")
