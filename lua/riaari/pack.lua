@@ -117,6 +117,11 @@ vim.schedule(function()
         "https://github.com/chrisgrieser/nvim-early-retirement",
         "https://github.com/ThePrimeagen/refactoring.nvim", -- plenary and treesitter
         "https://github.com/yarospace/dev-tools.nvim", -- plenary, treesitter, refactoring, snacks
+        {
+            src = "https://github.com/kylechui/nvim-surround",
+            version = vim.version.range("4.x"), -- Use for stability; omit to use `main` branch for the latest features
+        },
+        "https://github.com/stevearc/overseer.nvim",
     })
 
     require("riaari.gitsigns").config()
@@ -137,6 +142,9 @@ vim.schedule(function()
 
     local devtools = require("dev-tools")
     devtools.setup(require("riaari.devtools").opts)
+
+    require("nvim-surround").setup({})
+    require("riaari.overseer").config()
 
     local as = require("abshelper.scanner")
     as.setup()

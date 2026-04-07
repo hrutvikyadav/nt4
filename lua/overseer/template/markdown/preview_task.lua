@@ -2,7 +2,7 @@ return {
     name = "markdown preview",
     builder = function()
         local file = vim.fn.expand("%:p")
-        local cmd = { file }
+        local cmd
         if vim.bo.filetype == "markdown" then
             cmd = { "glow", file }
         end

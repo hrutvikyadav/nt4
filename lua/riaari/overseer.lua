@@ -7,7 +7,12 @@ local M = {
 function M.config()
     local overseer = require("overseer")
     overseer.setup({
-        templates = { "builtin", "commontasks.first_task" },
+        template_dirs = {
+            -- NOTE: handled automatically
+            -- "overseer/template/commontasks",
+            -- "overseer/template/format",
+            -- "overseer/template/markdown",
+        },
     })
 
     vim.keymap.set("n", "<leader>ot", "<cmd>OverseerToggle<cr>", {})
@@ -18,17 +23,17 @@ function M.config()
                 end
     end) ]]
 
-    overseer.load_template("commontasks.second_task")
-    overseer.load_template("format.react_files_task")
-    overseer.load_template("format.lua_files_task")
-    overseer.load_template("markdown.preview_task")
+    -- overseer.load_template("commontasks.second_task")
+    -- overseer.load_template("format.react_files_task")
+    -- overseer.load_template("format.lua_files_task")
+    -- overseer.load_template("markdown.preview_task")
 
     -- Markdown Preview
     vim.api.nvim_create_user_command("MdPreview", function()
         -- vim.cmd('OverseerExtraTasks')
 
         -- local overseer = require("overseer")
-        overseer.run_template({ name = "markdown preview" }, function(task)
+        overseer.run_task({ name = "markdown preview" }, function(task)
             if task then
                 task:add_component({ "restart_on_save", paths = { vim.fn.expand("%:p") } })
                 local main_win = vim.api.nvim_get_current_win()
@@ -42,7 +47,7 @@ function M.config()
 
     -- format react with watch
     vim.api.nvim_create_user_command("FmtReact", function()
-        overseer.run_template({ name = "format react.js" }, function(task)
+        overseer.run_task({ name = "format react.js" }, function(task)
             if task then
                 task:add_component({ "restart_on_save", paths = { vim.cmd('echo getcwd() .. "/src"') } })
             else
@@ -55,7 +60,7 @@ function M.config()
 
     -- format lua with watch
     vim.api.nvim_create_user_command("FmtLua", function()
-        overseer.run_template({ name = "format Lua" }, function(task)
+        overseer.run_task({ name = "format Lua" }, function(task)
             if task then
                 task:add_component({ "restart_on_save", paths = { vim.cmd("echo getcwd()") } })
             else
